@@ -81,9 +81,15 @@ class Auth extends BaseController
 			// Ignore logging failures
 		}
 
-		// Redirect IT staff to the IT dashboard, nurse to nurse dashboard, others to main dashboard
+		// Redirect based on role
 		if (($user['role'] ?? '') === 'it_staff') {
 			return redirect()->to('/it');
+		}
+		if (($user['role'] ?? '') === 'receptionist') {
+			return redirect()->to('/receptionist');
+		}
+		if (($user['role'] ?? '') === 'doctor') {
+			return redirect()->to('/doctor');
 		}
 		if (($user['role'] ?? '') === 'nurse') {
 			return redirect()->to('/nurse');

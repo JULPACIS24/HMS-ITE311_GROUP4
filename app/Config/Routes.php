@@ -48,6 +48,26 @@ $routes->get('it/logs', 'It::logs', ['filter' => 'auth']);
 // Nurse Dashboard
 $routes->get('nurse', 'Nurse::index', ['filter' => 'auth']);
 
+// Doctor Dashboard
+$routes->get('doctor', 'Doctor::index', ['filter' => 'auth']);
+$routes->get('doctor/patients', 'Doctor::patients', ['filter' => 'auth']);
+$routes->get('doctor/appointments', 'Doctor::appointments', ['filter' => 'auth']);
+$routes->get('doctor/prescriptions', 'Doctor::prescriptions', ['filter' => 'auth']);
+$routes->get('doctor/lab-requests', 'Doctor::labRequests', ['filter' => 'auth']);
+$routes->get('doctor/consultations', 'Doctor::consultations', ['filter' => 'auth']);
+$routes->get('doctor/schedule', 'Doctor::schedule', ['filter' => 'auth']);
+$routes->get('doctor/reports', 'Doctor::reports', ['filter' => 'auth']);
+
+// Receptionist Dashboard
+$routes->get('receptionist', 'Receptionist::index', ['filter' => 'auth']);
+$routes->group('receptionist', ['filter' => 'auth'], static function ($routes) {
+	$routes->get('/', 'Receptionist::index');
+	$routes->get('patients', 'Receptionist::patients');
+	$routes->get('appointments', 'Receptionist::appointments');
+	$routes->get('reports', 'Receptionist::reports');
+	$routes->get('settings', 'Receptionist::settings');
+});
+
 // Appointments routes (protected)
 $routes->get('appointments', 'Appointments::index', ['filter' => 'auth']);
 $routes->group('appointments', ['filter' => 'auth'], static function ($routes) {
