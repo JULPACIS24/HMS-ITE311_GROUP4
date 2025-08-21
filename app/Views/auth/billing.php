@@ -4,7 +4,6 @@
     <main class="main-content">
         <header class="header">
             <h1>Billing & Payments</h1>
-            <?php echo view('auth/partials/userbadge'); ?>
         </header>
         <div class="page-content">
             <div class="stats-grid">

@@ -11,13 +11,14 @@ class Patients extends BaseController
         }
         $model = new \App\Models\PatientModel();
         $data['patients'] = $model->orderBy('id', 'ASC')->findAll();
-        return view('auth/patients', $data);
+        // Default landing: Patient Records page (list + details)
+        return view('auth/patient_records', $data);
     }
     
     public function add()
     {
-        // Add patient form
-        return view('auth/add_patient');
+        // Registration multi-step UI
+        return view('auth/patient_registration');
     }
     
     public function view($id)
@@ -25,6 +26,16 @@ class Patients extends BaseController
         $model = new \App\Models\PatientModel();
         $data['patient'] = $model->find($id);
         return view('auth/patient_view', $data);
+    }
+
+    public function history()
+    {
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
+        $model = new \App\Models\PatientModel();
+        $data['patients'] = $model->orderBy('id', 'ASC')->findAll();
+        return view('auth/medical_history', $data);
     }
 
     public function store()
@@ -56,8 +67,9 @@ class Patients extends BaseController
             'medical_history' => $this->request->getPost('medical_history'),
             'allergies'       => $this->request->getPost('allergies'),
         ]);
-
-        return redirect()->to('/patients')->with('message', 'Patient added.');
+        $newId = $model->getInsertID();
+        // After successful registration, go to Patient Records and highlight the new patient
+        return redirect()->to('/patients/records')->with('message', 'Patient added.')->with('new_patient_id', $newId);
     }
 
     public function edit($id)

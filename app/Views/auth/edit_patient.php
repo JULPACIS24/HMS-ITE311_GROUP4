@@ -8,17 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <div class="admin-icon">A</div>
-                <span class="sidebar-title">Administrator</span>
-            </div>
-            <div class="sidebar-menu">
-                <a href="<?= site_url('dashboard') ?>" class="menu-item"><span class="menu-icon">📊</span>Dashboard</a>
-                <a href="<?= site_url('patients') ?>" class="menu-item active"><span class="menu-icon">👥</span>Patients</a>
-                <a href="<?= site_url('appointments') ?>" class="menu-item"><span class="menu-icon">📅</span>Appointments</a>
-            </div>
-        </nav>
+        <?php echo view('auth/partials/sidebar'); ?>
         <main class="main-content">
             <header class="header">
                 <h1>Edit Patient</h1>

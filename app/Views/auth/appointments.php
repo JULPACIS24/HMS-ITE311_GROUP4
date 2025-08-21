@@ -8,137 +8,56 @@
 </head>
 <body>
 	<div class="container">
-		<nav class="sidebar">
-			<div class="sidebar-header">
-				<div class="admin-icon">A</div>
-				<span class="sidebar-title">Administrator</span>
-			</div>
-			<div class="sidebar-menu">
-				<a href="<?= site_url('dashboard') ?>" class="menu-item">
-					<span class="menu-icon">📊</span>
-					Dashboard
-				</a>
-				<a href="<?= site_url('patients') ?>" class="menu-item">
-					<span class="menu-icon">👥</span>
-					Patients
-				</a>
-				<a href="<?= site_url('appointments') ?>" class="menu-item active">
-					<span class="menu-icon">📅</span>
-					Appointments
-				</a>
-				<a href="<?= site_url('billing') ?>" class="menu-item">
-					<span class="menu-icon">💳</span>
-					Billing & Payments
-				</a>
-				<a href="<?= site_url('laboratory') ?>" class="menu-item">
-					<span class="menu-icon">🧪</span>
-					Laboratory
-				</a>
-				<a href="<?= site_url('pharmacy') ?>" class="menu-item">
-					<span class="menu-icon">💊</span>
-					Pharmacy & Inventory
-				</a>
-				<a href="<?= site_url('reports') ?>" class="menu-item">
-					<span class="menu-icon">📈</span>
-					Reports
-				</a>
-				<a href="<?= site_url('users') ?>" class="menu-item">
-					<span class="menu-icon">👤</span>
-					User Management
-				</a>
-				<a href="<?= site_url('settings') ?>" class="menu-item">
-					<span class="menu-icon">⚙️</span>
-					Settings
-				</a>
-				<a href="<?= site_url('logout') ?>" class="menu-item">
-					<span class="menu-icon">🚪</span>
-					Logout
-				</a>
-			</div>
-		</nav>
+		<?php echo view('auth/partials/sidebar'); ?>
 
 		<main class="main-content">
 			<header class="header">
 				<h1>Appointments</h1>
-				<div class="user-info">
-					<div class="user-avatar">A</div>
-					<span>Admin</span>
-				</div>
 			</header>
 
 			<div class="page-content">
-				<div class="stats-grid">
-					<div class="stat-card">
-						<div class="stat-header"><span class="stat-title">Today's Appointments</span><div class="stat-icon">📅</div></div>
-						<div class="stat-value"><?= count(array_filter($appointments, fn($a) => date('Y-m-d', strtotime($a['date_time'])) === date('Y-m-d'))) ?></div>
+				<div class="card form" style="display:flex; gap:12px; align-items:center; justify-content:space-between; padding:16px 20px">
+					<div style="display:flex; gap:12px; align-items:center">
+						<input type="date" class="search-input" style="width:auto" id="dateFilter" value="<?= date('Y-m-d') ?>">
+						<select class="search-input" style="width:auto" id="statusFilter">
+							<option value="">All Status</option>
+							<option>Confirmed</option>
+							<option>Pending</option>
+							<option>Completed</option>
+						</select>
 					</div>
-					<div class="stat-card">
-						<div class="stat-header"><span class="stat-title">Confirmed</span><div class="stat-icon">✅</div></div>
-						<div class="stat-value"><?= count(array_filter($appointments, fn($a) => $a['status'] === 'Confirmed')) ?></div>
-					</div>
-					<div class="stat-card">
-						<div class="stat-header"><span class="stat-title">Pending</span><div class="stat-icon">⏳</div></div>
-						<div class="stat-value"><?= count(array_filter($appointments, fn($a) => $a['status'] === 'Pending')) ?></div>
-					</div>
-					<div class="stat-card">
-						<div class="stat-header"><span class="stat-title">This Week</span><div class="stat-icon">📈</div></div>
-						<?php $start = strtotime('monday this week'); $end = strtotime('sunday this week 23:59:59'); ?>
-						<div class="stat-value"><?= count(array_filter($appointments, fn($a) => ($t=strtotime($a['date_time'])) >= $start && $t <= $end)) ?></div>
-					</div>
+					<a class="btn primary" href="<?= site_url('appointments/schedule') ?>">New Appointment</a>
 				</div>
 
-				<div class="action-bar">
-					<div class="search-box">
-						<input type="text" class="search-input" id="search" placeholder="Search appointments...">
+				<?php foreach ($appointments as $a): ?>
+				<div class="patients-table-container appt-card" data-date="<?= date('Y-m-d', strtotime($a['date_time'])) ?>" data-status="<?= esc($a['status']) ?>" style="padding:0; overflow:visible">
+					<div style="display:flex; gap:16px; padding:16px 18px; align-items:flex-start">
+						<div style="min-width:120px">
+							<div style="font-size:22px; font-weight:800; color:#1d4ed8;">
+								<?= date('g:i A', strtotime($a['date_time'])) ?>
+							</div>
+							<span class="badge <?= strtolower($a['status']) ?>" style="margin-top:6px; display:inline-block"><?= esc($a['status']) ?></span>
+						</div>
+						<div style="flex:1">
+							<div class="table-title" style="margin:0 0 6px">Patient Information</div>
+							<div class="sub" style="color:#0f172a"><strong>Name:</strong> <?= esc($a['patient_name']) ?></div>
+							<div class="sub"><strong>Phone:</strong> <?= esc($a['patient_phone'] ?: '—') ?></div>
+							<div class="sub"><strong>Type:</strong> <?= esc($a['type']) ?></div>
+						</div>
+						<div style="flex:1">
+							<div class="table-title" style="margin:0 0 6px">Appointment Details</div>
+							<div class="sub"><strong>Doctor:</strong> <?= esc($a['doctor_name']) ?></div>
+							<div class="sub"><strong>Department:</strong> <?= esc('') ?></div>
+							<div class="sub"><strong>Reason:</strong> <?= esc(isset($a['notes']) && $a['notes'] !== '' ? $a['notes'] : '—') ?></div>
+						</div>
+						<div style="display:flex; gap:10px; align-items:center">
+							<a href="#" class="icon" title="Edit" onclick="openEditDoc(<?= (int)$a['id'] ?>);return false;">✏️</a>
+							<a href="tel:<?= esc($a['patient_phone']) ?>" class="icon" title="Call">📞</a>
+							<a href="<?= site_url('appointments/delete/'.$a['id']) ?>" class="icon danger" title="Delete" onclick="return confirm('Delete appointment?')">🗑️</a>
+						</div>
 					</div>
-					<button class="btn primary" id="openModal" type="button">+ Schedule Appointment</button>
 				</div>
-
-				<div class="patients-table-container">
-					<table class="patients-table">
-						<thead>
-							<tr>
-								<th>Appointment ID</th>
-								<th>Patient</th>
-								<th>Doctor</th>
-								<th>Date & Time</th>
-								<th>Type</th>
-								<th>Status</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php foreach ($appointments as $a): ?>
-						<tr>
-							<td class="muted"><?= esc($a['appointment_code'] ?: sprintf('APT%03d', $a['id'])) ?></td>
-							<td>
-								<div class="patient"><?= esc($a['patient_name']) ?></div>
-								<div class="sub"><?= esc($a['patient_phone'] ?: '') ?></div>
-							</td>
-							<td class="muted"><?= esc($a['doctor_name']) ?></td>
-							<td>
-								<div class="muted"><?= date('n/j/Y', strtotime($a['date_time'])) ?></div>
-								<div class="sub"><?= date('g:i A', strtotime($a['date_time'])) ?></div>
-							</td>
-							<td class="muted"><?= esc($a['type']) ?></td>
-							<td><span class="badge <?= strtolower($a['status']) ?>"><?= esc($a['status']) ?></span></td>
-							<td class="actions">
-								<a href="#" data-id="<?= $a['id'] ?>" class="btn js-appt-view" style="background:#1e88e5;color:#fff">View</a>
-								<a href="#" data-id="<?= $a['id'] ?>" class="btn js-appt-edit" style="background:#f39c12;color:#fff">Edit</a>
-								<form action="<?= site_url('appointments/status/' . $a['id']) ?>" method="post" class="inline">
-									<select name="status" onchange="this.form.submit()">
-										<option <?= $a['status']==='Confirmed'?'selected':'' ?>>Confirmed</option>
-										<option <?= $a['status']==='Pending'?'selected':'' ?>>Pending</option>
-										<option <?= $a['status']==='Completed'?'selected':'' ?>>Completed</option>
-									</select>
-								</form>
-								<a href="<?= site_url('appointments/delete/' . $a['id']) ?>" class="btn" style="background:#e74c3c;color:#fff" onclick="return confirm('Delete appointment?')">Delete</a>
-							</td>
-						</tr>
-						<?php endforeach; ?>
-						</tbody>
-					</table>
-				</div>
+				<?php endforeach; ?>
 			</div>
 
 			<!-- Modal -->
@@ -255,28 +174,23 @@
 	</div>
 
 	<script>
-		const search = document.getElementById('search');
-		search?.addEventListener('input', () => {
-			const q = search.value.toLowerCase();
-			for (const row of document.querySelectorAll('.trow')) {
-				row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
-			}
-		});
+		// Filters for date and status
+		const dateFilter = document.getElementById('dateFilter');
+		const statusFilter = document.getElementById('statusFilter');
+		function applyFilters(){
+			const d = dateFilter.value;
+			const s = statusFilter.value;
+			document.querySelectorAll('.appt-card').forEach(c => {
+				const okDate = !d || c.getAttribute('data-date') === d;
+				const okStatus = !s || c.getAttribute('data-status') === s;
+				c.style.display = (okDate && okStatus) ? '' : 'none';
+			});
+		}
+		dateFilter?.addEventListener('change', applyFilters);
+		statusFilter?.addEventListener('change', applyFilters);
+		applyFilters();
 
-		// Modal wiring
-		const modal = document.getElementById('scheduleModal');
-		const openBtn = document.getElementById('openModal');
-		const closeBtn = document.getElementById('closeModal');
-		const cancelBtn = document.getElementById('cancelModal');
-		const closeBackdrop = document.getElementById('closeBackdrop');
-		function openModal(){ modal.classList.add('open'); }
-		function closeModal(){ modal.classList.remove('open'); }
-		openBtn?.addEventListener('click', openModal);
-		closeBtn?.addEventListener('click', closeModal);
-		cancelBtn?.addEventListener('click', closeModal);
-		closeBackdrop?.addEventListener('click', closeModal);
-
-		// View appointment
+		// View appointment (kept for edit/delete icons)
 		const vAppt = document.getElementById('viewApptModal');
 		function openViewAppt(id){
 			fetch(`<?= site_url('appointments/json') ?>/${id}`)

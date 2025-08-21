@@ -451,26 +451,8 @@
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <div class="admin-icon">A</div>
-                <span class="sidebar-title">Administrator</span>
-            </div>
-            
-            <div class="sidebar-menu">
-                <a href="<?= site_url('dashboard') ?>" class="menu-item"><span class="menu-icon">📊</span>Dashboard</a>
-                <a href="<?= site_url('patients') ?>" class="menu-item active"><span class="menu-icon">👥</span>Patients</a>
-                <a href="<?= site_url('appointments') ?>" class="menu-item"><span class="menu-icon">📅</span>Appointments</a>
-                <a href="<?= site_url('billing') ?>" class="menu-item"><span class="menu-icon">💳</span>Billing & Payments</a>
-                <a href="<?= site_url('laboratory') ?>" class="menu-item"><span class="menu-icon">🧪</span>Laboratory</a>
-                <a href="<?= site_url('pharmacy') ?>" class="menu-item"><span class="menu-icon">💊</span>Pharmacy & Inventory</a>
-                <a href="<?= site_url('reports') ?>" class="menu-item"><span class="menu-icon">📈</span>Reports</a>
-                <a href="<?= site_url('users') ?>" class="menu-item"><span class="menu-icon">👤</span>User Management</a>
-                <a href="<?= site_url('settings') ?>" class="menu-item"><span class="menu-icon">⚙️</span>Settings</a>
-                <a href="<?= site_url('logout') ?>" class="menu-item"><span class="menu-icon">🚪</span>Logout</a>
-            </div>
-        </nav>
+        <!-- Sidebar (shared) -->
+        <?php echo view('auth/partials/sidebar'); ?>
 
         <!-- Main Content -->
         <main class="main-content">

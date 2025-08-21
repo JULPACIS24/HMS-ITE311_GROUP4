@@ -7,7 +7,6 @@
             <div class="user-info" style="gap:12px">
                 <button class="btn" id="exportResultsBtn">Export Results</button>
                 <button class="btn primary" id="newTestBtn">+ New Test Request</button>
-                <?php echo view('auth/partials/userbadge'); ?>
             </div>
         </header>
         <div class="page-content">

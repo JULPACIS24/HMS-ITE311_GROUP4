@@ -48,7 +48,7 @@ class Appointments extends BaseController
 		}
 
 		$model = new AppointmentModel();
-		$model->insert([
+		$payload = [
 			'appointment_code' => $this->request->getPost('appointment_code') ?: null,
 			'patient_name'     => $this->request->getPost('patient_name'),
 			'patient_phone'    => $this->request->getPost('patient_phone'),
@@ -57,7 +57,16 @@ class Appointments extends BaseController
 			'type'             => $this->request->getPost('type'),
 			'status'           => $this->request->getPost('status'),
 			'notes'            => $this->request->getPost('notes'),
-		]);
+		];
+		try {
+			$fields = $model->db->getFieldNames('appointments');
+			if (! in_array('notes', $fields, true)) {
+				unset($payload['notes']);
+			}
+		} catch (\Throwable $e) {
+			unset($payload['notes']);
+		}
+		$model->insert($payload);
 
 		return redirect()->to('/appointments')->with('message', 'Appointment scheduled.');
 	}
@@ -96,7 +105,7 @@ class Appointments extends BaseController
 	public function update($id)
 	{
 		$model = new AppointmentModel();
-		$model->update($id, [
+		$update = [
 			'patient_name'  => $this->request->getPost('patient_name'),
 			'patient_phone' => $this->request->getPost('patient_phone'),
 			'doctor_name'   => $this->request->getPost('doctor_name'),
@@ -104,7 +113,16 @@ class Appointments extends BaseController
 			'type'          => $this->request->getPost('type'),
 			'status'        => $this->request->getPost('status'),
 			'notes'         => $this->request->getPost('notes'),
-		]);
+		];
+		try {
+			$fields = $model->db->getFieldNames('appointments');
+			if (! in_array('notes', $fields, true)) {
+				unset($update['notes']);
+			}
+		} catch (\Throwable $e) {
+			unset($update['notes']);
+		}
+		$model->update($id, $update);
 		return redirect()->to('/appointments');
 	}
 

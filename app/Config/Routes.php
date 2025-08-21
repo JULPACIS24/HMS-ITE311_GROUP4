@@ -20,7 +20,9 @@ $routes->get('logout', 'Auth::logout');
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
 
 $routes->get('/patients', 'Patients::index');
+$routes->get('/patients/records', 'Patients::index');
 $routes->get('/patients/add', 'Patients::add');
+$routes->get('/patients/history', 'Patients::history');
 $routes->get('/patients/view/(:num)', 'Patients::view/$1');
 $routes->get('/patients/edit/(:num)', 'Patients::edit/$1');
 $routes->post('/patients/update/(:num)', 'Patients::update/$1');
@@ -28,10 +30,6 @@ $routes->get('/patients/delete/(:num)', 'Patients::delete/$1');
 $routes->get('/patients/json/(:num)', 'Patients::json/$1');
 
 // Additional dashboards
-$routes->get('billing', 'Billing::index', ['filter' => 'auth']);
-$routes->get('laboratory', 'Laboratory::index', ['filter' => 'auth']);
-$routes->get('pharmacy', 'Pharmacy::index', ['filter' => 'auth']);
-$routes->get('reports', 'Reports::index', ['filter' => 'auth']);
 $routes->get('users', 'Users::index', ['filter' => 'auth']);
 $routes->post('users/store', 'Users::store', ['filter' => 'auth']);
 $routes->get('settings', 'Settings::index', ['filter' => 'auth']);
@@ -80,4 +78,10 @@ $routes->group('appointments', ['filter' => 'auth'], static function ($routes) {
 	$routes->get('edit/(:num)', 'Appointments::edit/$1');
 	$routes->post('update/(:num)', 'Appointments::update/$1');
 	$routes->get('json/(:num)', 'Appointments::json/$1');
+});
+
+// Admin Scheduling pages
+$routes->group('scheduling', ['filter' => 'auth'], static function ($routes) {
+	$routes->get('doctor', 'Scheduling::doctor');
+	$routes->get('nurse', 'Scheduling::nurse');
 });

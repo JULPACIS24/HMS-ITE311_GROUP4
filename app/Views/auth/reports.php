@@ -2,7 +2,7 @@
 <div class="container">
     <?php echo view('auth/partials/sidebar'); ?>
     <main class="main-content">
-        <header class="header"><h1>Reports</h1><?php echo view('auth/partials/userbadge'); ?></header>
+        <header class="header"><h1>Reports</h1></header>
         <div class="page-content">
             <div class="stats-grid">
                 <div class="stat-card"><div class="stat-header"><span class="stat-title">Total Reports</span><div class="stat-icon">📊</div></div><div class="stat-value">156</div></div>
