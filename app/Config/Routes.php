@@ -20,6 +20,7 @@ $routes->get('logout', 'Auth::logout');
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
 
 $routes->get('/patients', 'Patients::index');
+$routes->get('/patient-management', 'Patients::management');
 $routes->get('/patients/records', 'Patients::index');
 $routes->get('/patients/add', 'Patients::add');
 $routes->get('/patients/history', 'Patients::history');
@@ -85,3 +86,32 @@ $routes->group('scheduling', ['filter' => 'auth'], static function ($routes) {
 	$routes->get('doctor', 'Scheduling::doctor');
 	$routes->get('nurse', 'Scheduling::nurse');
 });
+$routes->get('scheduling-management', 'Scheduling::management', ['filter' => 'auth']);
+
+// Billing & Payments Routes
+$routes->get('/billing', 'Billing::index', ['filter' => 'auth']);
+$routes->get('/billing/payments', 'Billing::payments', ['filter' => 'auth']);
+$routes->get('/billing/generate', 'Billing::generate', ['filter' => 'auth']);
+$routes->get('/billing/record-payment', 'Billing::recordPayment', ['filter' => 'auth']);
+
+// Insurance Claims Routes
+$routes->get('/insurance/claims', 'Insurance::claims', ['filter' => 'auth']);
+$routes->get('/insurance/submit-claim', 'Insurance::submitClaim', ['filter' => 'auth']);
+
+// Laboratory Routes
+$routes->get('/laboratory', 'Laboratory::index', ['filter' => 'auth']);
+$routes->get('/laboratory/requests', 'Laboratory::requests', ['filter' => 'auth']);
+$routes->get('/laboratory/results', 'Laboratory::results', ['filter' => 'auth']);
+$routes->get('/laboratory/equipment', 'Laboratory::equipment', ['filter' => 'auth']);
+
+// Pharmacy Routes (Newly Added)
+$routes->get('/pharmacy', 'Pharmacy::index', ['filter' => 'auth']);
+$routes->get('/pharmacy/inventory', 'Pharmacy::inventory', ['filter' => 'auth']);
+$routes->get('/pharmacy/prescriptions', 'Pharmacy::prescriptions', ['filter' => 'auth']);
+$routes->get('/pharmacy/alerts', 'Pharmacy::alerts', ['filter' => 'auth']);
+
+// Reports & Analytics Routes
+$routes->get('/reports', 'Reports::index', ['filter' => 'auth']);
+$routes->get('/reports/performance', 'Reports::performance', ['filter' => 'auth']);
+$routes->get('/reports/financial', 'Reports::financial', ['filter' => 'auth']);
+$routes->get('/reports/patient-analytics', 'Reports::patientAnalytics', ['filter' => 'auth']);

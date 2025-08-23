@@ -38,6 +38,18 @@ class Patients extends BaseController
         return view('auth/medical_history', $data);
     }
 
+    public function management()
+    {
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
+        // Get real patient data from database
+        $model = new \App\Models\PatientModel();
+        $data['patients'] = $model->orderBy('id', 'ASC')->findAll();
+        // This will render the new Patient Management dashboard
+        return view('auth/patient_management', $data);
+    }
+
     public function store()
     {
         $rules = [

@@ -19,18 +19,57 @@
 
 		/* Collapsible groups */
 		.menu-group { margin-top:2px }
-		.group-toggle { width:100%; display:flex; align-items:center; gap:12px; padding:12px 20px; color:#334155; background:transparent; border:0; text-align:left; cursor:pointer; border-left:3px solid transparent }
-		.group-toggle:hover { background:#f1f5f9; color:#0f172a; border-left-color:#2563eb }
+		.group-toggle {
+            width: 100%;
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            color: #334155;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .group-toggle:hover {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .menu-group.open .group-toggle {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
 		.group-toggle .chev { margin-left:auto; transition:transform .2s ease }
 		.menu-group.open .chev { transform:rotate(90deg) }
+		.menu-group.open .group-toggle { background:#dbeafe; color:#1e40af; border-left-color:#2563eb }
 		.submenu { display:none; padding:6px 0 8px 46px }
 		.menu-group.open .submenu { display:block }
 		.subitem { display:block; padding:8px 0; color:#334155; text-decoration:none; font-size:14px }
-		.subitem:hover { color:#0f172a }
+		.subitem:hover { color:#1e40af; font-weight:600 }
+		.subitem.active { color:#1e40af; font-weight:600; background:#dbeafe; padding:4px 8px; border-radius:4px; margin:0 -8px }
 		.menu-item { display:flex; align-items:center; gap:12px; padding:12px 20px; color:#334155; text-decoration:none; border-left:3px solid transparent }
-		.menu-item:hover { background:#f1f5f9; color:#0f172a; border-left-color:#2563eb }
+		.menu-item:hover { background:#dbeafe; color:#1e40af; border-left-color:#2563eb }
 		.menu-item.active { background:#eef2ff; color:#1d4ed8; border-left-color:#2563eb }
 		.menu-icon { width:20px; text-align:center }
+		
+		/* Dashboard, User Management, and Logout styling to match other sidebar items */
+		.menu-item.dashboard,
+		.menu-item.user-management,
+		.menu-item.logout {
+			color: #374151;
+		}
+		
+		.menu-item.dashboard:hover,
+		.menu-item.user-management:hover,
+		.menu-item.logout:hover {
+			background: #dbeafe;
+			color: #1e40af;
+		}
 	</style>
 
 	<div class="sidebar-menu" id="sidebarMenu">
@@ -45,20 +84,24 @@
 			<a href="<?= site_url('reports') ?>" class="menu-item"><span class="menu-icon">📈</span>IT Reports</a>
 			<a href="<?= site_url('settings') ?>" class="menu-item"><span class="menu-icon">⚙️</span>Settings</a>
 		<?php else: ?>
-			<a href="<?= site_url('dashboard') ?>" class="menu-item"><span class="menu-icon">🟦</span>Dashboard</a>
+			<!-- Dashboard -->
+			<a href="<?= site_url('dashboard') ?>" class="menu-item dashboard">
+				<span class="menu-icon">📊</span>Dashboard
+			</a>
 
-			<div class="menu-group" data-group>
-				<button class="group-toggle" type="button"><span class="menu-icon">👤</span>Patient Management <span class="chev">›</span></button>
+			<!-- Patient Management -->
+			<div class="menu-group" data-group="patients">
+				<button class="group-toggle" type="button"><span class="menu-icon">👥</span>Patient Management <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="<?= site_url('patients/records') ?>">Patient Records</a>
+					<a class="subitem" href="<?= site_url('patient-management') ?>">Patient Records</a>
 					<a class="subitem" href="<?= site_url('patients/add') ?>">Registration</a>
 					<a class="subitem" href="<?= site_url('patients/history') ?>">Medical History</a>
 				</div>
 			</div>
 
-			<!-- Scheduling (restored minimal) -->
-			<div class="menu-group" data-group>
-				<button class="group-toggle" type="button"><span class="menu-icon">🗓️</span>Scheduling <span class="chev">›</span></button>
+			<!-- Scheduling -->
+			<div class="menu-group" data-group="scheduling">
+				<button class="group-toggle" type="button"><span class="menu-icon">📅</span>Scheduling <span class="chev">›</span></button>
 				<div class="submenu">
 					<a class="subitem" href="<?= site_url('scheduling/doctor') ?>">Doctor Schedule</a>
 					<a class="subitem" href="<?= site_url('scheduling/nurse') ?>">Nurse Schedule</a>
@@ -67,46 +110,50 @@
 			</div>
 
 			<!-- Billing & Payments -->
-			<div class="menu-group" data-group>
-				<button class="group-toggle" type="button"><span class="menu-icon">🧾</span>Billing & Payments <span class="chev">›</span></button>
+			<div class="menu-group" data-group="billing">
+				<button class="group-toggle" type="button">
+					<span class="menu-icon">🧾</span>Billing & Payments <span class="chev">›</span>
+				</button>
 				<div class="submenu">
-					<a class="subitem" href="#">Generate Bills</a>
-					<a class="subitem" href="#">Payment Tracking</a>
-					<a class="subitem" href="#">Insurance Claims</a>
+					<a class="subitem" href="<?= site_url('billing/generate') ?>">Generate Bills</a>
+					<a class="subitem" href="<?= site_url('billing/payments') ?>">Payment Tracking</a>
+					<a class="subitem" href="<?= site_url('insurance/claims') ?>">Insurance Claims</a>
 				</div>
 			</div>
 
 			<!-- Laboratory -->
-			<div class="menu-group" data-group>
+			<div class="menu-group" data-group="laboratory">
 				<button class="group-toggle" type="button"><span class="menu-icon">🧪</span>Laboratory <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="#">Test Requests</a>
-					<a class="subitem" href="#">Results Management</a>
-					<a class="subitem" href="#">Equipment Status</a>
+					<a class="subitem" href="<?= site_url('laboratory/requests') ?>">Lab Requests</a>
+					<a class="subitem" href="<?= site_url('laboratory/results') ?>">Lab Results</a>
+					<a class="subitem" href="<?= site_url('laboratory/equipment') ?>">Equipment Status</a>
 				</div>
 			</div>
 
 			<!-- Pharmacy -->
-			<div class="menu-group" data-group>
+			<div class="menu-group" data-group="pharmacy">
 				<button class="group-toggle" type="button"><span class="menu-icon">💊</span>Pharmacy <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="#">Inventory Management</a>
-					<a class="subitem" href="#">Prescription Orders</a>
-					<a class="subitem" href="#">Stock Alerts</a>
+					<a class="subitem" href="<?= site_url('pharmacy/inventory') ?>">Inventory Management</a>
+					<a class="subitem" href="<?= site_url('pharmacy/prescriptions') ?>">Prescription Orders</a>
+					<a class="subitem" href="<?= site_url('pharmacy/alerts') ?>">Stock Alerts</a>
 				</div>
 			</div>
+
+
 
 			<!-- Reports & Analytics -->
-			<div class="menu-group" data-group>
+			<div class="menu-group" data-group="reports">
 				<button class="group-toggle" type="button"><span class="menu-icon">📊</span>Reports & Analytics <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="#">Performance Reports</a>
-					<a class="subitem" href="#">Financial Reports</a>
-					<a class="subitem" href="#">Patient Analytics</a>
+					<a class="subitem" href="<?= site_url('reports/performance') ?>">Performance Report</a>
+					<a class="subitem" href="<?= site_url('reports/financial') ?>">Financial Reports</a>
+					<a class="subitem" href="<?= site_url('reports/patient-analytics') ?>">Patient Analytics</a>
 				</div>
 			</div>
 
-			<div class="menu-group" data-group>
+			<div class="menu-group" data-group="staff">
 				<button class="group-toggle" type="button"><span class="menu-icon">👥</span>Staff Management <span class="chev">›</span></button>
 				<div class="submenu">
 					<a class="subitem" href="#">Employee Records</a>
@@ -115,7 +162,7 @@
 				</div>
 			</div>
 
-			<div class="menu-group" data-group>
+			<div class="menu-group" data-group="branch">
 				<button class="group-toggle" type="button"><span class="menu-icon">🏢</span>Branch Management <span class="chev">›</span></button>
 				<div class="submenu">
 					<a class="subitem" href="#">Branches</a>
@@ -124,9 +171,9 @@
 			</div>
 
 			<!-- Keep direct User Management link as requested -->
-			<a href="<?= site_url('users') ?>" class="menu-item"><span class="menu-icon">👤</span>User Management</a>
+			<a href="<?= site_url('users') ?>" class="menu-item user-management"><span class="menu-icon">👤</span>User Management</a>
 
-			<div class="menu-group" data-group>
+			<div class="menu-group" data-group="settings">
 				<button class="group-toggle" type="button"><span class="menu-icon">⚙️</span>System Settings <span class="chev">›</span></button>
 				<div class="submenu">
 					<a class="subitem" href="<?= site_url('settings') ?>">General</a>
@@ -135,7 +182,7 @@
 			</div>
 		<?php endif; ?>
 
-		<a href="<?= site_url('logout') ?>" class="menu-item"><span class="menu-icon">🚪</span>Logout</a>
+		<a href="<?= site_url('logout') ?>" class="menu-item logout"><span class="menu-icon">🚪</span>Logout</a>
 	</div>
 
 	<script>
@@ -143,25 +190,110 @@
 			const groups = document.querySelectorAll('[data-group]');
 			groups.forEach(g=>{
 				const btn = g.querySelector('.group-toggle');
-				btn.addEventListener('click', ()=>{ g.classList.toggle('open'); });
+				
+				// Check if it's a link or button
+				if (btn.tagName === 'A') {
+					// For link group-toggles (like Billing & Payments), don't add click handler
+					// The link will handle navigation naturally
+				} else {
+					// For button group-toggles, add click handler
+					btn.addEventListener('click', (e)=>{
+						// For Patient Management group, go to dashboard
+						if (btn.textContent.includes('Patient Management')) {
+							window.location.href = '<?= site_url('patient-management') ?>';
+						} else if (btn.textContent.includes('Scheduling')) {
+							// For Scheduling group, go to Scheduling Management dashboard
+							window.location.href = '<?= site_url('scheduling-management') ?>';
+						} else if (btn.textContent.includes('Billing & Payments')) {
+							// For Billing & Payments group, go to main billing dashboard
+							window.location.href = '<?= site_url('billing') ?>';
+						} else if (btn.textContent.includes('Laboratory')) {
+							// For Laboratory group, go to main laboratory dashboard
+							window.location.href = '<?= site_url('laboratory') ?>';
+						} else if (btn.textContent.includes('Pharmacy')) {
+							// For Pharmacy group, go to main pharmacy dashboard
+							window.location.href = '<?= site_url('pharmacy') ?>';
+						} else if (btn.textContent.includes('Reports & Analytics')) {
+							// For Reports & Analytics group, go to main reports dashboard
+							window.location.href = '<?= site_url('reports') ?>';
+						} else {
+							// For other groups, toggle submenu
+							g.classList.toggle('open');
+						}
+					});
+				}
+				
+				// Add separate click handler for chevron to expand/collapse
+				const chevron = btn.querySelector('.chev');
+				if (chevron) {
+					chevron.addEventListener('click', (e)=>{
+						e.stopPropagation(); // Prevent triggering the main button/link click
+						g.classList.toggle('open');
+					});
+				}
 			});
+			
 			// Active highlight for routes (top-level and subitems) and auto-open group
 			const path = window.location.pathname;
 			let activeSet = false;
+			
 			document.querySelectorAll('.menu-item').forEach(a=>{
 				const href = a.getAttribute('href') || '';
 				if(href && path.indexOf(href) !== -1){ a.classList.add('active'); activeSet = true; }
 			});
+			
 			document.querySelectorAll('.submenu .subitem').forEach(a=>{
 				const href = a.getAttribute('href') || '';
-				if(href && path.indexOf(href) !== -1){
-					a.style.color = '#fff';
+				// Extract just the path part from the full URL
+				const hrefPath = href.replace(window.location.origin, '').replace(/^\//, '');
+				const currentPath = path.replace(/^\//, '');
+				
+				if(hrefPath && currentPath.includes(hrefPath)){
+					a.classList.add('active'); // Add active class for styling
 					const group = a.closest('[data-group]');
 					group && group.classList.add('open');
 					activeSet = true;
 				}
 			});
-			// No default open; groups open only on user click
+			
+			// Auto-open specific groups based on current page
+			// Patient Management group
+			if (path.includes('patients/records') || path.includes('patients/add') || path.includes('patients/history')) {
+				const patientGroup = document.querySelector('[data-group="patients"]');
+				patientGroup && patientGroup.classList.add('open');
+			}
+			
+			// Scheduling group
+			if (path.includes('scheduling/doctor') || path.includes('scheduling/nurse') || path.includes('appointments')) {
+				const schedulingGroup = document.querySelector('[data-group="scheduling"]');
+				schedulingGroup && schedulingGroup.classList.add('open');
+			}
+			
+			// Billing & Payments group
+			if (path.includes('billing/generate') || path.includes('billing/payments') || path.includes('insurance/claims')) {
+				const billingGroup = document.querySelector('[data-group="billing"]');
+				billingGroup && billingGroup.classList.add('open');
+			}
+			
+			// Laboratory group - same behavior as Billing & Payments
+			if (path.includes('laboratory/requests') || path.includes('laboratory/results') || path.includes('laboratory/equipment')) {
+				const laboratoryGroup = document.querySelector('[data-group="laboratory"]');
+				laboratoryGroup && laboratoryGroup.classList.add('open');
+			}
+			
+			// Pharmacy group - same behavior as other groups
+			if (path.includes('pharmacy/inventory') || path.includes('pharmacy/prescriptions') || path.includes('pharmacy/alerts')) {
+				const pharmacyGroup = document.querySelector('[data-group="pharmacy"]');
+				pharmacyGroup && pharmacyGroup.classList.add('open');
+			}
+			
+			// Reports & Analytics group - same behavior as other groups
+			if (path.includes('reports/performance') || path.includes('reports/financial') || path.includes('reports/patient-analytics')) {
+				const reportsGroup = document.querySelector('[data-group="reports"]');
+				reportsGroup && reportsGroup.classList.add('open');
+			}
+			
+			// No default open; groups open only on user click or when on specific sub-pages
 		})();
 	</script>
 </nav>
