@@ -90,6 +90,10 @@ $routes->group('scheduling', ['filter' => 'auth'], static function ($routes) {
 	$routes->post('deleteAppointment/(:num)', 'Scheduling::deleteAppointment/$1');
 	$routes->get('getDoctorAppointments/(:num)/(:any)?', 'Scheduling::getDoctorAppointments/$1/$2');
 	$routes->get('getAvailablePatients/(:num)/(:any)?', 'Scheduling::getAvailablePatients/$1/$2');
+	$routes->get('getPatientAppointments/(:num)', 'Scheduling::getPatientAppointments/$1');
+$routes->post('addNurseSchedule', 'Scheduling::addNurseSchedule');
+$routes->post('updateNurseSchedule/(:any)', 'Scheduling::updateNurseSchedule/$1');
+$routes->post('deleteNurseSchedule/(:any)', 'Scheduling::deleteNurseSchedule/$1');
 });
 $routes->get('scheduling-management', 'Scheduling::management', ['filter' => 'auth']);
 

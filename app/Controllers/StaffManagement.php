@@ -155,6 +155,11 @@ class StaffManagement extends BaseController
         if ($this->request->getPost('role') === 'doctor') {
             $rules['specialty'] = 'required|in_list[Cardiologist,Pediatrician,Surgeon,General Physician]';
         }
+        
+        // Add department validation for nurses
+        if ($this->request->getPost('role') === 'nurse') {
+            $rules['department'] = 'required|in_list[Emergency,ICU,Medical]';
+        }
 
         if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -178,6 +183,11 @@ class StaffManagement extends BaseController
         // Add specialty for doctors
         if ($role === 'doctor') {
             $userData['specialty'] = $this->request->getPost('specialty');
+        }
+        
+        // Add department for nurses
+        if ($role === 'nurse') {
+            $userData['department'] = $this->request->getPost('department');
         }
 
         $userModel->insert($userData);
@@ -224,6 +234,11 @@ class StaffManagement extends BaseController
             // Clear specialty for non-doctors
             $updateData['specialty'] = null;
         }
+        
+        // Add department for nurses
+        if ($role === 'nurse') {
+            $updateData['department'] = $this->request->getPost('department');
+        }
 
         if ($userModel->update($id, $updateData)) {
             return $this->response->setJSON([
@@ -265,7 +280,7 @@ class StaffManagement extends BaseController
         $role = strtolower($role ?? '');
         switch ($role) {
             case 'doctor': return 'Medical';
-            case 'nurse': return 'Nursing';
+            case 'nurse': return 'Nursing'; // Default, but can be overridden by user selection
             case 'accountant': return 'Finance';
             case 'receptionist': return 'Front Desk';
             case 'laboratory': return 'Laboratory';

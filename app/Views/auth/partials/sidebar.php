@@ -92,7 +92,7 @@
 			<div class="menu-group" data-group="patients">
 				<button class="group-toggle" type="button"><span class="menu-icon">👥</span>Patient Management <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="<?= site_url('patient-management') ?>">Patient Records</a>
+					<a class="subitem" href="<?= site_url('patients/records') ?>">Patient Records</a>
 					<a class="subitem" href="<?= site_url('patients/add') ?>">Registration</a>
 					<a class="subitem" href="<?= site_url('patients/history') ?>">Medical History</a>
 				</div>

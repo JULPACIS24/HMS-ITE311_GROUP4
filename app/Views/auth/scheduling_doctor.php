@@ -27,15 +27,15 @@
 										<?= esc($doctor['specialty'] ?? 'General Medicine') ?>
 									</div>
 								</div>
-								<span class="badge completed">Available</span>
-							</div>
+						<span class="badge completed">Available</span>
+					</div>
 						<?php endforeach; ?>
 					<?php else: ?>
 						<div style="text-align:center; padding:20px; color:#94a3b8">
 							<div style="font-size:24px">👥</div>
 							<div style="font-weight:600; margin-top:8px">No Doctors Found</div>
 							<div class="sub">Add doctors in Staff Management first</div>
-						</div>
+					</div>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -116,6 +116,8 @@
 	const addApptBtn = document.getElementById('addApptBtn');
 	const apptModal = document.getElementById('addApptModal');
 	let selectedDate = new Date();
+	// Set to today's date at midnight (start of day)
+	selectedDate.setHours(0, 0, 0, 0);
 	let currentDoctorKey = null;
 	function openAppt(){ 
 		// Set the current doctor's name in the hidden field
@@ -138,7 +140,7 @@
 			return;
 		}
 		
-		const f = ev.target;
+			const f = ev.target;
 		const formData = new FormData(f);
 		
 		// Set the doctor name in the hidden field
@@ -249,17 +251,24 @@
 		if (!doctorId || !doctors[doctorId]) return;
 		
 		const doctor = doctors[doctorId];
-		const currentDate = new Date().toISOString().slice(0, 10);
+		// Use selectedDate instead of current date
+		const currentDate = selectedDate.toISOString().slice(0, 10);
+		
+		console.log('Loading appointments for doctor:', doctorId, 'on date:', currentDate);
+		console.log('selectedDate object:', selectedDate);
+		console.log('selectedDate ISO string:', selectedDate.toISOString());
 		
 		fetch(`<?= site_url('scheduling/getDoctorAppointments') ?>/${doctorId}/${currentDate}`)
 			.then(response => response.json())
 			.then(data => {
+				console.log('Appointment data received:', data);
 				if (data.success) {
 					// Clear existing appointments
 					doctor.appointments = [];
 					
 					// Add appointments from database
 					data.appointments.forEach(appointment => {
+						console.log('Processing appointment:', appointment);
 						const appointmentTime = new Date(appointment.date_time);
 						const appointmentDate = appointmentTime.toLocaleDateString();
 						
@@ -273,6 +282,8 @@
 							date: appointmentDate
 						});
 					});
+					
+					console.log('Processed appointments:', doctor.appointments);
 					
 					// Recalculate weekly counts
 					doctor.weekly = [0,0,0,0,0,0,0];
@@ -351,6 +362,8 @@
 		const d = doctors[id];
 		if(!d) return;
 		currentDoctorKey = id;
+
+		console.log('Rendering detail for doctor:', id, 'with appointments:', d.appointments);
 
 		const panel = document.getElementById('detailPanel');
 		panel.innerHTML = `
@@ -511,7 +524,12 @@
 				btn.addEventListener('click', function(){ 
 					selectedDate = new Date(btn.getAttribute('data-date')); 
 					calBtn.textContent = '📅 ' + new Date(selectedDate).toLocaleDateString(); 
-					renderDetail(id); 
+					
+					// Reload appointments for the new date
+					if (currentDoctorKey) {
+						loadDoctorAppointments(currentDoctorKey);
+					}
+					
 					cal.style.display='none';
 					
 					// Update available patients for the new date
@@ -533,6 +551,7 @@
 	document.querySelectorAll('#doctorList .doc-item').forEach(el=>{
 		el.addEventListener('click', function(){
 			const doctorId = this.dataset.id;
+			currentDoctorKey = doctorId; // Set the current doctor key
 			
 			// Highlight the selected doctor
 			document.querySelectorAll('#doctorList .doc-item').forEach(item => {
@@ -550,6 +569,12 @@
 	// Default select first available doctor
 	const firstDoctorId = Object.keys(doctors)[0];
 	if (firstDoctorId) {
+		currentDoctorKey = firstDoctorId; // Set the first doctor as current
+		
+		console.log('Initial selectedDate:', selectedDate);
+		console.log('Initial selectedDate ISO:', selectedDate.toISOString());
+		console.log('Initial selectedDate slice:', selectedDate.toISOString().slice(0, 10));
+		
 		// Highlight the first doctor
 		const firstDoctorElement = document.querySelector(`#doctorList .doc-item[data-id="${firstDoctorId}"]`);
 		if (firstDoctorElement) {
@@ -638,7 +663,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							<option value="Surgery Room 2">Surgery Room 2</option>
 						</select>
 					</label>
-					<label><span>Notes</span><textarea name="notes" id="eaNotes"></textarea></label>
+				<label><span>Notes</span><textarea name="notes" id="eaNotes"></textarea></label>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -670,7 +695,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Handle edit form submission
 	form?.addEventListener('submit', function(ev){
-		ev.preventDefault();
+			ev.preventDefault();
 		
 		const appointmentId = this.getAttribute('data-appointment-id');
 		if (!appointmentId) {

@@ -1,0 +1,462 @@
+ERROR - 2025-08-25 01:49:20 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 01:49:20 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 01:49:20 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 01:49:22 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 01:49:23 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 01:49:24 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 01:49:26 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 01:49:27 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 01:49:28 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:19 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:20 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:20 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:21 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:22 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:23 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:24 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:25 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:40 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:54 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:54 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:54 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:05:56 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:43 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:43 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:43 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:44 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:47 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:49 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:49 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:52 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:52 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:53 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:56 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:56 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:56 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:58 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:58 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:17:59 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:18:14 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:18:14 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:18:14 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:18:16 --> Error getting patient appointments: Undefined property: App\Controllers\Scheduling::$db
+ERROR - 2025-08-25 02:29:19 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('3')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:29:19 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:29:19 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('3')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:29:19 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:29:19 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:29:19 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:29:19 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('1')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:29:19 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:29:19 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('1')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:29:20 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('1')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:29:20 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:29:20 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('1')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:29:21 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:29:21 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:29:21 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:29:22 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('3')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:29:22 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:29:22 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('3')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:29:23 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:29:23 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:29:23 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:29:24 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('1')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:29:24 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:29:24 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('1')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:29:27 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:29:27 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:29:27 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:31:53 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('1')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:31:53 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:31:53 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('1')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:31:53 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:31:53 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:31:53 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:31:53 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('3')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:31:53 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:31:53 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('3')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:31:54 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('1')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:31:54 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:31:54 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('1')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:31:55 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:31:55 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:31:55 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('2')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-08-25 02:31:56 --> mysqli_sql_exception: Unknown column 'users.first_name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('3')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-25 02:31:56 --> Error getting patient appointments: Unknown column 'users.first_name' in 'field list'
+ERROR - 2025-08-25 02:31:56 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#3 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(453): CodeIgniter\BaseModel->findAll()
+#4 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getPatientAppointments('3')
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}

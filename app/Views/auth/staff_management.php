@@ -43,7 +43,7 @@
                                     <td><?php echo esc($u['email']); ?></td>
                                     <td><?php echo esc(ucwords(str_replace('_',' ',$u['role']))); ?></td>
                                     <td><?php echo esc($u['specialty'] ?? '-'); ?></td>
-                                    <td><?php echo esc($u['department'] ?? 'IT'); ?></td>
+                                    <td><?php echo esc($u['department'] ?? '-'); ?></td>
                                     <td><span class="badge confirmed"><?php echo esc($u['status'] ?? 'Active'); ?></span></td>
                                 </tr>
                             <?php endforeach; ?>
@@ -89,6 +89,15 @@
                     <option value="General Physician">General Physician</option>
                 </select>
             </div>
+            <div class="form-group" id="departmentGroup" style="display: none;">
+                <label>Department</label>
+                <select name="department" id="departmentSelect">
+                    <option value="">Select Department</option>
+                    <option value="Emergency">Emergency</option>
+                    <option value="ICU">ICU</option>
+                    <option value="Medical">Medical</option>
+                </select>
+            </div>
             <div class="modal-actions"><button type="submit" class="btn primary">Create User</button><button type="button" class="btn" id="cancelAddUser">Cancel</button></div>
         </form>
     </div>
@@ -130,19 +139,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Show/hide specialty field based on role selection
+    // Show/hide specialty and department fields based on role selection
     const roleSelect = document.getElementById('roleSelect');
     const specialtyGroup = document.getElementById('specialtyGroup');
     const specialtySelect = document.getElementById('specialtySelect');
+    const departmentGroup = document.getElementById('departmentGroup');
+    const departmentSelect = document.getElementById('departmentSelect');
 
     roleSelect.addEventListener('change', function() {
+        // Reset both fields first
+        specialtyGroup.style.display = 'none';
+        specialtySelect.required = false;
+        specialtySelect.value = '';
+        departmentGroup.style.display = 'none';
+        departmentSelect.required = false;
+        departmentSelect.value = '';
+        
+        // Show appropriate fields based on role
         if (this.value === 'doctor') {
             specialtyGroup.style.display = 'block';
             specialtySelect.required = true;
-        } else {
-            specialtyGroup.style.display = 'none';
-            specialtySelect.required = false;
-            specialtySelect.value = '';
+        } else if (this.value === 'nurse') {
+            departmentGroup.style.display = 'block';
+            departmentSelect.required = true;
         }
     });
 });

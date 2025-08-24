@@ -59,7 +59,52 @@ class Scheduling extends BaseController
     public function nurse()
     {
         if (! session('isLoggedIn')) return redirect()->to('/login');
-        return view('auth/scheduling_nurse');
+        
+        try {
+            // Get real nurses from staff management
+            log_message('info', 'Scheduling::nurse() - Getting nurses');
+            $userModel = new \App\Models\UserModel();
+            $nurses = $userModel->where('role', 'nurse')
+                                ->where('status', 'Active')
+                                ->orderBy('name', 'ASC')
+                                ->findAll();
+            
+            log_message('info', 'Nurses found: ' . count($nurses));
+            
+            // Get all nurse schedules from the database (if you have a nurse_schedules table)
+            // For now, we'll create mock schedules based on the nurses
+            $nurseSchedules = [];
+            foreach ($nurses as $nurse) {
+                // Create a default schedule for each nurse
+                $nurseSchedules[] = [
+                    'id' => 'schedule_' . $nurse['id'], // Unique ID for each schedule
+                    'nurse_id' => $nurse['id'],
+                    'nurse_name' => $nurse['name'],
+                    'department' => $nurse['department'] ?? 'General',
+                    'shift' => 'Morning Shift',
+                    'shift_time' => '6:00 AM - 2:00 PM',
+                    'status' => 'Active',
+                    'patients_assigned' => rand(0, 10), // Mock data for now
+                    'experience' => '5 years experience' // Mock data for now
+                ];
+            }
+            
+            return view('auth/scheduling_nurse', [
+                'nurses' => $nurses,
+                'nurseSchedules' => $nurseSchedules
+            ]);
+            
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            log_message('error', 'Scheduling::nurse() error: ' . $e->getMessage());
+            log_message('error', 'Scheduling::nurse() stack trace: ' . $e->getTraceAsString());
+            
+            // Return view with empty data instead of crashing
+            return view('auth/scheduling_nurse', [
+                'nurses' => [],
+                'nurseSchedules' => []
+            ]);
+        }
     }
 
     public function management()
@@ -208,12 +253,26 @@ class Scheduling extends BaseController
             
             log_message('info', 'Found patient: ' . ($patient ? 'Yes' : 'No') . ', Found doctor: ' . ($doctor ? 'Yes' : 'No'));
             
+            if (!$patient) {
+                return $this->response->setJSON([
+                    'success' => false, 
+                    'message' => 'Patient not found in the system. Please register the patient first.'
+                ]);
+            }
+            
+            if (!$doctor) {
+                return $this->response->setJSON([
+                    'success' => false, 
+                    'message' => 'Doctor not found in the system. Please check the doctor name.'
+                ]);
+            }
+            
             $payload = [
                 'appointment_code' => 'APT' . date('YmdHis'),
-                'patient_id'       => $patient ? $patient['id'] : null,
-                'doctor_id'        => $doctor ? $doctor['id'] : null,
+                'patient_id'       => $patient['id'],
+                'doctor_id'        => $doctor['id'],
                 'patient_name'     => $this->request->getPost('patient_name'),
-                'patient_phone'    => $patient ? $patient['phone'] : '',
+                'patient_phone'    => $patient['phone'],
                 'doctor_name'      => $this->request->getPost('doctor_name'),
                 'date_time'        => $this->request->getPost('date') . ' ' . $this->request->getPost('time'),
                 'type'             => $this->request->getPost('type'),
@@ -323,33 +382,29 @@ class Scheduling extends BaseController
         try {
             $model = new \App\Models\AppointmentModel();
             
-            // First try to get doctor name from the ID
-            $userModel = new \App\Models\UserModel();
-            $doctor = $userModel->find($doctorId);
+            // Search by doctor_id only (temporarily remove date filter)
+            $query = $model->where('doctor_id', $doctorId);
             
-            if ($doctor) {
-                // Search by doctor_id first, then by doctor_name as fallback
-                $query = $model->groupStart()
-                    ->where('doctor_id', $doctorId)
-                    ->orWhere('doctor_name', $doctor['name'])
-                    ->groupEnd();
-            } else {
-                // If doctor not found, just search by doctor_id
-                $query = $model->where('doctor_id', $doctorId);
-            }
+            log_message('info', 'getDoctorAppointments called with doctorId: ' . $doctorId . ' and date: ' . ($date ?? 'null'));
+            log_message('info', 'Temporarily getting ALL appointments for doctor (no date filter)');
             
+            // Temporarily comment out date filtering to debug
+            /*
             if ($date) {
                 $nextDay = date('Y-m-d', strtotime($date . ' +1 day'));
                 $query->where('date_time >=', $date . ' 00:00:00')
                       ->where('date_time <', $nextDay . ' 00:00:00');
-                log_message('info', 'Filtering by date: ' . $date);
+                log_message('info', 'Filtering by date range: ' . $date . ' 00:00:00 to ' . $nextDay . ' 00:00:00');
+            } else {
+                log_message('info', 'No date filter applied, getting all appointments for doctor');
             }
+            */
             
             $appointments = $query->orderBy('date_time', 'ASC')->findAll();
             
-            log_message('info', 'Found ' . count($appointments) . ' appointments for doctor ID: ' . $doctorId . ' and date: ' . ($date ?? 'all'));
+            log_message('info', 'Found ' . count($appointments) . ' appointments for doctor ID: ' . $doctorId . ' (all dates)');
             foreach ($appointments as $apt) {
-                log_message('info', 'Appointment: ID=' . $apt['id'] . ', Patient=' . $apt['patient_name'] . ', Time=' . $apt['date_time']);
+                log_message('info', 'Appointment: ID=' . $apt['id'] . ', Patient=' . $apt['patient_name'] . ', Date=' . $apt['date_time'] . ', Doctor ID=' . $apt['doctor_id']);
             }
             
             return $this->response->setJSON(['success' => true, 'appointments' => $appointments]);
@@ -409,6 +464,254 @@ class Scheduling extends BaseController
                 'success' => false,
                 'message' => 'Error fetching available patients: ' . $e->getMessage()
             ]);
+        }
+    }
+
+
+
+	// Get appointments for a specific patient
+	public function getPatientAppointments($patientId) {
+		try {
+			log_message('info', 'getPatientAppointments called for patient ID: ' . $patientId);
+			
+			$appointmentModel = new \App\Models\AppointmentModel();
+			
+			// First, let's check if the patient exists
+			$patientModel = new \App\Models\PatientModel();
+			$patient = $patientModel->find($patientId);
+			
+			if (!$patient) {
+				log_message('error', 'Patient not found with ID: ' . $patientId);
+				return $this->response->setJSON([
+					'success' => false,
+					'message' => 'Patient not found'
+				]);
+			}
+			
+			log_message('info', 'Found patient: ' . $patient['first_name'] . ' ' . $patient['last_name']);
+			
+			// Get appointments using the model
+			$appointments = $appointmentModel->select('appointments.*, users.name as doctor_name')
+				->join('users', 'users.id = appointments.doctor_id', 'left')
+				->where('appointments.patient_id', $patientId)
+				->orderBy('appointments.date_time', 'DESC')
+				->findAll();
+			
+			log_message('info', 'Found ' . count($appointments) . ' appointments for patient ID: ' . $patientId);
+			
+			// Process appointments to extract date and time from date_time
+			foreach ($appointments as &$appointment) {
+				if (isset($appointment['date_time'])) {
+					$dateTime = new \DateTime($appointment['date_time']);
+					$appointment['date'] = $dateTime->format('Y-m-d');
+					$appointment['time'] = $dateTime->format('H:i');
+				} else {
+					$appointment['date'] = 'N/A';
+					$appointment['time'] = 'N/A';
+				}
+				
+				log_message('info', 'Appointment: ID=' . $appointment['id'] . ', Date=' . $appointment['date'] . ', Time=' . $appointment['time'] . ', Type=' . $appointment['type']);
+			}
+			
+			return $this->response->setJSON([
+				'success' => true,
+				'appointments' => $appointments
+			]);
+		} catch (\Exception $e) {
+			log_message('error', 'Error getting patient appointments: ' . $e->getMessage());
+			log_message('error', 'Stack trace: ' . $e->getTraceAsString());
+			return $this->response->setJSON([
+				'success' => false,
+				'message' => 'Error getting patient appointments: ' . $e->getMessage()
+			]);
+		}
+    }
+
+    // Add nurse schedule
+    public function addNurseSchedule()
+    {
+        if (! session('isLoggedIn')) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Unauthorized']);
+        }
+
+        $rules = [
+            'nurse_id' => 'required|numeric',
+            'department' => 'required|in_list[Emergency,ICU,Medical]',
+            'shift' => 'required|in_list[Morning Shift,Evening Shift,Night Shift]'
+        ];
+
+        // Get data from either POST or JSON
+        $nurseId = $this->request->getPost('nurse_id') ?? $this->request->getJSON()->nurse_id ?? null;
+        $department = $this->request->getPost('department') ?? $this->request->getJSON()->department ?? null;
+        $shift = $this->request->getPost('shift') ?? $this->request->getJSON()->shift ?? null;
+
+        if (! $this->validate($rules)) {
+            return $this->response->setJSON([
+                'success' => false, 
+                'message' => 'Validation failed',
+                'errors' => $this->validator->getErrors()
+            ]);
+        }
+
+        try {
+            // For now, we'll store in session since we don't have a nurse_schedules table
+            // In a real app, you'd insert into a database table
+            $scheduleData = [
+                'id' => uniqid(),
+                'nurse_id' => $nurseId,
+                'department' => $department,
+                'shift' => $shift,
+                'shift_time' => $this->getShiftTime($shift),
+                'status' => 'Active',
+                'patients_assigned' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+
+            // Store in session for now (you can create a proper table later)
+            $schedules = session('nurse_schedules') ?? [];
+            $schedules[] = $scheduleData;
+            session()->set('nurse_schedules', $schedules);
+
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Nurse schedule added successfully',
+                'schedule' => $scheduleData
+            ]);
+
+        } catch (\Exception $e) {
+            log_message('error', 'Error adding nurse schedule: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Failed to add nurse schedule'
+            ]);
+        }
+    }
+
+    // Update nurse schedule
+    public function updateNurseSchedule($id)
+    {
+        if (! session('isLoggedIn')) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Unauthorized']);
+        }
+
+        $rules = [
+            'department' => 'required|in_list[Emergency,ICU,Medical]',
+            'shift' => 'required|in_list[Morning Shift,Evening Shift,Night Shift]',
+            'status' => 'required|in_list[Active,On Leave]'
+        ];
+
+        // Get data from either POST or JSON
+        $department = $this->request->getPost('department') ?? $this->request->getJSON()->department ?? null;
+        $shift = $this->request->getPost('shift') ?? $this->request->getJSON()->shift ?? null;
+        $status = $this->request->getPost('status') ?? $this->request->getJSON()->status ?? null;
+
+        if (! $this->validate($rules)) {
+            return $this->response->setJSON([
+                'success' => false, 
+                'message' => 'Validation failed',
+                'errors' => $this->validator->getErrors()
+            ]);
+        }
+
+        try {
+            $schedules = session('nurse_schedules') ?? [];
+            $scheduleIndex = -1;
+
+            // Find the schedule to update
+            foreach ($schedules as $index => $schedule) {
+                if ($schedule['id'] === $id) {
+                    $scheduleIndex = $index;
+                    break;
+                }
+            }
+
+            if ($scheduleIndex === -1) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Schedule not found'
+                ]);
+            }
+
+            // Update the schedule
+            $schedules[$scheduleIndex]['department'] = $department;
+            $schedules[$scheduleIndex]['shift'] = $shift;
+            $schedules[$scheduleIndex]['shift_time'] = $this->getShiftTime($shift);
+            $schedules[$scheduleIndex]['status'] = $status;
+            $schedules[$scheduleIndex]['updated_at'] = date('Y-m-d H:i:s');
+
+            session()->set('nurse_schedules', $schedules);
+
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Nurse schedule updated successfully',
+                'schedule' => $schedules[$scheduleIndex]
+            ]);
+
+        } catch (\Exception $e) {
+            log_message('error', 'Error updating nurse schedule: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Failed to update nurse schedule'
+            ]);
+        }
+    }
+
+    // Delete nurse schedule
+    public function deleteNurseSchedule($id)
+    {
+        if (! session('isLoggedIn')) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Unauthorized']);
+        }
+
+        try {
+            $schedules = session('nurse_schedules') ?? [];
+            $scheduleIndex = -1;
+
+            // Find the schedule to delete
+            foreach ($schedules as $index => $schedule) {
+                if ($schedule['id'] === $id) {
+                    $scheduleIndex = $index;
+                    break;
+                }
+            }
+
+            if ($scheduleIndex === -1) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Schedule not found'
+                ]);
+            }
+
+            // Remove the schedule
+            array_splice($schedules, $scheduleIndex, 1);
+            session()->set('nurse_schedules', $schedules);
+
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Nurse schedule removed successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            log_message('error', 'Error deleting nurse schedule: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Failed to remove nurse schedule'
+            ]);
+        }
+    }
+
+    // Helper method to get shift time based on shift
+    private function getShiftTime($shift)
+    {
+        switch ($shift) {
+            case 'Morning Shift':
+                return '6:00 AM - 2:00 PM';
+            case 'Evening Shift':
+                return '2:00 PM - 10:00 PM';
+            case 'Night Shift':
+                return '10:00 PM - 6:00 AM';
+            default:
+                return '6:00 AM - 2:00 PM';
         }
     }
 }

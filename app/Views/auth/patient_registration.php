@@ -33,7 +33,8 @@
 						<label><span>First Name *</span><input type="text" name="first_name" required></label>
 						<label><span>Middle Name</span><input type="text" name="middle_name"></label>
 						<label><span>Last Name *</span><input type="text" name="last_name" required></label>
-						<label><span>Date of Birth *</span><input type="date" name="dob" required></label>
+						<label><span>Date of Birth *</span><input type="date" name="dob" id="dob" required onchange="calculateAge()"></label>
+						<label><span>Age</span><input type="text" name="age" id="age" placeholder="Enter age"></label>
 						<label><span>Gender *</span><select name="gender" required><option>Male</option><option>Female</option><option>Other</option></select></label>
 						<label><span>Civil Status</span><select name="civil"><option>Single</option><option>Married</option><option>Widowed</option></select></label>
 						<label><span>Nationality</span><input type="text" name="nationality" placeholder="e.g., Filipino"></label>
@@ -81,20 +82,78 @@
 		</div>
 	</main>
 </div>
+
+<style>
+/* Remove ALL hover effects and transitions */
+.btn, .step, input, select, textarea, .card, .form-actions button {
+    transition: none !important;
+}
+
+.btn:hover, .step:hover, input:hover, select:hover, textarea:hover, .card:hover, .form-actions button:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    background-color: inherit !important;
+    border-color: inherit !important;
+}
+
+/* Make age field look exactly like others */
+#age {
+    background-color: white !important;
+    border: 1px solid #d1d5db !important;
+    color: #374151 !important;
+}
+
+#age:focus {
+    border-color: #3b82f6 !important;
+    outline: none !important;
+}
+</style>
+
 <script>
 	let currentStep = 1; const maxStep = 4;
 	const steps = document.querySelectorAll('.step');
 	const panels = document.querySelectorAll('.step-panel');
+	
+	// Function to calculate age from date of birth
+	function calculateAge() {
+		const dobInput = document.getElementById('dob');
+		const ageInput = document.getElementById('age');
+		
+		if (dobInput.value) {
+			const birthDate = new Date(dobInput.value);
+			const today = new Date();
+			let age = today.getFullYear() - birthDate.getFullYear();
+			const monthDiff = today.getMonth() - birthDate.getMonth();
+			
+			if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+				age--;
+			}
+			
+			ageInput.value = age;
+			console.log('Age calculated:', age); // Debug log
+		} else {
+			ageInput.value = '';
+		}
+	}
+	
 	function render(){
 		steps.forEach(s=>{ s.style.background = (+s.dataset.step === currentStep) ? '#2563eb' : '#ecf0f1'; s.style.color = (+s.dataset.step === currentStep) ? '#fff' : '#2c3e50'; });
-		panels.forEach(p=>{ p.style.display = (+p.dataset.step === currentStep) ? '' : 'none'; });
+		panels.forEach(p=>{ p.style.display = (+s.dataset.step === currentStep) ? '' : 'none'; });
 		document.getElementById('prevStep').disabled = currentStep === 1;
 		document.getElementById('nextStep').textContent = currentStep === maxStep ? 'Submit' : 'Next Step';
 	}
 	document.getElementById('prevStep').addEventListener('click', ()=>{ if(currentStep>1){ currentStep--; render(); }});
 	document.getElementById('nextStep').addEventListener('click', ()=>{
 		if(currentStep < maxStep){ currentStep++; render(); }
-		else{ document.getElementById('regForm').submit(); }
+		else{ 
+			// Validate age is calculated before submit
+			const ageInput = document.getElementById('age');
+			if (!ageInput.value) {
+				alert('Please select a date of birth to calculate age');
+				return;
+			}
+			document.getElementById('regForm').submit(); 
+		}
 	});
 	render();
 </script>
