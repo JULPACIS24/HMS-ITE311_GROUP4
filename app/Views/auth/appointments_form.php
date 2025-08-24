@@ -51,7 +51,19 @@
 					<div class="grid-2">
 						<label>
 							<span>Doctor</span>
-							<input type="text" name="doctor_name" required>
+							<select name="doctor_name" required>
+								<option value="">Select Doctor</option>
+								<?php if (!empty($doctors)): ?>
+									<?php foreach ($doctors as $doctor): ?>
+										<option value="<?= esc($doctor['name']) ?>">
+											<?= esc($doctor['name']) ?>
+											<?php if (!empty($doctor['specialty'])): ?>
+												(<?= esc($doctor['specialty']) ?>)
+											<?php endif; ?>
+										</option>
+									<?php endforeach; ?>
+								<?php endif; ?>
+							</select>
 						</label>
 						<label>
 							<span>Status</span>

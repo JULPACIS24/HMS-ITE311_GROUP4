@@ -77,7 +77,25 @@
 								</label>
 								<label>
 									<span>Doctor *</span>
-									<input type="text" name="doctor_name" placeholder="Select Doctor" required>
+									<select name="doctor_name" required>
+										<option value="">Select Doctor</option>
+										<?php 
+										// Get doctors from UserModel for the dropdown
+										$userModel = new \App\Models\UserModel();
+										$doctors = $userModel->where('role', 'doctor')
+															->where('status', 'Active')
+															->orderBy('name', 'ASC')
+															->findAll();
+										?>
+										<?php foreach ($doctors as $doctor): ?>
+											<option value="<?= esc($doctor['name']) ?>">
+												<?= esc($doctor['name']) ?>
+												<?php if (!empty($doctor['specialty'])): ?>
+													(<?= esc($doctor['specialty']) ?>)
+												<?php endif; ?>
+											</option>
+										<?php endforeach; ?>
+									</select>
 								</label>
 							</div>
 
@@ -160,7 +178,25 @@
 						<div class="modal-body">
 							<label>
 								<span>Doctor</span>
-								<input type="text" name="doctor_name" id="editDoctor" required>
+								<select name="doctor_name" id="editDoctor" required>
+									<option value="">Select Doctor</option>
+									<?php 
+									// Get doctors from UserModel for the dropdown
+									$userModel = new \App\Models\UserModel();
+									$doctors = $userModel->where('role', 'doctor')
+														->where('status', 'Active')
+														->orderBy('name', 'ASC')
+														->findAll();
+									?>
+									<?php foreach ($doctors as $doctor): ?>
+										<option value="<?= esc($doctor['name']) ?>">
+											<?= esc($doctor['name']) ?>
+											<?php if (!empty($doctor['specialty'])): ?>
+												(<?= esc($doctor['specialty']) ?>)
+											<?php endif; ?>
+										</option>
+									<?php endforeach; ?>
+								</select>
 							</label>
 						</div>
 						<div class="modal-footer">

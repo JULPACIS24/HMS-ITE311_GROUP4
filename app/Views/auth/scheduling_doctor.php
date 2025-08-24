@@ -5,7 +5,8 @@
 		<header class="header">
 			<h1>Doctor Scheduling</h1>
 			<div class="user-info" style="gap:12px">
-				<a class="btn" href="#" id="backSched">Back to Scheduling</a>
+				<a class="btn" href="<?= site_url('patients/create') ?>">Register Patient</a>
+				<a class="btn" href="<?= site_url('scheduling-management') ?>">Back to Scheduling</a>
 				<a class="btn primary" href="#" id="addApptBtn">+ Add Appointment</a>
 			</div>
 		</header>
@@ -14,21 +15,28 @@
 			<div class="patients-table-container">
 				<div class="table-header"><h2 class="table-title">Doctors</h2></div>
 				<div id="doctorList" style="padding:10px 0">
-					<div class="doc-item" data-id="maria" style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-left:3px solid transparent; cursor:pointer; border-bottom:1px solid #ecf0f1">
-						<div style="width:36px;height:36px;border-radius:10px;background:#eef2ff;display:grid;place-items:center;color:#2563eb;font-weight:800">👤</div>
-						<div style="flex:1"><div style="font-weight:700;color:#0f172a">Dr. Maria Rodriguez</div><div class="sub">Cardiology</div></div>
-						<span class="badge completed">Available</span>
-					</div>
-					<div class="doc-item" data-id="juan" style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-left:3px solid transparent; cursor:pointer; border-bottom:1px solid #ecf0f1">
-						<div style="width:36px;height:36px;border-radius:10px;background:#eef2ff;display:grid;place-items:center;color:#2563eb;font-weight:800">👤</div>
-						<div style="flex:1"><div style="font-weight:700;color:#0f172a">Dr. Juan Garcia</div><div class="sub">Pediatrics</div></div>
-						<span class="badge pending">In Surgery</span>
-					</div>
-					<div class="doc-item" data-id="ana" style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-left:3px solid transparent; cursor:pointer">
-						<div style="width:36px;height:36px;border-radius:10px;background:#eef2ff;display:grid;place-items:center;color:#2563eb;font-weight:800">👤</div>
-						<div style="flex:1"><div style="font-weight:700;color:#0f172a">Dr. Ana Santos</div><div class="sub">Emergency Medicine</div></div>
-						<span class="badge">On Break</span>
-					</div>
+					<?php if (!empty($doctors)): ?>
+						<?php foreach ($doctors as $doctor): ?>
+							<div class="doc-item" data-id="<?= $doctor['id'] ?>" style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-left:3px solid transparent; cursor:pointer; border-bottom:1px solid #ecf0f1">
+								<div style="width:36px;height:36px;border-radius:10px;background:#eef2ff;display:grid;place-items:center;color:#2563eb;font-weight:800">
+									<?= esc(strtoupper(substr($doctor['name'] ?? 'D', 0, 1))) ?>
+								</div>
+								<div style="flex:1">
+									<div style="font-weight:700;color:#0f172a"><?= esc($doctor['name'] ?? 'Unknown Doctor') ?></div>
+									<div class="sub">
+										<?= esc($doctor['specialty'] ?? 'General Medicine') ?>
+									</div>
+								</div>
+								<span class="badge completed">Available</span>
+							</div>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<div style="text-align:center; padding:20px; color:#94a3b8">
+							<div style="font-size:24px">👥</div>
+							<div style="font-weight:600; margin-top:8px">No Doctors Found</div>
+							<div class="sub">Add doctors in Staff Management first</div>
+						</div>
+					<?php endif; ?>
 				</div>
 			</div>
 
@@ -50,7 +58,12 @@
 		<div class="modal-header"><h3>Add Appointment</h3><button class="modal-close" data-close="addApptModal">×</button></div>
 		<form id="apptForm">
 			<div class="modal-body">
-				<label><span>Patient Name</span><input type="text" name="patient_name" required></label>
+						<label><span>Patient Name *</span>
+			<select name="patient_name" required>
+				<option value="">Select Patient</option>
+				<option value="" disabled>Loading patients...</option>
+			</select>
+		</label>
 				<div class="grid-2 modal-grid">
 					<label><span>Appointment Type</span>
 						<select name="type" required>
@@ -72,6 +85,25 @@
 					<label><span>Date</span><input type="date" name="date" required></label>
 					<label><span>Time</span><input type="time" name="time" required></label>
 				</div>
+				<div class="grid-2 modal-grid">
+					<label><span>Room</span>
+						<select name="room" required>
+							<option value="">Select Room</option>
+							<option value="Room 101">Room 101</option>
+							<option value="Room 102">Room 102</option>
+							<option value="Room 103">Room 103</option>
+							<option value="Room 201">Room 201</option>
+							<option value="Room 202">Room 202</option>
+							<option value="Room 203">Room 203</option>
+							<option value="Emergency Room">Emergency Room</option>
+							<option value="Consultation Room A">Consultation Room A</option>
+							<option value="Consultation Room B">Consultation Room B</option>
+							<option value="Surgery Room 1">Surgery Room 1</option>
+							<option value="Surgery Room 2">Surgery Room 2</option>
+						</select>
+					</label>
+					<label><span>Notes</span><textarea name="notes" placeholder="Additional notes..."></textarea></label>
+				</div>
 				<input type="hidden" name="doctor_name" value="On Duty Doctor">
 			</div>
 			<div class="modal-footer"><button class="btn" type="button" data-close="addApptModal">Cancel</button><button class="btn primary" type="submit">Add Appointment</button></div>
@@ -85,56 +117,226 @@
 	const apptModal = document.getElementById('addApptModal');
 	let selectedDate = new Date();
 	let currentDoctorKey = null;
-	function openAppt(){ apptModal.classList.add('open'); }
+	function openAppt(){ 
+		// Set the current doctor's name in the hidden field
+		if (currentDoctorKey && doctors[currentDoctorKey]) {
+			document.querySelector('[name="doctor_name"]').value = doctors[currentDoctorKey].name;
+			
+			// Load available patients for this doctor and date
+			loadAvailablePatients(currentDoctorKey, selectedDate);
+		}
+		apptModal.classList.add('open'); 
+	}
 	function closeAppt(){ apptModal.classList.remove('open'); }
 	addApptBtn?.addEventListener('click', (e)=>{ e.preventDefault(); openAppt(); });
 	document.querySelectorAll('[data-close="addApptModal"]').forEach(el=>el.addEventListener('click', closeAppt));
 	document.getElementById('apptForm')?.addEventListener('submit', function(ev){
 		ev.preventDefault();
-		// Immediately reflect the new appointment in the current doctor's list
-		try {
-			const f = ev.target;
-			const patient = f.querySelector('[name="patient_name"]').value || 'New Patient';
-			const doctor  = f.querySelector('[name="doctor_name"]').value || '';
-			const dateVal = f.querySelector('[name="date"]').value;
-			const timeVal = f.querySelector('[name="time"]').value || '00:00';
-			const typeVal = f.querySelector('[name="type"]').value || 'Consultation';
-			const status  = f.querySelector('[name="status"]').value || 'Pending';
-			// If no doctor selected, default to current visible doctor
-			const key = currentDoctorKey || Object.keys(doctors)[0];
-			if (key && doctors[key]){
-				doctors[key].appointments.push({ time: timeVal, patient: patient, type: typeVal, status: status, id: null });
-				renderDetail(key);
-			}
-			closeAppt();
-		} catch (_) {
-			closeAppt();
+		
+		if (!currentDoctorKey || !doctors[currentDoctorKey]) {
+			alert('Please select a doctor first');
+			return;
 		}
+		
+		const f = ev.target;
+		const formData = new FormData(f);
+		
+		// Set the doctor name in the hidden field
+		formData.set('doctor_name', doctors[currentDoctorKey].name);
+		
+		// Send AJAX request to create appointment
+		fetch('<?= site_url('scheduling/createAppointment') ?>', {
+			method: 'POST',
+			body: formData
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log('Appointment creation response:', data);
+			if (data.success) {
+				// Reload appointments from database
+				loadDoctorAppointments(currentDoctorKey);
+				closeAppt();
+				// Reset form
+				f.reset();
+				alert('Appointment created successfully!');
+			} else {
+				alert('Error: ' + data.message);
+			}
+		})
+		.catch(error => {
+			console.error('Error:', error);
+			alert('Error creating appointment. Please try again.');
+		});
 	});
 
-	// Mock data to render the right panel similar to your screenshots
-	const doctors = {
-		maria: {
-			name: 'Dr. Maria Rodriguez', dept: 'Cardiology • Internal Medicine', email: 'maria.rodriguez@sanmiguel.ph',
-			date: '01/15/2024',
-			appointments: [
-				{ time:'08:00-09:00', patient:'Juan Dela Cruz', type:'Consultation', status:'Confirmed' },
-				{ time:'09:00-10:00', patient:'Maria Santos', type:'Follow-up', status:'Confirmed' },
-				{ time:'10:00-11:00', patient:'Pedro Garcia', type:'Checkup', status:'Pending' },
-				{ time:'14:00-15:00', patient:'Ana Rodriguez', type:'Consultation', status:'Confirmed' },
-				{ time:'15:00-16:00', patient:'Carlos Mendoza', type:'Emergency', status:'Urgent' },
-			],
-			weekly:[8,8,8,8,8,'Off','Off']
-		},
-		juan: {
-			name: 'Dr. Juan Garcia', dept: 'Pediatrics • Pediatrics', email: 'juan.garcia@sanmiguel.ph',
-			date: '01/15/2024', appointments: [], weekly:[8,8,8,8,8,'Off','Off']
-		},
-		ana: {
-			name: 'Dr. Ana Santos', dept: 'Emergency Medicine • Emergency', email: 'ana.santos@sanmiguel.ph',
-			date: '01/15/2024', appointments: [], weekly:[8,8,8,8,8,'Off','Off']
+	// Dynamic doctor data based on real doctors from database
+	const doctors = {};
+	
+	// Get real doctor data from PHP
+	<?php if (!empty($doctors)): ?>
+		<?php foreach ($doctors as $doctor): ?>
+			doctors[<?= $doctor['id'] ?? '0' ?>] = {
+				name: '<?= esc($doctor['name'] ?? 'Unknown Doctor') ?>',
+				dept: '<?= esc($doctor['specialty'] ?? 'General Medicine') ?>',
+				email: '<?= esc($doctor['email'] ?? '') ?>',
+				date: new Date().toLocaleDateString(),
+				appointments: [], // Will be populated from database
+				weekly: [0,0,0,0,0,0,0] // Will be calculated from appointments
+			};
+		<?php endforeach; ?>
+	<?php endif; ?>
+
+	// Don't load appointments here - let loadDoctorAppointments handle it
+	// This prevents duplicates
+
+	// Calculate weekly counts for each doctor
+	Object.keys(doctors).forEach(doctorId => {
+		const doctor = doctors[doctorId];
+		doctor.weekly = [0,0,0,0,0,0,0]; // Reset weekly counts
+		
+		doctor.appointments.forEach(appointment => {
+			const appointmentDate = new Date(appointment.date);
+			const dayOfWeek = appointmentDate.getDay(); // 0 = Sunday, 1 = Monday, etc.
+			doctor.weekly[dayOfWeek]++;
+		});
+	});
+
+	// Function to load available patients (those without appointments for the selected doctor and date)
+	function loadAvailablePatients(doctorId, date) {
+		if (!doctorId || !doctors[doctorId]) return;
+		
+		const currentDate = date ? new Date(date).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10);
+		
+		fetch(`<?= site_url('scheduling/getAvailablePatients') ?>/${doctorId}/${currentDate}`)
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					// Update the patient dropdown
+					const patientSelect = document.querySelector('#addApptModal select[name="patient_name"]');
+					if (patientSelect) {
+						// Clear existing options except the first one
+						patientSelect.innerHTML = '<option value="">Select Patient</option>';
+						
+						// Add available patients
+						data.patients.forEach(patient => {
+							const option = document.createElement('option');
+							option.value = (patient.first_name || '') + ' ' + (patient.last_name || '');
+							option.textContent = (patient.first_name || 'Unknown') + ' ' + (patient.last_name || 'Patient');
+							if (patient.phone) {
+								option.textContent += ' (' + patient.phone + ')';
+							}
+							patientSelect.appendChild(option);
+						});
+						
+						// If no available patients, show message
+						if (data.patients.length === 0) {
+							const option = document.createElement('option');
+							option.value = "";
+							option.disabled = true;
+							option.textContent = "No available patients for this date";
+							patientSelect.appendChild(option);
+						}
+					}
+				}
+			})
+			.catch(error => {
+				console.error('Error loading available patients:', error);
+			});
+	}
+
+	// Function to load appointments from database for a specific doctor
+	function loadDoctorAppointments(doctorId) {
+		if (!doctorId || !doctors[doctorId]) return;
+		
+		const doctor = doctors[doctorId];
+		const currentDate = new Date().toISOString().slice(0, 10);
+		
+		fetch(`<?= site_url('scheduling/getDoctorAppointments') ?>/${doctorId}/${currentDate}`)
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					// Clear existing appointments
+					doctor.appointments = [];
+					
+					// Add appointments from database
+					data.appointments.forEach(appointment => {
+						const appointmentTime = new Date(appointment.date_time);
+						const appointmentDate = appointmentTime.toLocaleDateString();
+						
+						doctor.appointments.push({
+							id: appointment.id,
+							time: appointmentTime.toTimeString().slice(0, 5),
+							patient: appointment.patient_name || 'Unknown Patient',
+							type: appointment.type || 'Consultation',
+							status: appointment.status || 'Pending',
+							room: appointment.room || 'No Room',
+							date: appointmentDate
+						});
+					});
+					
+					// Recalculate weekly counts
+					doctor.weekly = [0,0,0,0,0,0,0];
+					doctor.appointments.forEach(appointment => {
+						const appointmentDate = new Date(appointment.date);
+						const dayOfWeek = appointmentDate.getDay();
+						doctor.weekly[dayOfWeek]++;
+					});
+					
+					// Update the display
+					renderDetail(doctorId);
+				}
+			})
+			.catch(error => {
+				console.error('Error loading appointments:', error);
+			});
+	}
+
+			// Function to open edit modal with appointment data
+		function openEditModal(appointmentId) {
+			// Find the appointment in the current doctor's appointments
+			const doctor = doctors[currentDoctorKey];
+			if (!doctor) return;
+			
+			const appointment = doctor.appointments.find(apt => apt.id == appointmentId);
+			if (appointment) {
+				// Populate edit form
+				document.getElementById('eaPatient').value = appointment.patient || '';
+				document.getElementById('eaDoctor').value = doctor.name || '';
+				document.getElementById('eaDate').value = new Date(selectedDate).toISOString().slice(0, 10);
+				document.getElementById('eaTime').value = appointment.time || '';
+				document.getElementById('eaType').value = appointment.type || 'Consultation';
+				document.getElementById('eaStatus').value = appointment.status || 'Pending';
+				document.getElementById('eaRoom').value = appointment.room || 'Room 101';
+				document.getElementById('eaNotes').value = ''; // Notes not stored in frontend object
+				
+				// Set form action for update
+				document.getElementById('editApptForm').setAttribute('data-appointment-id', appointmentId);
+				
+				// Open modal
+				document.getElementById('editApptModal').classList.add('open');
+			}
 		}
-	};
+
+	// Function to delete appointment
+	function deleteAppointment(appointmentId) {
+		fetch(`<?= site_url('scheduling/deleteAppointment') ?>/${appointmentId}`, {
+			method: 'POST'
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				// Reload appointments from database
+				loadDoctorAppointments(currentDoctorKey);
+				alert('Appointment deleted successfully!');
+			} else {
+				alert('Error: ' + data.message);
+			}
+		})
+		.catch(error => {
+			console.error('Error deleting appointment:', error);
+			alert('Error deleting appointment. Please try again.');
+		});
+	}
 
 	function badgeClass(status){
 		switch((status||'').toLowerCase()){
@@ -149,11 +351,6 @@
 		const d = doctors[id];
 		if(!d) return;
 		currentDoctorKey = id;
-		// highlight selected in the list
-		document.querySelectorAll('#doctorList .doc-item').forEach(el=>{
-			el.style.borderLeftColor = (el.dataset.id===id)? '#2563eb' : 'transparent';
-			el.style.background = (el.dataset.id===id)? '#eef2ff' : 'transparent';
-		});
 
 		const panel = document.getElementById('detailPanel');
 		panel.innerHTML = `
@@ -176,7 +373,7 @@
 					${d.appointments.length? d.appointments.map((ap, i)=>`
 						<div style=\"border-left:4px solid ${ap.status==='Pending'?'#f59e0b': ap.status==='Urgent'?'#ef4444':'#22c55e'}; background:${ap.status==='Pending'?'#fff7ed': ap.status==='Urgent'?'#fef2f2':'#ecfdf5'}; padding:12px 14px; border-radius:10px; display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px\">
 							<div style=\"width:120px;color:#475569\">${ap.time}</div>
-							<div style=\"flex:1\"><div style=\"font-weight:700;color:#0f172a\">${ap.patient}</div><div class=\"sub\">${ap.type}</div></div>
+							<div style=\"flex:1\"><div style=\"font-weight:700;color:#0f172a\">${ap.patient}</div><div class=\"sub\">${ap.type} • ${ap.room || 'No Room'}</div></div>
 							<div><span class=\"badge ${badgeClass(ap.status)}\">${ap.status}</span></div>
 							<div class=\"actions\" data-appt-id=\"${ap.id||''}\" data-index=\"${i}\"><a class=\"btn edit\" href=\"#\">✏️</a> <a class=\"btn delete\" href=\"#\">🗑️</a></div>
 						</div>
@@ -200,47 +397,24 @@
 		// Wire inline Add Appointment button
 		panel.querySelector('#inlineAddAppt')?.addEventListener('click', function(e){ e.preventDefault(); openAppt(); });
 
-		// Wire actions: edit/delete if id exists, otherwise local edit/delete
+		// Wire actions: edit/delete for appointments
 		panel.querySelectorAll('.actions').forEach(function(box){
-			const id = box.getAttribute('data-appt-id');
-			const idxStr = box.getAttribute('data-index');
-			const idx = idxStr? parseInt(idxStr, 10) : -1;
+			const appointmentId = box.getAttribute('data-appt-id');
 			const edit = box.querySelector('.edit');
 			const del = box.querySelector('.delete');
-			if (id) {
-				edit.setAttribute('href', '/appointments/edit/' + id);
-				del.setAttribute('href', '/appointments/delete/' + id);
-				del.addEventListener('click', function(ev){ if(!confirm('Delete this appointment?')) ev.preventDefault(); });
-			} else {
+			
+			if (appointmentId) {
+				// Edit appointment
 				edit.addEventListener('click', function(ev){
 					ev.preventDefault();
-					if (idx >= 0 && doctors[currentDoctorKey] && doctors[currentDoctorKey].appointments[idx]){
-						const ap = doctors[currentDoctorKey].appointments[idx];
-						document.getElementById('eaPatient').value = ap.patient || '';
-						document.getElementById('eaDoctor').value = (doctors[currentDoctorKey].name || '').replace(/^Dr\.\s*/, '');
-						document.getElementById('eaDate').value = new Date(selectedDate).toISOString().slice(0,10);
-						document.getElementById('eaTime').value = (ap.time||'').slice(0,5);
-						document.getElementById('eaType').value = ap.type || 'Consultation';
-						document.getElementById('eaStatus').value = ap.status || 'Pending';
-						document.getElementById('eaNotes').value = '';
-						const form = document.getElementById('editApptForm');
-						form.onsubmit = function(e){
-							e.preventDefault();
-							ap.patient = document.getElementById('eaPatient').value;
-							ap.type = document.getElementById('eaType').value;
-							ap.status = document.getElementById('eaStatus').value;
-							ap.time = document.getElementById('eaTime').value || ap.time;
-							document.getElementById('editApptModal').classList.remove('open');
-							renderDetail(currentDoctorKey);
-						};
-						document.getElementById('editApptModal').classList.add('open');
-					}
+					openEditModal(appointmentId);
 				});
+				
+				// Delete appointment
 				del.addEventListener('click', function(ev){
 					ev.preventDefault();
-					if (confirm('Delete this appointment?') && idx >= 0 && doctors[currentDoctorKey]){
-						doctors[currentDoctorKey].appointments.splice(idx, 1);
-						renderDetail(currentDoctorKey);
+					if (confirm('Delete this appointment?')) {
+						deleteAppointment(appointmentId);
 					}
 				});
 			}
@@ -273,6 +447,11 @@
 						dsel.setDate(weekStart.getDate() + idx);
 						selectedDate = dsel;
 						setView('day');
+						
+						// Update available patients for the new date
+						if (currentDoctorKey) {
+							loadAvailablePatients(currentDoctorKey, selectedDate);
+						}
 					};
 				});
 			}
@@ -317,9 +496,29 @@
 			cal.querySelector('#calPrev').onclick = function(){ shownMonth = new Date(year, month-1, 1); renderCalendar(shownMonth); };
 			cal.querySelector('#calNext').onclick = function(){ shownMonth = new Date(year, month+1, 1); renderCalendar(shownMonth); };
 			cal.querySelector('#calClear').onclick = function(){ cal.style.display = 'none'; };
-			cal.querySelector('#calToday').onclick = function(){ selectedDate = new Date(); calBtn.textContent = '📅 ' + new Date(selectedDate).toLocaleDateString(); renderDetail(id); cal.style.display='none'; };
+			cal.querySelector('#calToday').onclick = function(){ 
+				selectedDate = new Date(); 
+				calBtn.textContent = '📅 ' + new Date(selectedDate).toLocaleDateString(); 
+				renderDetail(id); 
+				cal.style.display='none';
+				
+				// Update available patients for the new date
+				if (currentDoctorKey) {
+					loadAvailablePatients(currentDoctorKey, selectedDate);
+				}
+			};
 			cal.querySelectorAll('[data-date]').forEach(function(btn){
-				btn.addEventListener('click', function(){ selectedDate = new Date(btn.getAttribute('data-date')); calBtn.textContent = '📅 ' + new Date(selectedDate).toLocaleDateString(); renderDetail(id); cal.style.display='none'; });
+				btn.addEventListener('click', function(){ 
+					selectedDate = new Date(btn.getAttribute('data-date')); 
+					calBtn.textContent = '📅 ' + new Date(selectedDate).toLocaleDateString(); 
+					renderDetail(id); 
+					cal.style.display='none';
+					
+					// Update available patients for the new date
+					if (currentDoctorKey) {
+						loadAvailablePatients(currentDoctorKey, selectedDate);
+					}
+				});
 			});
 		}
 		if (calBtn){
@@ -332,13 +531,60 @@
 
 	// Click handlers
 	document.querySelectorAll('#doctorList .doc-item').forEach(el=>{
-		el.addEventListener('click', ()=> renderDetail(el.dataset.id));
+		el.addEventListener('click', function(){
+			const doctorId = this.dataset.id;
+			
+			// Highlight the selected doctor
+			document.querySelectorAll('#doctorList .doc-item').forEach(item => {
+				item.style.borderLeftColor = 'transparent';
+				item.style.background = 'transparent';
+			});
+			this.style.borderLeftColor = '#2563eb';
+			this.style.background = '#eef2ff';
+			
+			// Load appointments from database and render detail
+			loadDoctorAppointments(doctorId);
+		});
 	});
-	// Default select first
-	renderDetail('maria');
+	
+	// Default select first available doctor
+	const firstDoctorId = Object.keys(doctors)[0];
+	if (firstDoctorId) {
+		// Highlight the first doctor
+		const firstDoctorElement = document.querySelector(`#doctorList .doc-item[data-id="${firstDoctorId}"]`);
+		if (firstDoctorElement) {
+			firstDoctorElement.style.borderLeftColor = '#2563eb';
+			firstDoctorElement.style.background = '#eef2ff';
+		}
+		
+		// Load appointments and render detail
+		loadDoctorAppointments(firstDoctorId);
+	}
 
 	// Edit Appointment Modal (inline, uses existing appointments/update/:id)
 })();
+
+// Add patient dropdown functionality
+document.addEventListener('DOMContentLoaded', function() {
+	// Auto-fill patient details when patient is selected in the Add Appointment modal
+	const patientSelect = document.querySelector('#addApptModal select[name="patient_name"]');
+	if (patientSelect) {
+		patientSelect.addEventListener('change', function() {
+			const selectedOption = this.options[this.selectedIndex];
+			
+			if (this.value) {
+				// Extract phone number from the option text (format: "Name (Phone)")
+				const phoneMatch = selectedOption.text.match(/\(([^)]+)\)/);
+				
+				// You can add more patient details here if needed
+				console.log('Selected patient:', this.value);
+				if (phoneMatch) {
+					console.log('Patient phone:', phoneMatch[1]);
+				}
+			}
+		});
+	}
+});
 </script>
 <!-- Edit Appointment Modal -->
 <div class="modal" id="editApptModal" aria-hidden="true">
@@ -375,7 +621,25 @@
 						</select>
 					</label>
 				</div>
-				<label><span>Notes</span><textarea name="notes" id="eaNotes"></textarea></label>
+				<div class="grid-2 modal-grid">
+					<label><span>Room</span>
+						<select name="room" id="eaRoom" required>
+							<option value="">Select Room</option>
+							<option value="Room 101">Room 101</option>
+							<option value="Room 102">Room 102</option>
+							<option value="Room 103">Room 103</option>
+							<option value="Room 201">Room 201</option>
+							<option value="Room 202">Room 202</option>
+							<option value="Room 203">Room 203</option>
+							<option value="Emergency Room">Emergency Room</option>
+							<option value="Consultation Room A">Consultation Room A</option>
+							<option value="Consultation Room B">Consultation Room B</option>
+							<option value="Surgery Room 1">Surgery Room 1</option>
+							<option value="Surgery Room 2">Surgery Room 2</option>
+						</select>
+					</label>
+					<label><span>Notes</span><textarea name="notes" id="eaNotes"></textarea></label>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button class="btn" type="button" id="cancelEditAppt">Cancel</button>
@@ -394,6 +658,7 @@
 	const fTime = document.getElementById('eaTime');
 	const fType = document.getElementById('eaType');
 	const fStatus = document.getElementById('eaStatus');
+	const fRoom = document.getElementById('eaRoom');
 	const fNotes = document.getElementById('eaNotes');
 	let currentId = null;
 
@@ -403,36 +668,40 @@
 	document.getElementById('closeEditApptBackdrop')?.addEventListener('click', close);
 	document.getElementById('cancelEditAppt')?.addEventListener('click', close);
 
-	// Delegate edit/delete clicks from the detail panel
-	document.getElementById('detailPanel').addEventListener('click', function(ev){
-		const a = ev.target.closest('a');
-		if (!a) return;
-		if (a.classList.contains('edit')){
-			ev.preventDefault();
-			const container = a.closest('.actions');
-			const id = container?.getAttribute('data-appt-id');
-			if (!id){ alert('This sample item has no ID to edit.'); return; }
-			fetch('<?= site_url('appointments/json') ?>/' + id).then(r=>r.json()).then(function(ap){
-				currentId = ap.id;
-				fPatient.value = ap.patient_name || '';
-				fDoctor.value = ap.doctor_name || '';
-				const dt = ap.date_time ? new Date(ap.date_time) : new Date();
-				fDate.value = dt.toISOString().slice(0,10);
-				fTime.value = dt.toTimeString().slice(0,5);
-				fType.value = ap.type || 'Consultation';
-				fStatus.value = ap.status || 'Pending';
-				fNotes.value = ap.notes || '';
-				form.setAttribute('action', '<?= site_url('appointments/update') ?>/' + ap.id);
-				open();
-			});
+	// Handle edit form submission
+	form?.addEventListener('submit', function(ev){
+		ev.preventDefault();
+		
+		const appointmentId = this.getAttribute('data-appointment-id');
+		if (!appointmentId) {
+			alert('No appointment selected for editing');
+			return false;
 		}
-		if (a.classList.contains('delete')){
-			// leave default behavior (href + confirm)
-		}
-	});
-
-	form?.addEventListener('submit', function(){
-		if (!currentId){ return false; }
+		
+		const formData = new FormData(this);
+		
+		// Send AJAX request to update appointment
+		fetch(`<?= site_url('scheduling/updateAppointment') ?>/${appointmentId}`, {
+			method: 'POST',
+			body: formData
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				// Reload appointments from database
+				loadDoctorAppointments(currentDoctorKey);
+				close();
+				// Reset form
+				this.reset();
+				alert('Appointment updated successfully!');
+			} else {
+				alert('Error: ' + data.message);
+			}
+		})
+		.catch(error => {
+			console.error('Error:', error);
+			alert('Error updating appointment. Please try again.');
+		});
 	});
 })();
 </script>

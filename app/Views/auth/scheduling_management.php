@@ -1,115 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scheduling Management - San Miguel HMS</title>
-    <link rel="stylesheet" href="<?= base_url('assets/css/appointments.css') ?>">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background-color: #f5f7fa;
-            overflow-x: hidden;
-        }
-
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar Styles */
-        .sidebar {
-            width: 250px;
-            background: #fff;
-            color: #0f172a;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-            z-index: 1000;
-            border-right: 1px solid #e5e7eb;
-        }
-
-        .sidebar-header {
-            padding: 20px;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .admin-icon {
-            width: 32px;
-            height: 32px;
-            background: #2563eb;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-            color: #fff;
-        }
-
-        .sidebar-title {
-            font-size: 18px;
-            font-weight: 800;
-            color: #0f172a;
-        }
-
-        .sidebar-subtitle {
-            font-size: 12px;
-            color: #64748b;
-        }
-
-        .sidebar-menu {
-            padding: 20px 0;
-        }
-
-        .menu-item {
-            display: block;
-            padding: 12px 20px;
-            color: #334155;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-left: 3px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .menu-item:hover {
-            background-color: #f1f5f9;
-            color: #0f172a;
-            border-left-color: #2563eb;
-        }
-
-        .menu-item.active {
-            background-color: #eef2ff;
-            color: #1d4ed8;
-            border-left-color: #2563eb;
-        }
-
-        .menu-icon {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 250px;
-            padding: 0;
-        }
-
+<?php echo view('auth/partials/header', ['title' => 'Scheduling Management']); ?>
+<div class="container">
+    <?php echo view('auth/partials/sidebar'); ?>
+    <main class="main-content">
+        <style>
         /* Header */
         .header {
             background: white;
@@ -118,6 +11,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 20px;
         }
 
         .header h1 {
@@ -465,18 +359,115 @@
             text-decoration: underline;
         }
 
+        /* Appointment List Styles */
+        .appointment-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            border-bottom: 1px solid #ecf0f1;
+            transition: background-color 0.3s ease;
+        }
+
+        .appointment-item:hover {
+            background-color: #f8fafc;
+        }
+
+        .appointment-item:last-child {
+            border-bottom: none;
+        }
+
+        .appointment-time {
+            width: 60px;
+            font-weight: 600;
+            color: #2563eb;
+            font-size: 14px;
+        }
+
+        .appointment-details {
+            flex: 1;
+        }
+
+        .patient-name {
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .doctor-info {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .appointment-status {
+            margin-right: 16px;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge.confirmed { background: #ecfdf5; color: #16a34a; }
+        .status-badge.pending { background: #fef3c7; color: #d97706; }
+        .status-badge.completed { background: #dbeafe; color: #2563eb; }
+
+        .appointment-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 6px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background-color: #f1f5f9;
+        }
+
+        .no-appointments, .no-doctors {
+            text-align: center;
+            padding: 40px 20px;
+            color: #94a3b8;
+        }
+
+        .no-appointments-icon, .no-doctors-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .no-appointments-text, .no-doctors-text {
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn.primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn.primary:hover {
+            background: #1d4ed8;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
             .content-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -487,35 +478,28 @@
             }
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <!-- Sidebar -->
-        <?php echo view('auth/partials/sidebar'); ?>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Header -->
-            <header class="header">
-                <div>
-                    <h1>Scheduling Management</h1>
-                    <div class="header-subtitle">Manage doctor schedules and appointments</div>
-                </div>
-                <a href="<?= site_url('appointments/schedule') ?>" class="new-appointment-btn">
-                    <span>➕</span> New Appointment
-                </a>
-            </header>
+    <!-- Header -->
+    <header class="header">
+        <div>
+            <h1>Scheduling Management</h1>
+            <div class="header-subtitle">Manage doctor schedules and appointments</div>
+        </div>
+        <a href="<?= site_url('appointments/schedule') ?>" class="new-appointment-btn">
+            <span>➕</span> New Appointment
+        </a>
+    </header>
 
-            <!-- Page Content -->
-            <div class="page-content">
-                <!-- Summary Cards -->
-                <div class="stats-grid">
+    <!-- Page Content -->
+    <div class="page-content">
+        <!-- Summary Cards -->
+        <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-header">
                             <span class="stat-title">Today's Appointments</span>
                             <div class="stat-icon appointments">📅</div>
                         </div>
-                        <div class="stat-value">156</div>
+                        <div class="stat-value"><?= $stats['today_appointments'] ?? 0 ?></div>
                     </div>
                     
                     <div class="stat-card">
@@ -523,7 +507,7 @@
                             <span class="stat-title">Available Doctors</span>
                             <div class="stat-icon doctors">👨‍⚕️</div>
                         </div>
-                        <div class="stat-value">28</div>
+                        <div class="stat-value"><?= $stats['available_doctors'] ?? 0 ?></div>
                     </div>
                     
                     <div class="stat-card">
@@ -531,7 +515,7 @@
                             <span class="stat-title">Pending Approval</span>
                             <div class="stat-icon pending">⏰</div>
                         </div>
-                        <div class="stat-value">12</div>
+                        <div class="stat-value"><?= $stats['pending_approval'] ?? 0 ?></div>
                     </div>
                     
                     <div class="stat-card">
@@ -539,7 +523,7 @@
                             <span class="stat-title">Emergency Cases</span>
                             <div class="stat-icon emergency">🚨</div>
                         </div>
-                        <div class="stat-value">3</div>
+                        <div class="stat-value"><?= $stats['emergency_cases'] ?? 0 ?></div>
                     </div>
                 </div>
 
@@ -548,9 +532,9 @@
                     <!-- Today's Schedule Panel -->
                     <div class="panel">
                         <div class="panel-header">
-                            <h2 class="panel-title">Today's Schedule</h2>
+                            <h2 class="panel-title"><?= $selected_date ? 'Schedule for ' . date('M d, Y', strtotime($selected_date)) : 'Today\'s Schedule' ?></h2>
                             <div class="panel-controls">
-                                <input type="date" class="date-selector" id="scheduleDate" value="<?= date('Y-m-d') ?>">
+                                <input type="date" class="date-selector" id="scheduleDate" value="<?= $selected_date ?? date('Y-m-d') ?>">
                                 <div class="view-toggle">
                                     <button class="view-btn active" data-view="day">Day</button>
                                     <button class="view-btn" data-view="week">Week</button>
@@ -559,7 +543,39 @@
                         </div>
                         
                         <div class="appointment-list" id="appointmentList">
-                            <!-- Sample appointments - will be populated dynamically -->
+                            <?php if (!empty($today_schedule)): ?>
+                                <?php foreach ($today_schedule as $appointment): ?>
+                                    <?php 
+                                        $appointmentTime = new DateTime($appointment['date_time']);
+                                        $statusClass = '';
+                                        switch(strtolower($appointment['status'])) {
+                                            case 'confirmed': $statusClass = 'confirmed'; break;
+                                            case 'pending': $statusClass = 'pending'; break;
+                                            case 'completed': $statusClass = 'completed'; break;
+                                            default: $statusClass = 'pending';
+                                        }
+                                    ?>
+                                    <div class="appointment-item">
+                                        <div class="appointment-time"><?= $appointmentTime->format('H:i') ?></div>
+                                        <div class="appointment-details">
+                                            <div class="patient-name"><?= esc($appointment['patient_name']) ?></div>
+                                            <div class="doctor-info"><?= esc($appointment['doctor_name']) ?> • <?= esc($appointment['room'] ?? 'No Room') ?>, <?= esc($appointment['type']) ?></div>
+                                        </div>
+                                        <div class="appointment-status">
+                                            <span class="status-badge <?= $statusClass ?>"><?= esc($appointment['status']) ?></span>
+                                        </div>
+                                        <div class="appointment-actions">
+                                            <a href="#" class="action-btn edit" title="Edit">✏️</a>
+                                            <a href="#" class="action-btn delete" title="Delete">🗑️</a>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <div class="no-appointments">
+                                    <div class="no-appointments-icon">📅</div>
+                                    <div class="no-appointments-text">No appointments scheduled for today</div>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -570,11 +586,41 @@
                         </div>
                         
                         <div class="doctor-list" id="doctorList">
-                            <!-- Sample doctors - will be populated dynamically -->
+                            <?php if (!empty($doctors)): ?>
+                                <?php foreach ($doctors as $doctor): ?>
+                                    <?php 
+                                        $availabilityClass = 'available';
+                                        $availabilityText = 'Available';
+                                        if ($doctor['today_appointments'] > 5) {
+                                            $availabilityClass = 'busy';
+                                            $availabilityText = 'Busy';
+                                        } elseif ($doctor['today_appointments'] > 0) {
+                                            $availabilityClass = 'available';
+                                            $availabilityText = 'Available';
+                                        }
+                                    ?>
+                                    <div class="doctor-item">
+                                        <div class="doctor-avatar">
+                                            <?= esc(strtoupper(substr($doctor['name'] ?? 'D', 0, 1))) ?>
+                                        </div>
+                                        <div class="doctor-info">
+                                            <div class="doctor-name"><?= esc($doctor['name'] ?? 'Unknown Doctor') ?></div>
+                                            <div class="doctor-specialty"><?= esc($doctor['specialty'] ?? 'General Medicine') ?></div>
+                                            <div class="appointment-count"><?= $doctor['appointment_count'] ?? 0 ?> appointments</div>
+                                        </div>
+                                        <span class="availability-badge availability-<?= $availabilityClass ?>"><?= $availabilityText ?></span>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <div class="no-doctors">
+                                    <div class="no-doctors-icon">👥</div>
+                                    <div class="no-doctors-text">No doctors found</div>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         
                         <div class="view-all-link">
-                            <a href="<?= site_url('scheduling/doctor') ?>">View All Doctors</a>
+                            <a href="<?= site_url('scheduling/doctor') ?>" class="btn primary">View All Doctors</a>
                         </div>
                     </div>
                 </div>
@@ -583,120 +629,6 @@
     </div>
 
     <script>
-        // Sample appointment data (in real app, this would come from the backend)
-        const appointments = [
-            {
-                time: '08:00',
-                patient: 'Maria Santos',
-                doctor: 'Dr. Juan Martinez',
-                location: 'Room 101',
-                type: 'Consultation',
-                status: 'Scheduled'
-            },
-            {
-                time: '08:30',
-                patient: 'Pedro Garcia',
-                doctor: 'Dr. Ana Rodriguez',
-                location: 'Room 102',
-                type: 'Follow-up',
-                status: 'Completed'
-            },
-            {
-                time: '09:00',
-                patient: 'Carlos Mendoza',
-                doctor: 'Dr. Luis Fernandez',
-                location: 'Room 103',
-                type: 'Surgery',
-                status: 'In Progress'
-            },
-            {
-                time: '09:30',
-                patient: 'Isabella Cruz',
-                doctor: 'Dr. Sofia Torres',
-                location: 'Room 104',
-                type: 'Emergency',
-                status: 'Urgent'
-            },
-            {
-                time: '10:00',
-                patient: 'Roberto Silva',
-                doctor: 'Dr. Miguel Santos',
-                location: 'Room 105',
-                type: 'Consultation',
-                status: 'Scheduled'
-            }
-        ];
-
-        // Sample doctor data
-        const doctors = [
-            {
-                name: 'Dr. Juan Martinez',
-                specialty: 'Cardiology',
-                status: 'Available',
-                appointments: 8
-            },
-            {
-                name: 'Dr. Ana Rodriguez',
-                specialty: 'Pediatrics',
-                status: 'Busy',
-                appointments: 12
-            },
-            {
-                name: 'Dr. Luis Fernandez',
-                specialty: 'General Surgery',
-                status: 'In Surgery',
-                appointments: 3
-            },
-            {
-                name: 'Dr. Sofia Torres',
-                specialty: 'Emergency Medicine',
-                status: 'Available',
-                appointments: 5
-            },
-            {
-                name: 'Dr. Miguel Santos',
-                specialty: 'Internal Medicine',
-                status: 'Available',
-                appointments: 10
-            }
-        ];
-
-        // Render appointments
-        function renderAppointments() {
-            const container = document.getElementById('appointmentList');
-            container.innerHTML = appointments.map(appointment => `
-                <div class="appointment-item">
-                    <div class="appointment-time">${appointment.time}</div>
-                    <div class="appointment-details">
-                        <div class="patient-name">${appointment.patient}</div>
-                        <div class="doctor-location">${appointment.doctor} • ${appointment.location}</div>
-                        <div class="appointment-type">${appointment.type}</div>
-                    </div>
-                    <span class="status-badge status-${appointment.status.toLowerCase().replace(' ', '-')}">${appointment.status}</span>
-                    <div class="appointment-actions">
-                        <button class="btn-action btn-edit" onclick="editAppointment('${appointment.time}')">✏️</button>
-                        <button class="btn-action btn-delete" onclick="deleteAppointment('${appointment.time}')">🗑️</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Render doctors
-        function renderDoctors() {
-            const container = document.getElementById('doctorList');
-            container.innerHTML = doctors.map(doctor => `
-                <div class="doctor-item">
-                    <div class="doctor-avatar">👨‍⚕️</div>
-                    <div class="doctor-info">
-                        <div class="doctor-name">${doctor.name}</div>
-                        <div class="doctor-specialty">${doctor.specialty}</div>
-                        <div class="appointment-count">${doctor.appointments} appointments</div>
-                    </div>
-                    <span class="availability-badge availability-${doctor.status.toLowerCase().replace(' ', '-')}">${doctor.status}</span>
-                </div>
-            `).join('');
-        }
-
         // View toggle functionality
         document.querySelectorAll('.view-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -711,42 +643,86 @@
             });
         });
 
-        // Date selector functionality
+        // Date selector functionality - refresh page with new date
         document.getElementById('scheduleDate').addEventListener('change', function(e) {
             const selectedDate = e.target.value;
-            // In real app, fetch appointments for selected date
-            console.log('Selected date:', selectedDate);
+            // Redirect to the same page with the new date as a parameter
+            const currentUrl = new URL(window.location);
+            currentUrl.searchParams.set('date', selectedDate);
+            window.location.href = currentUrl.toString();
         });
 
         // Edit appointment function
-        function editAppointment(time) {
-            // In real app, open edit modal or redirect to edit page
-            alert(`Edit appointment at ${time}`);
+        function editAppointment(appointmentId) {
+            // Redirect to doctor scheduling with edit mode
+            window.location.href = '<?= site_url('scheduling/doctor') ?>?edit=' + appointmentId;
         }
 
         // Delete appointment function
-        function deleteAppointment(time) {
-            if (confirm(`Delete appointment at ${time}?`)) {
-                // In real app, delete appointment
-                alert(`Appointment at ${time} deleted`);
+        function deleteAppointment(appointmentId) {
+            if (confirm('Delete this appointment?')) {
+                // Send AJAX request to delete appointment
+                fetch('<?= site_url('scheduling/deleteAppointment') ?>/' + appointmentId, {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Reload the page to refresh the data
+                        window.location.reload();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error deleting appointment. Please try again.');
+                });
             }
         }
 
-        // Initialize
-        renderAppointments();
-        renderDoctors();
-
-        // Highlight active menu item
+        // Add click handlers for edit/delete buttons
         document.addEventListener('DOMContentLoaded', function() {
-            const currentPath = window.location.pathname;
-            const menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach(item => {
-                const href = item.getAttribute('href') || '';
-                if (href && currentPath.includes(href)) {
-                    item.classList.add('active');
-                }
+            // Add click handlers for edit buttons
+            document.querySelectorAll('.action-btn.edit').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const appointmentItem = this.closest('.appointment-item');
+                    const patientName = appointmentItem.querySelector('.patient-name').textContent;
+                    const time = appointmentItem.querySelector('.appointment-time').textContent;
+                    
+                    // Find the appointment ID from the data or redirect to doctor scheduling
+                    window.location.href = '<?= site_url('scheduling/doctor') ?>?search=' + encodeURIComponent(patientName);
+                });
+            });
+
+            // Add click handlers for delete buttons
+            document.querySelectorAll('.action-btn.delete').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const appointmentItem = this.closest('.appointment-item');
+                    const patientName = appointmentItem.querySelector('.patient-name').textContent;
+                    const time = appointmentItem.querySelector('.appointment-time').textContent;
+                    
+                    if (confirm(`Delete appointment for ${patientName} at ${time}?`)) {
+                        // For now, just remove from DOM (in real app, send to backend)
+                        appointmentItem.remove();
+                        
+                        // Check if no more appointments
+                        const remainingAppointments = document.querySelectorAll('.appointment-item');
+                        if (remainingAppointments.length === 0) {
+                            const container = document.getElementById('appointmentList');
+                            container.innerHTML = `
+                                <div class="no-appointments">
+                                    <div class="no-appointments-icon">📅</div>
+                                    <div class="no-appointments-icon">📅</div>
+                                    <div class="no-appointments-text">No appointments scheduled for this date</div>
+                                </div>
+                            `;
+                        }
+                    }
+                });
             });
         });
     </script>
-</body>
-</html>
+<?php echo view('auth/partials/footer'); ?>

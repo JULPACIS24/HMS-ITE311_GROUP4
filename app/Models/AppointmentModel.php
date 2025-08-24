@@ -10,12 +10,15 @@ class AppointmentModel extends Model
 	protected $primaryKey       = 'id';
 	protected $allowedFields    = [
 		'appointment_code',
+		'patient_id',
 		'patient_name',
 		'patient_phone',
+		'doctor_id',
 		'doctor_name',
 		'date_time',
 		'type',
 		'status',
+		'room',
 		'notes',
 		'created_at',
 		'updated_at',

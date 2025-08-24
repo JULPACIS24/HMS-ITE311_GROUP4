@@ -1,8 +1,37 @@
 <?php echo view('auth/partials/header', ['title' => 'Nurse Scheduling']); ?>
+<style>
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #374151;
+}
+
+.btn:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+}
+</style>
 <div class="container">
 	<?php echo view('auth/partials/sidebar'); ?>
 	<main class="main-content">
-		<header class="header"><h1>Nurse Scheduling</h1></header>
+		<header class="header">
+			<h1>Nurse Scheduling</h1>
+			<div class="user-info" style="gap:12px">
+				<a class="btn" href="<?= site_url('scheduling-management') ?>">Back to Scheduling</a>
+			</div>
+		</header>
 		<div class="page-content">
 			<div class="card form" style="display:flex; gap:12px; align-items:center; justify-content:space-between; padding:16px 20px">
 				<div style="display:flex; gap:12px; align-items:center">
