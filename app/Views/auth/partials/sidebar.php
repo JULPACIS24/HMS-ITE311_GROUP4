@@ -57,15 +57,13 @@
 		.menu-item.active { background:#eef2ff; color:#1d4ed8; border-left-color:#2563eb }
 		.menu-icon { width:20px; text-align:center }
 		
-		/* Dashboard, User Management, and Logout styling to match other sidebar items */
+		/* Dashboard and Logout styling to match other sidebar items */
 		.menu-item.dashboard,
-		.menu-item.user-management,
 		.menu-item.logout {
 			color: #374151;
 		}
 		
 		.menu-item.dashboard:hover,
-		.menu-item.user-management:hover,
 		.menu-item.logout:hover {
 			background: #dbeafe;
 			color: #1e40af;
@@ -80,6 +78,7 @@
 			<a href="<?= site_url('it/security') ?>" class="menu-item"><span class="menu-icon">🔐</span>Security & Access</a>
 			<a href="<?= site_url('it/backup') ?>" class="menu-item"><span class="menu-icon">💾</span>Backup & Recovery</a>
 			<a href="<?= site_url('users') ?>" class="menu-item"><span class="menu-icon">👤</span>User Management</a>
+
 			<a href="<?= site_url('it/logs') ?>" class="menu-item"><span class="menu-icon">📜</span>System Logs</a>
 			<a href="<?= site_url('reports') ?>" class="menu-item"><span class="menu-icon">📈</span>IT Reports</a>
 			<a href="<?= site_url('settings') ?>" class="menu-item"><span class="menu-icon">⚙️</span>Settings</a>
@@ -154,10 +153,10 @@
 			</div>
 
 			<div class="menu-group" data-group="staff">
-				<button class="group-toggle" type="button"><span class="menu-icon">👥</span>Staff Management <span class="chev">›</span></button>
+				<button class="group-toggle" type="button" onclick="window.location.href='<?= site_url('staff-management') ?>'"><span class="menu-icon">👥</span>Staff Management <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="#">Employee Records</a>
-					<a class="subitem" href="#">Role Management</a>
+					<a class="subitem" href="<?= site_url('employee-records') ?>">Employee Records</a>
+					<a class="subitem" href="<?= site_url('role-management') ?>">Role Management</a>
 					<a class="subitem" href="#">Access Control</a>
 				</div>
 			</div>
@@ -170,8 +169,7 @@
 				</div>
 			</div>
 
-			<!-- Keep direct User Management link as requested -->
-			<a href="<?= site_url('users') ?>" class="menu-item user-management"><span class="menu-icon">👤</span>User Management</a>
+
 
 			<div class="menu-group" data-group="settings">
 				<button class="group-toggle" type="button"><span class="menu-icon">⚙️</span>System Settings <span class="chev">›</span></button>
@@ -255,6 +253,14 @@
 					activeSet = true;
 				}
 			});
+
+			// Keep Staff Management submenu open when on staff-related pages
+			if (path.includes('employee-records') || path.includes('role-management') || path.includes('access-control')) {
+				const staffGroup = document.querySelector('[data-group="staff"]');
+				if (staffGroup) {
+					staffGroup.classList.add('open');
+				}
+			}
 			
 			// Auto-open specific groups based on current page
 			// Patient Management group

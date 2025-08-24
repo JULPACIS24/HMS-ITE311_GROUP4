@@ -11,7 +11,7 @@ class UserModel extends Model
 	protected $returnType    = 'array';
 	protected $useTimestamps = true;
 
-	protected $allowedFields = ['name', 'email', 'password_hash', 'role', 'department', 'status'];
+	protected $allowedFields = ['name', 'email', 'password_hash', 'role', 'department', 'status', 'specialty'];
 
 	public function findByEmail(string $email): ?array
 	{

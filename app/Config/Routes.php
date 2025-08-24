@@ -115,3 +115,12 @@ $routes->get('/reports', 'Reports::index', ['filter' => 'auth']);
 $routes->get('/reports/performance', 'Reports::performance', ['filter' => 'auth']);
 $routes->get('/reports/financial', 'Reports::financial', ['filter' => 'auth']);
 $routes->get('/reports/patient-analytics', 'Reports::patientAnalytics', ['filter' => 'auth']);
+
+// Staff Management Routes
+$routes->get('/staff-management', 'StaffManagement::index', ['filter' => 'auth']);
+$routes->post('/staff-management/store', 'StaffManagement::store', ['filter' => 'auth']);
+$routes->get('/employee-records', 'StaffManagement::employeeRecords', ['filter' => 'auth']);
+$routes->get('/role-management', 'StaffManagement::roleManagement', ['filter' => 'auth']);
+$routes->post('/staff-management/update-employee', 'StaffManagement::updateEmployee', ['filter' => 'auth']);
+$routes->get('/staff-management/get-employee/(:num)', 'StaffManagement::getEmployee/$1', ['filter' => 'auth']);
+$routes->get('/staff-management/statistics', 'StaffManagement::getStatistics', ['filter' => 'auth']);

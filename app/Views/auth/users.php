@@ -23,7 +23,7 @@
                     </div>
                 <?php endif; ?>
                 <table class="patients-table">
-                    <thead><tr><th>User</th><th>Email</th><th>Role</th><th>Department</th><th>Status</th></tr></thead>
+                    <thead><tr><th>User</th><th>Email</th><th>Role</th><th>Specialty</th><th>Department</th><th>Status</th></tr></thead>
                     <tbody>
                         <?php if (!empty($users)): ?>
                             <?php foreach ($users as $u): ?>
@@ -31,12 +31,13 @@
                                     <td><?php echo esc($u['name']); ?></td>
                                     <td><?php echo esc($u['email']); ?></td>
                                     <td><?php echo esc(ucwords(str_replace('_',' ',$u['role']))); ?></td>
+                                    <td><?php echo esc($u['specialty'] ?? '-'); ?></td>
                                     <td><?php echo esc($u['department'] ?? 'IT'); ?></td>
                                     <td><span class="badge confirmed"><?php echo esc($u['status'] ?? 'Active'); ?></span></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <tr><td colspan="5" style="text-align:center">No users yet.</td></tr>
+                            <tr><td colspan="6" style="text-align:center">No users yet.</td></tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -54,10 +55,20 @@
             <div class="form-group"><label>Password</label><input type="password" name="password" required></div>
             <div class="form-group"><label>Confirm Password</label><input type="password" name="password_confirm" required></div>
             <div class="form-group"><label>Role</label>
-                <select name="role" required>
+                <select name="role" id="roleSelect" required>
                     <?php foreach (($roleOptions ?? []) as $opt): ?>
                         <option value="<?php echo esc($opt); ?>"><?php echo esc(ucwords($opt)); ?></option>
                     <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-group" id="specialtyGroup" style="display: none;">
+                <label>Specialty</label>
+                <select name="specialty" id="specialtySelect">
+                    <option value="">Select Specialty</option>
+                    <option value="Cardiologist">Cardiologist</option>
+                    <option value="Pediatrician">Pediatrician</option>
+                    <option value="Surgeon">Surgeon</option>
+                    <option value="General Physician">General Physician</option>
                 </select>
             </div>
             <div class="modal-actions"><button type="submit" class="btn primary">Create User</button><button type="button" class="btn" id="cancelAddUser">Cancel</button></div>
@@ -79,6 +90,22 @@ const modal=document.getElementById('addUserModal');
 document.getElementById('addUserBtn')?.addEventListener('click',()=>{modal.style.display='flex'});
 document.getElementById('closeAddUser')?.addEventListener('click',()=>{modal.style.display='none'});
 document.getElementById('cancelAddUser')?.addEventListener('click',()=>{modal.style.display='none'});
+
+// Show/hide specialty field based on role selection
+const roleSelect = document.getElementById('roleSelect');
+const specialtyGroup = document.getElementById('specialtyGroup');
+const specialtySelect = document.getElementById('specialtySelect');
+
+roleSelect.addEventListener('change', function() {
+    if (this.value === 'doctor') {
+        specialtyGroup.style.display = 'block';
+        specialtySelect.required = true;
+    } else {
+        specialtyGroup.style.display = 'none';
+        specialtySelect.required = false;
+        specialtySelect.value = '';
+    }
+});
 </script>
 <?php echo view('auth/partials/footer'); ?>
 

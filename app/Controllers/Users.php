@@ -58,6 +58,11 @@ class Users extends BaseController
 			'role'             => 'required|in_list[' . implode(',', $allowedRoles) . ']',
 		];
 
+		// Add specialty validation for doctors
+		if ($this->request->getPost('role') === 'doctor') {
+			$rules['specialty'] = 'required|in_list[Cardiologist,Pediatrician,Surgeon,General Physician]';
+		}
+
 		if (! $this->validate($rules)) {
 			return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
 		}
@@ -68,14 +73,21 @@ class Users extends BaseController
 			$role = 'it_staff';
 		}
 
-		$userModel->insert([
+		$userData = [
 			'name'          => $this->request->getPost('name'),
 			'email'         => $this->request->getPost('email'),
 			'password_hash' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
 			'role'          => $role,
 			'department'    => $this->mapDepartment($role),
 			'status'        => 'Active',
-		]);
+		];
+
+		// Add specialty for doctors
+		if ($role === 'doctor') {
+			$userData['specialty'] = $this->request->getPost('specialty');
+		}
+
+		$userModel->insert($userData);
 
 		return redirect()->to('/users')->with('message', 'User account created successfully.');
 	}
