@@ -339,6 +339,22 @@
         .status-pending { background: #fef3c7; color: #92400e; }
         .status-overdue { background: #fee2e2; color: #991b1b; }
         .status-partial { background: #fef3c7; color: #92400e; }
+        
+        /* Payment Method Badges */
+        .method-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            display: inline-block;
+        }
+        
+        .method-cash { background: #dcfce7; color: #166534; }
+        .method-card { background: #dbeafe; color: #1e40af; }
+        .method-insurance { background: #fef3c7; color: #92400e; }
+        .method-bank-transfer { background: #dcfce7; color: #166534; }
+        .method-none { background: #f3f4f6; color: #6b7280; }
 
         .due-date {
             color: #6b7280;
@@ -420,6 +436,24 @@
         .payment-amount {
             font-weight: 600;
             color: #1f2937;
+        }
+        
+        /* Pending Payment Styles */
+        .pending-payment {
+            border-left: 3px solid #f59e0b;
+            background-color: #fffbeb;
+        }
+        
+        .payment-avatar.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .payment-status {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: flex-end;
         }
 
         .payment-time {
@@ -509,7 +543,7 @@
                             <span class="stat-title">Total Revenue</span>
                             <div class="stat-icon revenue">💰</div>
                         </div>
-                        <div class="stat-value">₱2,847,500</div>
+                        <div class="stat-value">₱<?= number_format($stats['total_revenue'] ?? 0, 2) ?></div>
                         <div class="stat-detail">+12% from last month</div>
                     </div>
                     
@@ -518,8 +552,8 @@
                             <span class="stat-title">Pending Bills</span>
                             <div class="stat-icon pending">📄</div>
                         </div>
-                        <div class="stat-value">₱458,000</div>
-                        <div class="stat-detail">23 invoices</div>
+                        <div class="stat-value">₱<?= number_format($stats['pending_amount'] ?? 0, 2) ?></div>
+                        <div class="stat-detail"><?= $stats['pending_bills'] ?? 0 ?> invoices</div>
                     </div>
                     
                     <div class="stat-card">
@@ -527,8 +561,8 @@
                             <span class="stat-title">Overdue</span>
                             <div class="stat-icon overdue">⚠️</div>
                         </div>
-                        <div class="stat-value">₱85,000</div>
-                        <div class="stat-detail">5 overdue bills</div>
+                        <div class="stat-value">₱<?= number_format($stats['overdue_bills'] ?? 0, 2) ?></div>
+                        <div class="stat-detail"><?= $stats['overdue_bills'] ?? 0 ?> overdue bills</div>
                     </div>
                     
                     <div class="stat-card">
@@ -536,8 +570,8 @@
                             <span class="stat-title">Today's Collection</span>
                             <div class="stat-icon collection">👁️</div>
                         </div>
-                        <div class="stat-value">₱125,000</div>
-                        <div class="stat-detail">45 payments</div>
+                        <div class="stat-value">₱<?= number_format($stats['todays_collection'] ?? 0, 2) ?></div>
+                        <div class="stat-detail"><?= $stats['todays_collection'] > 0 ? 'Recent payments' : 'No payments today' ?></div>
                     </div>
                 </div>
 
@@ -567,96 +601,54 @@
                                         <th>PATIENT</th>
                                         <th>AMOUNT</th>
                                         <th>STATUS</th>
+                                        <th>PAYMENT METHOD</th>
                                         <th>DUE DATE</th>
                                         <th>ACTIONS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="bill-id">B001</td>
-                                        <td>
-                                            <div class="patient-info">
-                                                <div class="patient-name">Juan Dela Cruz</div>
-                                                <div class="service-type">Consultation</div>
-                                            </div>
-                                        </td>
-                                        <td class="amount">₱15,000</td>
-                                        <td><span class="status-badge status-paid">Paid</span></td>
-                                        <td class="due-date">2024-01-20</td>
-                                        <td class="actions">
-                                            <button class="btn-action btn-view" title="View">👁️</button>
-                                            <button class="btn-action btn-download" title="Download">📥</button>
-                                            <button class="btn-action btn-edit" title="Edit">✏️</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bill-id">B002</td>
-                                        <td>
-                                            <div class="patient-info">
-                                                <div class="patient-name">Maria Santos</div>
-                                                <div class="service-type">Surgery</div>
-                                            </div>
-                                        </td>
-                                        <td class="amount">₱25,000</td>
-                                        <td><span class="status-badge status-pending">Pending</span></td>
-                                        <td class="due-date">2024-01-21</td>
-                                        <td class="actions">
-                                            <button class="btn-action btn-view" title="View">👁️</button>
-                                            <button class="btn-action btn-download" title="Download">📥</button>
-                                            <button class="btn-action btn-edit" title="Edit">✏️</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bill-id">B003</td>
-                                        <td>
-                                            <div class="patient-info">
-                                                <div class="patient-name">Pedro Garcia</div>
-                                                <div class="service-type">Laboratory</div>
-                                            </div>
-                                        </td>
-                                        <td class="amount">₱8,500</td>
-                                        <td><span class="status-badge status-overdue">Overdue</span></td>
-                                        <td class="due-date">2024-01-17</td>
-                                        <td class="actions">
-                                            <button class="btn-action btn-view" title="View">👁️</button>
-                                            <button class="btn-action btn-download" title="Download">📥</button>
-                                            <button class="btn-action btn-edit" title="Edit">✏️</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bill-id">B004</td>
-                                        <td>
-                                            <div class="patient-info">
-                                                <div class="patient-name">Ana Rodriguez</div>
-                                                <div class="service-type">Emergency</div>
-                                            </div>
-                                        </td>
-                                        <td class="amount">₱12,000</td>
-                                        <td><span class="status-badge status-paid">Paid</span></td>
-                                        <td class="due-date">2024-01-20</td>
-                                        <td class="actions">
-                                            <button class="btn-action btn-view" title="View">👁️</button>
-                                            <button class="btn-action btn-download" title="Download">📥</button>
-                                            <button class="btn-action btn-edit" title="Edit">✏️</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bill-id">B005</td>
-                                        <td>
-                                            <div class="patient-info">
-                                                <div class="patient-name">Carlos Mendoza</div>
-                                                <div class="service-type">Pharmacy</div>
-                                            </div>
-                                        </td>
-                                        <td class="amount">₱18,500</td>
-                                        <td><span class="status-badge status-partial">Partial</span></td>
-                                        <td class="due-date">2024-01-19</td>
-                                        <td class="actions">
-                                            <button class="btn-action btn-view" title="View">👁️</button>
-                                            <button class="btn-action btn-download" title="Download">📥</button>
-                                            <button class="btn-action btn-edit" title="Edit">✏️</button>
-                                        </td>
-                                    </tr>
+                                    <?php if (!empty($recentBills)): ?>
+                                        <?php foreach ($recentBills as $bill): ?>
+                                            <tr>
+                                                <td class="bill-id"><?= esc($bill['bill_id']) ?></td>
+                                                <td>
+                                                    <div class="patient-info">
+                                                        <div class="patient-name"><?= esc($bill['patient_name']) ?></div>
+                                                        <div class="service-type"><?= esc($bill['services']) ?></div>
+                                                    </div>
+                                                </td>
+                                                <td class="amount">₱<?= number_format($bill['total_amount'], 2) ?></td>
+                                                <td>
+                                                    <span class="status-badge status-<?= strtolower($bill['status']) ?>">
+                                                        <?= esc($bill['status']) ?>
+                                                    </span>
+                                                </td>
+                                                <td class="payment-method">
+                                                    <?php if (!empty($bill['payment_method'])): ?>
+                                                        <span class="method-badge method-<?= strtolower(str_replace(' ', '-', $bill['payment_method'])) ?>">
+                                                            <?= esc($bill['payment_method']) ?>
+                                                        </span>
+                                                    <?php else: ?>
+                                                        <span class="method-badge method-none">Not Set</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td class="due-date"><?= date('Y-m-d', strtotime($bill['due_date'])) ?></td>
+                                                <td class="actions">
+                                                    <button class="btn-action btn-view" title="View" onclick="viewBill('<?= $bill['bill_id'] ?>')">👁️</button>
+                                                    <button class="btn-action btn-download" title="Download" onclick="downloadBill('<?= $bill['bill_id'] ?>')">📥</button>
+                                                    <button class="btn-action btn-edit" title="Edit" onclick="editBill('<?= $bill['bill_id'] ?>')">✏️</button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="7" style="text-align: center; padding: 40px; color: #64748b;">
+                                                <div style="font-size: 16px; margin-bottom: 8px;">📋</div>
+                                                <div>No bills found</div>
+                                                <div style="font-size: 12px; margin-top: 4px;">Generate your first bill to get started</div>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -669,53 +661,42 @@
                         </div>
                         
                         <div class="payments-list">
-                            <div class="payment-item">
-                                <div class="payment-avatar">J</div>
-                                <div class="payment-info">
-                                    <div class="payment-patient">Juan Dela Cruz</div>
-                                    <div class="payment-details">
-                                        <span class="payment-amount">₱15,000</span>
-                                        <span class="payment-time">2024-01-15 14:30</span>
+                            <?php if (!empty($recentPayments)): ?>
+                                <?php foreach ($recentPayments as $payment): ?>
+                                    <div class="payment-item <?= $payment['status'] === 'Pending' ? 'pending-payment' : '' ?>">
+                                        <div class="payment-avatar <?= $payment['status'] === 'Pending' ? 'pending' : '' ?>"><?= strtoupper(substr($payment['patient_name'], 0, 1)) ?></div>
+                                        <div class="payment-info">
+                                            <div class="payment-patient"><?= esc($payment['patient_name']) ?></div>
+                                            <div class="payment-details">
+                                                <span class="payment-amount">₱<?= number_format($payment['total_amount'], 2) ?></span>
+                                                <span class="payment-time">
+                                                    <?php if ($payment['status'] === 'Paid'): ?>
+                                                        <?= date('Y-m-d H:i', strtotime($payment['payment_date'] ?? $payment['created_at'])) ?>
+                                                    <?php else: ?>
+                                                        <?= date('Y-m-d H:i', strtotime($payment['created_at'])) ?> (Pending)
+                                                    <?php endif; ?>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="payment-status">
+                                            <span class="status-badge status-<?= strtolower($payment['status']) ?>">
+                                                <?= esc($payment['status']) ?>
+                                            </span>
+                                            <?php if (!empty($payment['payment_method'])): ?>
+                                                <span class="payment-method method-<?= strtolower(str_replace(' ', '-', $payment['payment_method'])) ?>">
+                                                    <?= esc($payment['payment_method']) ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <div style="text-align: center; padding: 40px; color: #64748b;">
+                                    <div style="font-size: 16px; margin-bottom: 8px;">💰</div>
+                                    <div>No recent payments</div>
+                                    <div style="font-size: 12px; margin-top: 4px;">Payments will appear here once bills are paid</div>
                                 </div>
-                                <span class="payment-method method-cash">Cash</span>
-                            </div>
-                            
-                            <div class="payment-item">
-                                <div class="payment-avatar">A</div>
-                                <div class="payment-info">
-                                    <div class="payment-patient">Ana Rodriguez</div>
-                                    <div class="payment-details">
-                                        <span class="payment-amount">₱12,000</span>
-                                        <span class="payment-time">2024-01-15 11:20</span>
-                                    </div>
-                                </div>
-                                <span class="payment-method method-card">Card</span>
-                            </div>
-                            
-                            <div class="payment-item">
-                                <div class="payment-avatar">C</div>
-                                <div class="payment-info">
-                                    <div class="payment-patient">Carlos Mendoza</div>
-                                    <div class="payment-details">
-                                        <span class="payment-amount">₱10,000</span>
-                                        <span class="payment-time">2024-01-14 16:45</span>
-                                    </div>
-                                </div>
-                                <span class="payment-method method-insurance">Insurance</span>
-                            </div>
-                            
-                            <div class="payment-item">
-                                <div class="payment-avatar">S</div>
-                                <div class="payment-info">
-                                    <div class="payment-patient">Sofia Lopez</div>
-                                    <div class="payment-details">
-                                        <span class="payment-amount">₱7,500</span>
-                                        <span class="payment-time">2024-01-14 09:15</span>
-                                    </div>
-                                </div>
-                                <span class="payment-method method-transfer">Bank Transfer</span>
-                            </div>
+                            <?php endif; ?>
                         </div>
                         
                         <div class="view-all-link">
@@ -770,30 +751,21 @@
             });
         });
 
-        // Action button handlers
-        document.querySelectorAll('.btn-view').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const row = this.closest('tr');
-                const billId = row.querySelector('.bill-id').textContent;
-                alert(`View bill ${billId}`);
-            });
-        });
+        // Bill action functions
+        function viewBill(billId) {
+            alert(`View bill ${billId} - This will open bill details`);
+            // TODO: Implement bill viewing functionality
+        }
 
-        document.querySelectorAll('.btn-download').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const row = this.closest('tr');
-                const billId = row.querySelector('.bill-id').textContent;
-                alert(`Download bill ${billId}`);
-            });
-        });
+        function downloadBill(billId) {
+            alert(`Download bill ${billId} - This will generate PDF`);
+            // TODO: Implement bill download functionality
+        }
 
-        document.querySelectorAll('.btn-edit').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const row = this.closest('tr');
-                const billId = row.querySelector('.bill-id').textContent;
-                alert(`Edit bill ${billId}`);
-            });
-        });
+        function editBill(billId) {
+            alert(`Edit bill ${billId} - This will open bill editor`);
+            // TODO: Implement bill editing functionality
+        }
     </script>
 </body>
 </html>

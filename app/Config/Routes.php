@@ -101,7 +101,9 @@ $routes->get('scheduling-management', 'Scheduling::management', ['filter' => 'au
 $routes->get('/billing', 'Billing::index', ['filter' => 'auth']);
 $routes->get('/billing/payments', 'Billing::payments', ['filter' => 'auth']);
 $routes->get('/billing/generate', 'Billing::generate', ['filter' => 'auth']);
+$routes->post('/billing/create', 'Billing::createBill', ['filter' => 'auth']);
 $routes->get('/billing/record-payment', 'Billing::recordPayment', ['filter' => 'auth']);
+$routes->get('/billing/insurance-claims', 'Billing::insuranceClaims', ['filter' => 'auth']);
 
 // Insurance Claims Routes
 $routes->get('/insurance/claims', 'Insurance::claims', ['filter' => 'auth']);

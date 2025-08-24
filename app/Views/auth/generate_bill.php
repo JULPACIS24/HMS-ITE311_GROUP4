@@ -457,27 +457,43 @@
                         </div>
                     </div>
 
-                    <!-- Bill Details -->
-                    <div class="form-section">
-                        <h3 class="section-title">
-                            <span>📋</span>
-                            Bill Details
-                        </h3>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label class="form-label">Bill Date</label>
-                                <input type="date" class="form-input" id="billDate" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Due Date</label>
-                                <input type="date" class="form-input" id="dueDate" required>
-                            </div>
-                        </div>
-                        <div class="form-group full-width">
-                            <label class="form-label">Additional Notes</label>
-                            <textarea class="form-textarea" id="notes" placeholder="Enter any special instructions, payment terms, or additional information..."></textarea>
-                        </div>
-                    </div>
+                                         <!-- Bill Details -->
+                     <div class="form-section">
+                         <h3 class="section-title">
+                             <span>📋</span>
+                             Bill Details
+                         </h3>
+                         <div class="form-grid">
+                             <div class="form-group">
+                                 <label class="form-label">Bill Date</label>
+                                 <input type="date" class="form-input" id="billDate" required>
+                             </div>
+                             <div class="form-group">
+                                 <label class="form-label">Due Date</label>
+                                 <input type="date" class="form-input" id="dueDate" required>
+                             </div>
+                         </div>
+                         <div class="form-grid">
+                             <div class="form-group">
+                                 <label class="form-label">Payment Method</label>
+                                 <select class="form-select" id="paymentMethod" onchange="updatePaymentStatus()" required>
+                                     <option value="">Select Payment Method</option>
+                                     <option value="Cash">Cash</option>
+                                     <option value="Card">Card</option>
+                                     <option value="Insurance">Insurance</option>
+                                     <option value="Bank Transfer">Bank Transfer</option>
+                                 </select>
+                             </div>
+                             <div class="form-group">
+                                 <label class="form-label">Payment Status</label>
+                                 <input type="text" class="form-input" id="paymentStatus" readonly style="background-color: #f3f4f6;">
+                             </div>
+                         </div>
+                         <div class="form-group full-width">
+                             <label class="form-label">Additional Notes</label>
+                             <textarea class="form-textarea" id="notes" placeholder="Enter any special instructions, payment terms, or additional information..."></textarea>
+                         </div>
+                     </div>
 
                     <!-- Services -->
                     <div class="form-section">
@@ -551,6 +567,7 @@ const availableServices = [
 
 // Enhanced patients data - will be populated from PHP
 const patients = <?= json_encode($patients ?? []) ?>;
+console.log('Patients data loaded:', patients);
 
 let serviceCounter = 0;
 let services = [];
@@ -576,7 +593,34 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize insurance fields
     updateInsuranceFields();
+    
+    // Initialize payment status
+    updatePaymentStatus();
 });
+
+// Update payment status based on payment method
+function updatePaymentStatus() {
+    const paymentMethod = document.getElementById('paymentMethod').value;
+    const paymentStatus = document.getElementById('paymentStatus');
+    
+    if (paymentMethod === 'Cash') {
+        paymentStatus.value = 'Paid';
+        paymentStatus.style.backgroundColor = '#dcfce7';
+        paymentStatus.style.color = '#166534';
+    } else if (paymentMethod === 'Card' || paymentMethod === 'Bank Transfer') {
+        paymentStatus.value = 'Pending';
+        paymentStatus.style.backgroundColor = '#fef3c7';
+        paymentStatus.style.color = '#92400e';
+    } else if (paymentMethod === 'Insurance') {
+        paymentStatus.value = 'Pending';
+        paymentStatus.style.backgroundColor = '#fef3c7';
+        paymentStatus.style.color = '#92400e';
+    } else {
+        paymentStatus.value = 'Not Selected';
+        paymentStatus.style.backgroundColor = '#f3f4f6';
+        paymentStatus.style.color = '#6b7280';
+    }
+}
 
 // Update insurance fields based on provider selection
 function updateInsuranceFields() {
@@ -621,34 +665,54 @@ function updateInsuranceFields() {
         document.getElementById('philhealthCategory').required = false;
         document.getElementById('insurancePolicyNumber').required = false;
     }
+    
+    // Recalculate totals when insurance changes
+    calculateTotals();
 }
 
 // Update patient information when selected
 function updatePatientInfo() {
     const patientId = document.getElementById('patientSelect').value;
-    if (patientId && patients[patientId]) {
-        const patient = patients[patientId];
-        document.getElementById('patientId').value = patient.patient_id || patientId;
-        document.getElementById('contactNumber').value = patient.contact || patient.phone || '';
-        document.getElementById('email').value = patient.email || '';
-        document.getElementById('philhealthNumber').value = patient.philhealth_number || '';
-        document.getElementById('philhealthCategory').value = patient.philhealth_category || '';
-        document.getElementById('insuranceProvider').value = patient.insurance_provider || '';
-        document.getElementById('insurancePolicyNumber').value = patient.insurance_policy_number || '';
-        document.getElementById('emergencyContact').value = patient.emergency_contact || '';
-        document.getElementById('emergencyContactNumber').value = patient.emergency_contact_number || '';
+    console.log('Selected patient ID:', patientId);
+    console.log('Available patients:', patients);
+    
+    if (patientId) {
+        // Find the patient by ID in the patients array
+        const patient = patients.find(p => p.id == patientId);
+        console.log('Found patient:', patient);
+        
+        if (patient) {
+            document.getElementById('patientId').value = patient.patient_id || patientId;
+            document.getElementById('contactNumber').value = patient.contact || patient.phone || '';
+            document.getElementById('email').value = patient.email || '';
+            document.getElementById('philhealthNumber').value = patient.philhealth_number || '';
+            document.getElementById('philhealthCategory').value = patient.philhealth_category || '';
+            document.getElementById('insuranceProvider').value = patient.insurance_provider || '';
+            document.getElementById('insurancePolicyNumber').value = patient.insurance_policy_number || '';
+            document.getElementById('emergencyContact').value = patient.emergency_contact || '';
+            document.getElementById('emergencyContactNumber').value = patient.emergency_contact_number || '';
+        } else {
+            console.log('Patient not found in array');
+            // Clear all fields
+            clearPatientFields();
+        }
     } else {
         // Clear all fields
-        document.getElementById('patientId').value = '';
-        document.getElementById('contactNumber').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('philhealthNumber').value = '';
-        document.getElementById('philhealthCategory').value = '';
-        document.getElementById('insuranceProvider').value = '';
-        document.getElementById('insurancePolicyNumber').value = '';
-        document.getElementById('emergencyContact').value = '';
-        document.getElementById('emergencyContactNumber').value = '';
+        clearPatientFields();
     }
+}
+
+// Helper function to clear patient fields
+function clearPatientFields() {
+    document.getElementById('patientId').value = '';
+    document.getElementById('contactNumber').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('philhealthNumber').value = '';
+    document.getElementById('philhealthCategory').value = '';
+    document.getElementById('insuranceProvider').value = '';
+    document.getElementById('insurancePolicyNumber').value = '';
+    document.getElementById('emergencyContact').value = '';
+    document.getElementById('emergencyContactNumber').value = '';
 }
 
 // Add new service row with enhanced UI
@@ -705,7 +769,7 @@ function updateServicePrice(serviceId) {
     if (serviceSelect.value) {
         const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
         const price = parseFloat(selectedOption.dataset.price);
-        priceInput.value = price.toLocaleString();
+        priceInput.value = price;
         updateServiceTotal(serviceId);
     } else {
         priceInput.value = '';
@@ -722,10 +786,10 @@ function updateServiceTotal(serviceId) {
     const totalInput = serviceRow.querySelector('.service-total');
     
     if (priceInput.value && qtyInput.value) {
-        const price = parseFloat(priceInput.value.replace(/,/g, ''));
+        const price = parseFloat(priceInput.value);
         const qty = parseFloat(qtyInput.value);
         const total = price * qty;
-        totalInput.value = total.toLocaleString();
+        totalInput.value = total;
     }
     calculateTotals();
 }
@@ -753,13 +817,23 @@ function calculateTotals() {
         if (serviceRow) {
             const totalInput = serviceRow.querySelector('.service-total');
             if (totalInput.value) {
-                subtotal += parseFloat(totalInput.value.replace(/,/g, ''));
+                subtotal += parseFloat(totalInput.value);
             }
         }
     });
     
     const tax = subtotal * 0.12;
-    const discount = 0; // Can be made editable later
+    
+    // Calculate insurance discount
+    let discount = 0;
+    const insuranceProvider = document.getElementById('insuranceProvider').value;
+    if (insuranceProvider === 'PhilHealth') {
+        discount = subtotal * 0.20; // 20% discount for PhilHealth
+    } else if (insuranceProvider === 'Maxicare') {
+        discount = subtotal * 0.15; // 15% discount for Maxicare
+    } else if (insuranceProvider === 'Intellicare') {
+        discount = subtotal * 0.10; // 10% discount for Intellicare
+    }
     
     document.getElementById('subtotal').textContent = `₱${subtotal.toLocaleString()}`;
     document.getElementById('tax').textContent = `₱${tax.toLocaleString()}`;
@@ -809,10 +883,26 @@ function generateBill(e) {
     
     // Check if services are added
     let hasServices = false;
+    let servicesData = [];
     services.forEach(serviceId => {
         const serviceRow = document.getElementById(serviceId);
         if (serviceRow && serviceRow.querySelector('.service-select').value) {
             hasServices = true;
+            
+            // Collect service data
+            const serviceSelect = serviceRow.querySelector('.service-select');
+            const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+            const serviceName = selectedOption.textContent.split(' - ')[0];
+            const quantity = serviceRow.querySelector('input[type="number"]').value;
+            const price = parseFloat(serviceRow.querySelector('.service-price').value.replace(/,/g, ''));
+            const total = parseFloat(serviceRow.querySelector('.service-total').value.replace(/,/g, ''));
+            
+            servicesData.push({
+                name: serviceName,
+                quantity: quantity,
+                price: price,
+                total: total
+            });
         }
     });
     
@@ -821,32 +911,118 @@ function generateBill(e) {
         return;
     }
     
-    // Show success message
-    showNotification('Bill generated successfully!', 'success');
+    // Get patient information
+    const patient = patients.find(p => p.id == patientId);
+    if (!patient) {
+        showNotification('Patient information not found', 'error');
+        return;
+    }
     
+    // Get insurance information
+    const insuranceProvider = document.getElementById('insuranceProvider').value;
+    const insuranceDetails = {};
+    
+    if (insuranceProvider === 'PhilHealth') {
+        insuranceDetails.philhealth_number = document.getElementById('philhealthNumber').value;
+        insuranceDetails.philhealth_category = document.getElementById('philhealthCategory').value;
+    } else if (insuranceProvider === 'Maxicare' || insuranceProvider === 'Intellicare') {
+        insuranceDetails.policy_number = document.getElementById('insurancePolicyNumber').value;
+    }
+    
+    // Get payment method and status
+    const paymentMethod = document.getElementById('paymentMethod').value;
+    const paymentStatus = document.getElementById('paymentStatus').value;
+    
+    if (!paymentMethod) {
+        showNotification('Please select a payment method', 'error');
+        return;
+    }
+    
+    // Prepare bill data
+    const billData = {
+        patient_id: patientId,
+        patient_name: patient.name,
+        bill_date: billDate,
+        due_date: dueDate,
+        services: JSON.stringify(servicesData),
+        subtotal: parseFloat(document.getElementById('subtotal').textContent.replace('₱', '').replace(/,/g, '')),
+        tax: parseFloat(document.getElementById('tax').textContent.replace('₱', '').replace(/,/g, '')),
+        discount: parseFloat(document.getElementById('discount').textContent.replace('₱', '').replace(/,/g, '')),
+        total_amount: parseFloat(document.getElementById('grandTotal').textContent.replace('₱', '').replace(/,/g, '')),
+        notes: document.getElementById('notes').value,
+        insurance_provider: insuranceProvider,
+        insurance_details: JSON.stringify(insuranceDetails),
+        payment_method: paymentMethod,
+        status: paymentStatus
+    };
+    
+    console.log('Sending bill data:', billData);
+    
+    // Send bill data to server
+    console.log('Sending request to:', '<?= site_url('billing/create') ?>');
+    
+    // Get CSRF token if available
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    
+    fetch('<?= site_url('billing/create') ?>', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+            ...(csrfToken && { 'X-CSRF-TOKEN': csrfToken })
+        },
+        body: JSON.stringify(billData)
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        return response.json();
+    })
+    .then(data => {
+        console.log('Response data:', data);
+        if (data.success) {
+            showNotification(`Bill generated successfully! Bill ID: ${data.bill_id}`, 'success');
+            
             // Reset form after delay
-        setTimeout(() => {
-            document.getElementById('billForm').reset();
-            document.getElementById('servicesList').innerHTML = '';
-            services = [];
-            serviceCounter = 0;
-            addService();
-            calculateTotals();
-            
-            // Reset patient info
-            document.getElementById('patientId').value = '';
-            document.getElementById('contactNumber').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('philhealthNumber').value = '';
-            document.getElementById('philhealthCategory').value = '';
-            document.getElementById('insuranceProvider').value = '';
-            document.getElementById('insurancePolicyNumber').value = '';
-            document.getElementById('emergencyContact').value = '';
-            document.getElementById('emergencyContactNumber').value = '';
-            
-            // Reset insurance field display
-            updateInsuranceFields();
-        }, 2000);
+            setTimeout(() => {
+                document.getElementById('billForm').reset();
+                document.getElementById('servicesList').innerHTML = '';
+                services = [];
+                serviceCounter = 0;
+                addService();
+                calculateTotals();
+                
+                // Reset patient info
+                document.getElementById('patientId').value = '';
+                document.getElementById('contactNumber').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('philhealthNumber').value = '';
+                document.getElementById('philhealthCategory').value = '';
+                document.getElementById('insuranceProvider').value = '';
+                document.getElementById('insurancePolicyNumber').value = '';
+                document.getElementById('emergencyContact').value = '';
+                document.getElementById('emergencyContactNumber').value = '';
+                
+                // Reset insurance field display
+                updateInsuranceFields();
+                
+                // Reset payment fields
+                document.getElementById('paymentMethod').value = '';
+                updatePaymentStatus();
+                
+                // Redirect to billing dashboard after 2 seconds
+                setTimeout(() => {
+                    window.location.href = '<?= site_url('billing') ?>';
+                }, 2000);
+            }, 2000);
+        } else {
+            showNotification(data.message || 'Error generating bill', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Fetch Error:', error);
+        showNotification('Error generating bill. Please try again.', 'error');
+    });
 }
 
 // Enhanced notification system
