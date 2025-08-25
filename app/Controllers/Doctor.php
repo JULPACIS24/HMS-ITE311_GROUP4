@@ -190,7 +190,28 @@ class Doctor extends BaseController
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
 		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
-		return view('auth/doctor_prescriptions');
+		
+		// Get real patients from database
+		$patientModel = new \App\Models\PatientModel();
+		$patients = $patientModel->orderBy('first_name', 'ASC')->findAll();
+		
+		// Get real prescriptions for this doctor
+		$prescriptionModel = new \App\Models\PrescriptionModel();
+		$prescriptions = $prescriptionModel->getByDoctor(session('user_name'));
+		
+		// Calculate real prescription statistics
+		$stats = [
+			'total_prescriptions' => count($prescriptions),
+			'active_prescriptions' => count(array_filter($prescriptions, function($p) { return $p['status'] === 'Active'; })),
+			'pending_approvals' => count(array_filter($prescriptions, function($p) { return $p['status'] === 'Pending'; })),
+			'refills_needed' => count(array_filter($prescriptions, function($p) { return $p['status'] === 'Refill'; }))
+		];
+		
+		return view('auth/doctor_prescriptions', [
+			'patients' => $patients,
+			'prescriptions' => $prescriptions,
+			'stats' => $stats
+		]);
 	}
 
 	public function labRequests()
@@ -534,6 +555,69 @@ class Doctor extends BaseController
 		$appointmentModel->insert($appointmentData);
 		
 		return redirect()->to('/doctor/appointments')->with('message', 'Appointment scheduled successfully.');
+	}
+
+	public function createPrescription()
+	{
+		if (! session('isLoggedIn')) return redirect()->to('/login');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		
+		$prescriptionModel = new \App\Models\PrescriptionModel();
+		
+		// Get form data
+		$patientName = $this->request->getPost('patient_name');
+		$patientId = $this->request->getPost('patient_id');
+		$diagnosis = $this->request->getPost('diagnosis');
+		$notes = $this->request->getPost('notes');
+		$medications = $this->request->getPost('medications');
+		
+		// Process medications array
+		$medicationsData = [];
+		if (is_array($medications)) {
+			foreach ($medications as $med) {
+				if (!empty($med['name']) && !empty($med['dosage'])) {
+					$medicationsData[] = [
+						'name' => $med['name'],
+						'dosage' => $med['dosage'],
+						'frequency' => $med['frequency'],
+						'duration' => $med['duration']
+					];
+				}
+			}
+		}
+		
+		// Calculate total amount (mock calculation)
+		$totalAmount = count($medicationsData) * 150.00; // Mock price per medication
+		
+		$prescriptionData = [
+			'prescription_id' => $prescriptionModel->generatePrescriptionId(),
+			'patient_name' => $patientName,
+			'patient_id' => $patientId,
+			'doctor_name' => session('user_name'),
+			'doctor_id' => session('user_id'),
+			'diagnosis' => $diagnosis,
+			'medications' => json_encode($medicationsData),
+			'notes' => $notes,
+			'status' => 'Pending',
+			'total_amount' => $totalAmount,
+			'insurance_covered' => 'Yes',
+			'created_date' => date('Y-m-d H:i:s')
+		];
+		
+		$result = $prescriptionModel->insert($prescriptionData);
+		
+		if ($result) {
+			return $this->response->setJSON([
+				'success' => true,
+				'message' => 'Prescription created successfully!',
+				'prescription_id' => $prescriptionData['prescription_id']
+			]);
+		} else {
+			return $this->response->setJSON([
+				'success' => false,
+				'message' => 'Failed to create prescription. Please try again.'
+			]);
+		}
 	}
 }
 

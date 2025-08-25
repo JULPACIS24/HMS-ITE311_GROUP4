@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Management - San Miguel HMS</title>
+    <title>Pharmacy Inventory - San Miguel HMS</title>
     <link rel="stylesheet" href="<?= base_url('assets/css/auth.css') ?>">
     <style>
-        .inventory-management {
+        .pharmacy-inventory {
             padding: 20px;
             background: #f8fafc;
             min-height: 100vh;
@@ -53,9 +53,9 @@
         }
         
         .card-number.blue { color: #2563eb; }
-        .card-number.red { color: #dc2626; }
         .card-number.orange { color: #ea580c; }
-        .card-number.green { color: #16a34a; }
+        .card-number.red { color: #dc2626; }
+        .card-number.green { color: #10b981; }
         
         .card-label {
             font-size: 16px;
@@ -70,8 +70,6 @@
             color: #64748b;
             margin: 0;
         }
-        
-        .card-subtitle.green { color: #059669; }
         
         .action-bar {
             background: white;
@@ -110,7 +108,7 @@
             min-width: 150px;
         }
         
-        .add-medicine-btn {
+        .add-medication-btn {
             background: #2563eb;
             color: white;
             border: none;
@@ -123,7 +121,7 @@
             transition: background 0.3s ease;
         }
         
-        .add-medicine-btn:hover {
+        .add-medication-btn:hover {
             background: #1d4ed8;
         }
         
@@ -137,15 +135,19 @@
         
         .table-header {
             background: #f8fafc;
-            padding: 20px;
+            padding: 16px 24px;
             border-bottom: 1px solid #e2e8f0;
         }
         
         .table-title {
-            font-size: 20px;
-            font-weight: 600;
             color: #1e293b;
             margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .table-container {
+            overflow-x: auto;
         }
         
         .inventory-table table {
@@ -154,151 +156,74 @@
         }
         
         .inventory-table th {
+            background: #f1f5f9;
+            padding: 12px 16px;
             text-align: left;
-            padding: 16px 20px;
-            border-bottom: 1px solid #e2e8f0;
             font-weight: 600;
             color: #374151;
+            border-bottom: 1px solid #e5e7eb;
             font-size: 14px;
-            background: #f8fafc;
         }
         
         .inventory-table td {
-            padding: 16px 20px;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f3f4f6;
             font-size: 14px;
             color: #374151;
-            vertical-align: top;
         }
         
-        .inventory-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .medicine-info h4 {
-            color: #1e293b;
-            margin: 0 0 4px 0;
-            font-size: 16px;
-            font-weight: 600;
-        }
-        
-        .medicine-info p {
-            color: #6b7280;
-            margin: 0 0 2px 0;
-            font-size: 12px;
-        }
-        
-        .medicine-id {
-            color: #9ca3af;
-            font-size: 12px;
-        }
-        
-        .stock-level {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        
-        .stock-quantity {
-            font-weight: 600;
-            color: #1e293b;
+        .inventory-table tr:hover {
+            background: #f9fafb;
         }
         
         .stock-status {
             padding: 4px 8px;
             border-radius: 12px;
-            font-size: 10px;
-            font-weight: 500;
-            text-align: center;
-            display: inline-block;
-        }
-        
-        .status-in-stock { background: #dcfce7; color: #16a34a; }
-        .status-low-stock { background: #fecaca; color: #dc2626; }
-        
-        .pricing-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        
-        .price-per-unit {
-            font-weight: 600;
-            color: #1e293b;
-        }
-        
-        .total-value {
-            font-size: 12px;
-            color: #6b7280;
-        }
-        
-        .expiry-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        
-        .expiry-date {
-            font-weight: 500;
-            color: #1e293b;
-        }
-        
-        .expiring-soon {
-            background: #fecaca;
-            color: #dc2626;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 500;
-            text-align: center;
-            display: inline-block;
-        }
-        
-        .location-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        
-        .location-name {
-            font-weight: 500;
-            color: #1e293b;
-        }
-        
-        .batch-number {
-            font-size: 12px;
-            color: #6b7280;
-        }
-        
-        .action-links {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        
-        .action-link {
-            color: #2563eb;
-            text-decoration: none;
             font-size: 12px;
             font-weight: 500;
-            transition: color 0.3s ease;
         }
         
-        .action-link:hover {
-            color: #1d4ed8;
-            text-decoration: underline;
+        .status-adequate { background: #dcfce7; color: #166534; }
+        .status-low { background: #fef3c7; color: #d97706; }
+        .status-out { background: #fee2e2; color: #dc2626; }
+        
+        .prescription-required {
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 500;
         }
         
-        .action-link.edit { color: #2563eb; }
-        .action-link.restock { color: #16a34a; }
+        .prescription-yes { background: #fee2e2; color: #dc2626; }
+        .prescription-no { background: #dcfce7; color: #166534; }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-edit { background: #3b82f6; color: white; }
+        .btn-edit:hover { background: #2563eb; }
+        
+        .btn-stock { background: #10b981; color: white; }
+        .btn-stock:hover { background: #059669; }
+        
+        .btn-delete { background: #ef4444; color: white; }
+        .btn-delete:hover { background: #dc2626; }
         
         @media (max-width: 1200px) {
             .summary-cards {
                 grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .inventory-table {
-                overflow-x: auto;
             }
         }
         
@@ -322,10 +247,13 @@
                 min-width: auto;
             }
             
+            .inventory-table {
+                font-size: 12px;
+            }
+            
             .inventory-table th,
             .inventory-table td {
-                padding: 12px 16px;
-                font-size: 12px;
+                padding: 8px 12px;
             }
         }
     </style>
@@ -336,253 +264,147 @@
     <div class="main-content">
         <?= $this->include('auth/partials/header') ?>
         
-        <div class="inventory-management">
+        <div class="pharmacy-inventory">
             <div class="page-header">
-                <h1 class="page-title">Inventory Management</h1>
-                <p class="page-subtitle">Monitor and manage pharmacy inventory</p>
+                <h1 class="page-title">Pharmacy Inventory</h1>
+                <p class="page-subtitle">Manage and monitor all medications in stock</p>
             </div>
             
             <div class="summary-cards">
                 <div class="summary-card">
-                    <h2 class="card-number blue">1,248</h2>
-                    <p class="card-label">Total Items</p>
-                    <p class="card-subtitle green">+24 this week</p>
+                    <h2 class="card-number blue"><?= $stats['total_medications'] ?? 0 ?></h2>
+                    <p class="card-label">Total Medications</p>
+                    <p class="card-subtitle">In inventory</p>
                 </div>
                 
                 <div class="summary-card">
-                    <h2 class="card-number red">12</h2>
-                    <p class="card-label">Low Stock Items</p>
-                    <p class="card-subtitle">Needs restocking</p>
+                    <h2 class="card-number orange"><?= $stats['low_stock'] ?? 0 ?></h2>
+                    <p class="card-label">Low Stock</p>
+                    <p class="card-subtitle">Below minimum</p>
                 </div>
                 
                 <div class="summary-card">
-                    <h2 class="card-number orange">8</h2>
-                    <p class="card-label">Expiring Soon</p>
-                    <p class="card-subtitle">Within 30 days</p>
+                    <h2 class="card-number red"><?= $stats['out_of_stock'] ?? 0 ?></h2>
+                    <p class="card-label">Out of Stock</p>
+                    <p class="card-subtitle">Zero inventory</p>
                 </div>
                 
                 <div class="summary-card">
-                    <h2 class="card-number green">₱245k</h2>
+                    <h2 class="card-number green">₱<?= number_format($stats['total_value'] ?? 0, 2) ?></h2>
                     <p class="card-label">Total Value</p>
-                    <p class="card-subtitle">Current inventory</p>
+                    <p class="card-subtitle">Inventory worth</p>
                 </div>
             </div>
             
             <div class="action-bar">
                 <div class="search-section">
-                    <input type="text" class="search-input" placeholder="Search medicines...">
-                    <select class="filter-dropdown">
-                        <option>All Categories</option>
-                        <option>Analgesic</option>
-                        <option>Antibiotic</option>
-                        <option>Antidiabetic</option>
-                        <option>Antihypertensive</option>
+                    <input type="text" class="search-input" placeholder="Search medications...">
+                    <select class="filter-dropdown" id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Analgesic">Analgesic</option>
+                        <option value="NSAID">NSAID</option>
+                        <option value="Antibiotic">Antibiotic</option>
+                        <option value="ACE Inhibitor">ACE Inhibitor</option>
+                        <option value="Antidiabetic">Antidiabetic</option>
+                        <option value="Statin">Statin</option>
+                        <option value="Proton Pump Inhibitor">Proton Pump Inhibitor</option>
+                        <option value="Calcium Channel Blocker">Calcium Channel Blocker</option>
+                        <option value="Antiplatelet">Antiplatelet</option>
+                        <option value="ARB">ARB</option>
+                        <option value="Beta Blocker">Beta Blocker</option>
+                        <option value="Diuretic">Diuretic</option>
+                        <option value="Anticoagulant">Anticoagulant</option>
+                        <option value="Insulin">Insulin</option>
+                    </select>
+                    <select class="filter-dropdown" id="stockFilter">
+                        <option value="">All Stock Levels</option>
+                        <option value="adequate">Adequate Stock</option>
+                        <option value="low">Low Stock</option>
+                        <option value="out">Out of Stock</option>
                     </select>
                 </div>
-                <button class="add-medicine-btn" onclick="openAddMedicineModal()">
-                    Add Medicine
-                </button>
+                <button class="add-medication-btn" onclick="showAddMedicationModal()">Add Medication</button>
             </div>
             
             <div class="inventory-table">
                 <div class="table-header">
-                    <h3 class="table-title">Medicine Inventory</h3>
+                    <h3 class="table-title">Medications Inventory</h3>
                 </div>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>MEDICINE DETAILS</th>
-                            <th>STOCK LEVEL</th>
-                            <th>PRICING</th>
-                            <th>EXPIRY STATUS</th>
-                            <th>LOCATION</th>
-                            <th>ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="medicine-info">
-                                    <h4>Paracetamol</h4>
-                                    <p>Acetaminophen, Analgesic | Unilab</p>
-                                    <span class="medicine-id">ID: MED001</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="stock-level">
-                                    <span class="stock-quantity">250 units</span>
-                                    <span class="stock-status status-in-stock">In Stock</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="pricing-info">
-                                    <span class="price-per-unit">₱2.50/unit</span>
-                                    <span class="total-value">Total: ₱625</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="expiry-info">
-                                    <span class="expiry-date">2025-06-15</span>
-                                    <span class="expiring-soon">Expiring Soon</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="location-info">
-                                    <span class="location-name">Shelf A1</span>
-                                    <span class="batch-number">Batch: PAR240101</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="action-links">
-                                    <a href="#" class="action-link edit" onclick="editMedicine('MED001')">Edit</a>
-                                    <a href="#" class="action-link restock" onclick="restockMedicine('MED001')">Restock</a>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
-                                <div class="medicine-info">
-                                    <h4>Amoxicillin</h4>
-                                    <p>Amoxicillin, Antibiotic | Pfizer</p>
-                                    <span class="medicine-id">ID: MED002</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="stock-level">
-                                    <span class="stock-quantity">15 units</span>
-                                    <span class="stock-status status-low-stock">Low Stock</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="pricing-info">
-                                    <span class="price-per-unit">₱8.75/unit</span>
-                                    <span class="total-value">Total: ₱131.25</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="expiry-info">
-                                    <span class="expiry-date">2024-12-20</span>
-                                    <span class="expiring-soon">Expiring Soon</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="location-info">
-                                    <span class="location-name">Shelf B2</span>
-                                    <span class="batch-number">Batch: AMX231205</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="action-links">
-                                    <a href="#" class="action-link edit" onclick="editMedicine('MED002')">Edit</a>
-                                    <a href="#" class="action-link restock" onclick="restockMedicine('MED002')">Restock</a>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
-                                <div class="medicine-info">
-                                    <h4>Biogesic</h4>
-                                    <p>Paracetamol, Analgesic | Unilab</p>
-                                    <span class="medicine-id">ID: MED003</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="stock-level">
-                                    <span class="stock-quantity">180 units</span>
-                                    <span class="stock-status status-in-stock">In Stock</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="pricing-info">
-                                    <span class="price-per-unit">₱3.20/unit</span>
-                                    <span class="total-value">Total: ₱576</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="expiry-info">
-                                    <span class="expiry-date">2025-03-10</span>
-                                    <span class="expiring-soon">Expiring Soon</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="location-info">
-                                    <span class="location-name">Shelf A2</span>
-                                    <span class="batch-number">Batch: BIO240115</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="action-links">
-                                    <a href="#" class="action-link edit" onclick="editMedicine('MED003')">Edit</a>
-                                    <a href="#" class="action-link restock" onclick="restockMedicine('MED003')">Restock</a>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
-                                <div class="medicine-info">
-                                    <h4>Insulin Glargine</h4>
-                                    <p>Insulin Glargine, Antidiabetic | Sanofi</p>
-                                    <span class="medicine-id">ID: MED004</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="stock-level">
-                                    <span class="stock-quantity">8 units</span>
-                                    <span class="stock-status status-low-stock">Low Stock</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="pricing-info">
-                                    <span class="price-per-unit">₱450.00/unit</span>
-                                    <span class="total-value">Total: ₱3,600</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="expiry-info">
-                                    <span class="expiry-date">2024-08-30</span>
-                                    <span class="expiring-soon">Expiring Soon</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="location-info">
-                                    <span class="location-name">Refrigerator A</span>
-                                    <span class="batch-number">Batch: INS240201</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="action-links">
-                                    <a href="#" class="action-link edit" onclick="editMedicine('MED004')">Edit</a>
-                                    <a href="#" class="action-link restock" onclick="restockMedicine('MED004')">Restock</a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Medication ID</th>
+                                <th>Medication Name</th>
+                                <th>Generic Name</th>
+                                <th>Strength</th>
+                                <th>Current Stock</th>
+                                <th>Stock Status</th>
+                                <th>Unit Price</th>
+                                <th>Category</th>
+                                <th>Prescription</th>
+                                <th>Location</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($medications)): ?>
+                                <?php foreach ($medications as $medication): ?>
+                                    <?php 
+                                    $stockLevel = 'adequate';
+                                    if ($medication['current_stock'] == 0) {
+                                        $stockLevel = 'out';
+                                    } elseif ($medication['current_stock'] <= $medication['minimum_stock']) {
+                                        $stockLevel = 'low';
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td><?= esc($medication['medication_id']) ?></td>
+                                        <td><strong><?= esc($medication['medication_name']) ?></strong></td>
+                                        <td><?= esc($medication['generic_name']) ?></td>
+                                        <td><?= esc($medication['strength']) ?></td>
+                                        <td><?= esc($medication['current_stock']) ?> units</td>
+                                        <td>
+                                            <span class="stock-status status-<?= $stockLevel ?>">
+                                                <?= ucfirst($stockLevel) ?> Stock
+                                            </span>
+                                        </td>
+                                        <td>₱<?= number_format($medication['unit_price'], 2) ?></td>
+                                        <td><?= esc($medication['category']) ?></td>
+                                        <td>
+                                            <span class="prescription-required prescription-<?= $medication['requires_prescription'] ? 'yes' : 'no' ?>">
+                                                <?= $medication['requires_prescription'] ? 'Required' : 'OTC' ?>
+                                            </span>
+                                        </td>
+                                        <td><?= esc($medication['location']) ?></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn btn-edit" onclick="editMedication(<?= $medication['id'] ?>)">Edit</button>
+                                                <button class="action-btn btn-stock" onclick="updateStock(<?= $medication['id'] ?>)">Stock</button>
+                                                <button class="action-btn btn-delete" onclick="deleteMedication(<?= $medication['id'] ?>)">Delete</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="10" style="text-align: center; padding: 40px; color: #64748b;">
+                                        No medications found in inventory.
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
     
     <script>
-        function openAddMedicineModal() {
-            alert('Add Medicine modal would open here');
-        }
-        
-        function editMedicine(medicineId) {
-            alert(`Editing ${medicineId}`);
-        }
-        
-        function restockMedicine(medicineId) {
-            alert(`Restocking ${medicineId}`);
-        }
-        
         // Search functionality
         document.querySelector('.search-input').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
-            const rows = document.querySelectorAll('.inventory-table tbody tr');
+            const rows = document.querySelectorAll('tbody tr');
             
             rows.forEach(row => {
                 const text = row.textContent.toLowerCase();
@@ -590,21 +412,57 @@
             });
         });
         
-        // Filter functionality
-        document.querySelector('.filter-dropdown').addEventListener('change', function(e) {
-            const filterValue = e.target.value;
-            const rows = document.querySelectorAll('.inventory-table tbody tr');
+        // Category filter
+        document.getElementById('categoryFilter').addEventListener('change', function(e) {
+            applyFilters();
+        });
+        
+        // Stock filter
+        document.getElementById('stockFilter').addEventListener('change', function(e) {
+            applyFilters();
+        });
+        
+        function applyFilters() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const stockFilter = document.getElementById('stockFilter').value;
+            const searchTerm = document.querySelector('.search-input').value.toLowerCase();
+            
+            const rows = document.querySelectorAll('tbody tr');
             
             rows.forEach(row => {
-                if (filterValue === 'All Categories') {
-                    row.style.display = '';
-                } else {
-                    const categoryCell = row.querySelector('td:nth-child(1)');
-                    const category = categoryCell.textContent.toLowerCase();
-                    row.style.display = category.includes(filterValue.toLowerCase()) ? '' : 'none';
-                }
+                const cells = row.querySelectorAll('td');
+                if (cells.length === 0) return; // Skip empty rows
+                
+                const category = cells[7].textContent.trim();
+                const stockStatus = cells[5].textContent.trim().toLowerCase();
+                const text = row.textContent.toLowerCase();
+                
+                const matchesCategory = !categoryFilter || category === categoryFilter;
+                const matchesStock = !stockFilter || stockStatus.includes(stockFilter);
+                const matchesSearch = !searchTerm || text.includes(searchTerm);
+                
+                row.style.display = (matchesCategory && matchesStock && matchesSearch) ? '' : 'none';
             });
-        });
+        }
+        
+        // Modal functions (to be implemented)
+        function showAddMedicationModal() {
+            alert('Add Medication functionality will be implemented here.');
+        }
+        
+        function editMedication(id) {
+            alert('Edit Medication functionality will be implemented here. ID: ' + id);
+        }
+        
+        function updateStock(id) {
+            alert('Update Stock functionality will be implemented here. ID: ' + id);
+        }
+        
+        function deleteMedication(id) {
+            if (confirm('Are you sure you want to delete this medication?')) {
+                alert('Delete Medication functionality will be implemented here. ID: ' + id);
+            }
+        }
     </script>
 </body>
 </html>

@@ -136,7 +136,7 @@
 				<div class="submenu">
 					<a class="subitem" href="<?= site_url('pharmacy/inventory') ?>">Inventory Management</a>
 					<a class="subitem" href="<?= site_url('pharmacy/prescriptions') ?>">Prescription Orders</a>
-					<a class="subitem" href="<?= site_url('pharmacy/alerts') ?>">Stock Alerts</a>
+					<a class="subitem" href="<?= site_url('pharmacy/stock-alerts') ?>">Stock Alerts</a>
 				</div>
 			</div>
 

@@ -359,8 +359,8 @@
                 <div class="summary-card">
                     <div class="card-header">
                         <div>
-                            <h2 class="card-number">1,247</h2>
-                            <p class="card-subtitle">42 categories</p>
+                            <h2 class="card-number"><?= $stats['total_medications'] ?? 0 ?></h2>
+                            <p class="card-subtitle">16 categories</p>
                         </div>
                         <div class="card-icon blue">💊</div>
                     </div>
@@ -370,7 +370,7 @@
                 <div class="summary-card">
                     <div class="card-header">
                         <div>
-                            <h2 class="card-number">15</h2>
+                            <h2 class="card-number"><?= $stats['low_stock_items'] ?? 0 ?></h2>
                             <p class="card-subtitle">Requires attention</p>
                         </div>
                         <div class="card-icon orange">⚠️</div>
@@ -381,8 +381,8 @@
                 <div class="summary-card">
                     <div class="card-header">
                         <div>
-                            <h2 class="card-number">8</h2>
-                            <p class="card-subtitle">Within 30 days</p>
+                            <h2 class="card-number"><?= $stats['expiring_soon'] ?? 0 ?></h2>
+                            <p class="card-subtitle">Within 60 days</p>
                         </div>
                         <div class="card-icon red">⏰</div>
                     </div>
@@ -392,19 +392,19 @@
                 <div class="summary-card">
                     <div class="card-header">
                         <div>
-                            <h2 class="card-number">₱48,500</h2>
-                            <p class="card-subtitle">125 transactions</p>
+                            <h2 class="card-number">₱<?= number_format($stats['total_value'] ?? 0, 2) ?></h2>
+                            <p class="card-subtitle"><?= $prescriptionStats['dispensed_today'] ?? 0 ?> transactions today</p>
                         </div>
                         <div class="card-icon green">💰</div>
                     </div>
-                    <p class="card-subtitle">Today's Sales</p>
+                    <p class="card-subtitle">Inventory Value</p>
                 </div>
             </div>
             
             <div class="content-grid">
                 <div class="inventory-section">
                     <div class="section-header">
-                        <h3 class="section-title">Medicine Inventory</h3>
+                        <h3 class="section-title">Medical Inventory</h3>
                         <div class="search-filter">
                             <input type="text" class="search-input" placeholder="Search medicines...">
                             <select class="filter-dropdown">
@@ -424,117 +424,51 @@
                                     <th>MEDICINE</th>
                                     <th>STOCK</th>
                                     <th>PRICE</th>
-                                    <th>EXPIRY</th>
+                                    <th>CATEGORY</th>
                                     <th>STATUS</th>
                                     <th>ACTIONS</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="medicine-info">
-                                            <h4>Paracetamol 500mg</h4>
-                                            <p>MED001 • Analgesic</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="stock-info">
-                                            <span class="stock-quantity">150 units</span>
-                                            <span class="stock-min">Min: 50</span>
-                                        </div>
-                                    </td>
-                                    <td>₱5.5</td>
-                                    <td>2025-06-15</td>
-                                    <td><span class="status-badge status-in-stock">In Stock</span></td>
-                                    <td>
-                                        <button class="action-btn" onclick="viewMedicine('MED001')">👁️</button>
-                                        <button class="action-btn edit" onclick="editMedicine('MED001')">✏️</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="medicine-info">
-                                            <h4>Amoxicillin 250mg</h4>
-                                            <p>MED002 • Antibiotic</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="stock-info">
-                                            <span class="stock-quantity">25 units</span>
-                                            <span class="stock-min">Min: 30</span>
-                                        </div>
-                                    </td>
-                                    <td>₱15.25</td>
-                                    <td>2024-12-20</td>
-                                    <td><span class="status-badge status-low-stock">Low Stock</span></td>
-                                    <td>
-                                        <button class="action-btn" onclick="viewMedicine('MED002')">👁️</button>
-                                        <button class="action-btn edit" onclick="editMedicine('MED002')">✏️</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="medicine-info">
-                                            <h4>Ibuprofen 400mg</h4>
-                                            <p>MED003 • Analgesic</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="stock-info">
-                                            <span class="stock-quantity">200 units</span>
-                                            <span class="stock-min">Min: 40</span>
-                                        </div>
-                                    </td>
-                                    <td>₱8.75</td>
-                                    <td>2025-03-10</td>
-                                    <td><span class="status-badge status-in-stock">In Stock</span></td>
-                                    <td>
-                                        <button class="action-btn" onclick="viewMedicine('MED003')">👁️</button>
-                                        <button class="action-btn edit" onclick="editMedicine('MED003')">✏️</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="medicine-info">
-                                            <h4>Metformin 500mg</h4>
-                                            <p>MED004 • Antidiabetic</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="stock-info">
-                                            <span class="stock-quantity">5 units</span>
-                                            <span class="stock-min">Min: 25</span>
-                                        </div>
-                                    </td>
-                                    <td>₱12</td>
-                                    <td>2024-08-30</td>
-                                    <td><span class="status-badge status-critical">Critical</span></td>
-                                    <td>
-                                        <button class="action-btn" onclick="viewMedicine('MED004')">👁️</button>
-                                        <button class="action-btn edit" onclick="editMedicine('MED004')">✏️</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="medicine-info">
-                                            <h4>Lisinopril 10mg</h4>
-                                            <p>MED005 • Antihypertensive</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="stock-info">
-                                            <span class="stock-quantity">80 units</span>
-                                            <span class="stock-min">Min: 30</span>
-                                        </div>
-                                    </td>
-                                    <td>₱18.5</td>
-                                    <td>2025-01-25</td>
-                                    <td><span class="status-badge status-in-stock">In Stock</span></td>
-                                    <td>
-                                        <button class="action-btn" onclick="viewMedicine('MED005')">👁️</button>
-                                        <button class="action-btn edit" onclick="editMedicine('MED005')">✏️</button>
-                                    </td>
-                                </tr>
+                                <?php if (!empty($recentMedications)): ?>
+                                    <?php foreach ($recentMedications as $medication): ?>
+                                        <?php 
+                                        $stockLevel = 'in-stock';
+                                        if ($medication['current_stock'] == 0) {
+                                            $stockLevel = 'critical';
+                                        } elseif ($medication['current_stock'] <= $medication['minimum_stock']) {
+                                            $stockLevel = 'low-stock';
+                                        }
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <div class="medicine-info">
+                                                    <h4><?= esc($medication['medication_name']) ?></h4>
+                                                    <p><?= esc($medication['medication_id']) ?> • <?= esc($medication['generic_name']) ?></p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="stock-info">
+                                                    <span class="stock-quantity"><?= esc($medication['current_stock']) ?> units</span>
+                                                    <span class="stock-min">Min: <?= esc($medication['minimum_stock']) ?></span>
+                                                </div>
+                                            </td>
+                                            <td>₱<?= number_format($medication['unit_price'], 2) ?></td>
+                                            <td><?= esc($medication['category']) ?></td>
+                                            <td><span class="status-badge status-<?= $stockLevel ?>"><?= ucfirst(str_replace('-', ' ', $stockLevel)) ?></span></td>
+                                            <td>
+                                                <button class="action-btn" onclick="viewMedicine('<?= $medication['medication_id'] ?>')">👁️</button>
+                                                <button class="action-btn edit" onclick="editMedicine('<?= $medication['medication_id'] ?>')">✏️</button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="6" style="text-align: center; padding: 20px; color: #64748b;">
+                                            No medications found in inventory.
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -543,48 +477,40 @@
                 <div class="prescriptions-section">
                     <h3 class="section-title">Recent Prescriptions</h3>
                     
-                    <div class="prescription-card">
-                        <div class="prescription-header">
-                            <span class="prescription-id">RX001</span>
-                            <span class="prescription-status status-dispensed">Dispensed</span>
+                    <?php if (!empty($recentPrescriptions)): ?>
+                        <?php foreach ($recentPrescriptions as $prescription): ?>
+                            <div class="prescription-card">
+                                <div class="prescription-header">
+                                    <span class="prescription-id"><?= esc($prescription['prescription_id']) ?></span>
+                                    <span class="prescription-status status-<?= strtolower(str_replace(' ', '-', $prescription['status'])) ?>"><?= esc($prescription['status']) ?></span>
+                                </div>
+                                <div class="prescription-details">
+                                    <p><strong><?= esc($prescription['patient_name']) ?></strong></p>
+                                    <p><?= esc($prescription['diagnosis']) ?></p>
+                                    <p>Dr. <?= esc($prescription['doctor_name']) ?></p>
+                                    <p>₱<?= number_format($prescription['total_amount'], 2) ?></p>
+                                    <p><?= date('M d, Y', strtotime($prescription['created_date'])) ?></p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="prescription-card">
+                            <div class="prescription-details">
+                                <p style="text-align: center; color: #64748b;">No recent prescriptions found.</p>
+                            </div>
                         </div>
-                        <div class="prescription-details">
-                            <p><strong>Juan Dela Cruz</strong></p>
-                            <p>Paracetamol 500mg</p>
-                            <p>Qty: 20 • Dr. Martinez</p>
-                            <p>2024-01-15</p>
-                        </div>
-                    </div>
-                    
-                    <div class="prescription-card">
-                        <div class="prescription-header">
-                            <span class="prescription-id">RX002</span>
-                            <span class="prescription-status status-pending">Pending</span>
-                        </div>
-                        <div class="prescription-details">
-                            <p><strong>Maria Santos</strong></p>
-                            <p>Amoxicillin 250mg</p>
-                            <p>Qty: 15 • Dr. Rodriguez</p>
-                            <p>2024-01-15</p>
-                        </div>
-                    </div>
-                    
-                    <div class="prescription-card">
-                        <div class="prescription-header">
-                            <span class="prescription-id">RX003</span>
-                            <span class="prescription-status status-ready">Ready</span>
-                        </div>
-                        <div class="prescription-details">
-                            <p><strong>Pedro Garcia</strong></p>
-                            <p>Ibuprofen 400mg</p>
-                            <p>Qty: 10 • Dr. Chen</p>
-                            <p>2024-01-15</p>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                     
                     <div class="view-all-link">
                         <a href="<?= site_url('pharmacy/prescriptions') ?>">View All Prescriptions</a>
                     </div>
+                </div>
+            </div>
+            
+            <div class="view-all-link" style="margin-top: 20px; text-align: center;">
+                <a href="<?= site_url('pharmacy/inventory') ?>" style="color: #2563eb; text-decoration: none; font-weight: 500; font-size: 14px; margin-right: 20px;">View Full Inventory</a>
+                <a href="<?= site_url('pharmacy/stock-alerts') ?>" style="color: #2563eb; text-decoration: none; font-weight: 500; font-size: 14px;">View Stock Alerts</a>
+            </div>
                 </div>
             </div>
         </div>
@@ -592,15 +518,15 @@
     
     <script>
         function openAddMedicineModal() {
-            alert('Add Medicine modal would open here');
+            window.location.href = '<?= site_url('pharmacy/inventory') ?>';
         }
         
         function viewMedicine(medicineId) {
-            alert(`Viewing details for ${medicineId}`);
+            window.location.href = '<?= site_url('pharmacy/inventory') ?>';
         }
         
         function editMedicine(medicineId) {
-            alert(`Editing ${medicineId}`);
+            window.location.href = '<?= site_url('pharmacy/inventory') ?>';
         }
         
         // Search functionality

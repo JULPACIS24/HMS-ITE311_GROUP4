@@ -67,6 +67,7 @@ $routes->get('doctor/lab-requests/edit/(:num)', 'Doctor::editLabRequest/$1', ['f
 $routes->post('doctor/lab-requests/update/(:num)', 'Doctor::updateLabRequest/$1', ['filter' => 'auth']);
 $routes->post('doctor/lab-requests/delete/(:num)', 'Doctor::deleteLabRequest/$1', ['filter' => 'auth']);
 $routes->get('doctor/prescriptions', 'Doctor::prescriptions', ['filter' => 'auth']);
+$routes->post('doctor/prescriptions/create', 'Doctor::createPrescription', ['filter' => 'auth']);
 $routes->get('doctor/consultations', 'Doctor::consultations', ['filter' => 'auth']);
 $routes->get('doctor/schedule', 'Doctor::schedule', ['filter' => 'auth']);
 $routes->get('doctor/reports', 'Doctor::reports', ['filter' => 'auth']);
@@ -139,7 +140,12 @@ $routes->get('/laboratory/equipment', 'Laboratory::equipment', ['filter' => 'aut
 $routes->get('/pharmacy', 'Pharmacy::index', ['filter' => 'auth']);
 $routes->get('/pharmacy/inventory', 'Pharmacy::inventory', ['filter' => 'auth']);
 $routes->get('/pharmacy/prescriptions', 'Pharmacy::prescriptions', ['filter' => 'auth']);
+$routes->post('/pharmacy/process-order', 'Pharmacy::processOrder', ['filter' => 'auth']);
+$routes->get('/pharmacy/prescription-details/(:segment)', 'Pharmacy::getPrescriptionDetails/$1', ['filter' => 'auth']);
 $routes->get('/pharmacy/alerts', 'Pharmacy::alerts', ['filter' => 'auth']);
+$routes->get('/pharmacy/stock-alerts', 'Pharmacy::stockAlerts', ['filter' => 'auth']);
+$routes->post('/pharmacy/update-alert-status', 'Pharmacy::updateAlertStatus', ['filter' => 'auth']);
+$routes->get('/pharmacy/alert-details/(:num)', 'Pharmacy::getAlertDetails/$1', ['filter' => 'auth']);
 
 // Reports & Analytics Routes
 $routes->get('/reports', 'Reports::index', ['filter' => 'auth']);

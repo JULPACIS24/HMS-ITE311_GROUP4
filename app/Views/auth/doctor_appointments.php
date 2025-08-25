@@ -47,8 +47,9 @@
 		.tab{padding:8px 12px;border-radius:8px;font-size:13px;cursor:pointer;background:#f1f5f9;color:#64748b}
 		.tab.active{background:#2563eb;color:#fff}
 		.list{padding:20px}
-		.appointment-item{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #f1f5f9;border-radius:10px;margin-bottom:12px;background:#f8fafc}
+		.appointment-item{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #f1f5f9;border-radius:10px;margin-bottom:12px;background:#f8fafc;cursor:default;user-select:none}
 		.appointment-item:last-child{border-bottom:none;margin-bottom:0}
+		.appointment-item:hover{background:#f8fafc}
 		.appointment-avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff}
 		.appointment-details{flex:1}
 		.appointment-name{font-weight:700;color:#0f172a;margin-bottom:4px}
@@ -130,7 +131,7 @@
 						<div class="tabs">
 							<div class="tab active" id="tabToday">Today</div>
 							<div class="tab" id="tabWeek">This Week</div>
-							<a href="<?= site_url('doctor/appointments/schedule') ?>" style="margin-left:8px;background:#2563eb;color:#fff;border:none;border-radius:10px;padding:8px 12px;font-weight:700;text-decoration:none;">+ Schedule Appointment</a>
+							<button id="scheduleApptBtn" style="margin-left:8px;background:#2563eb;color:#fff;border:none;border-radius:10px;padding:8px 12px;font-weight:700;cursor:pointer;">+ Schedule Appointment</button>
 						</div>
 					</div>
 					<div class="list" id="listToday">
@@ -191,6 +192,119 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+
+	<!-- Schedule New Appointment Modal -->
+	<div id="scheduleModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;">
+		<div style="background:#fff; border-radius:16px; width:90%; max-width:800px; max-height:90vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+			<div style="padding:24px 32px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
+				<h2 style="font-size:24px; font-weight:700; color:#0f172a; margin:0;">Schedule New Appointment</h2>
+				<button id="closeModal" style="background:none; border:none; font-size:24px; cursor:pointer; color:#64748b;">×</button>
+			</div>
+			
+			<form id="appointmentForm" style="padding:32px;">
+				<div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+					<!-- Left Column -->
+					<div>
+						<div style="margin-bottom:20px;">
+							<label style="display:block; font-weight:600; color:#374151; margin-bottom:8px;">Patient Name *</label>
+							<input type="text" id="patientName" name="patient_name" required style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+						</div>
+						
+						<div style="margin-bottom:20px;">
+							<label style="display:block; font-weight:600; color:#374151; margin-bottom:8px;">Date *</label>
+							<input type="date" id="appointmentDate" name="date" required style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+						</div>
+						
+						<div style="margin-bottom:20px;">
+							<label style="display:block; font-weight:600; color:#374151; margin-bottom:8px;">Appointment Type *</label>
+							<select id="appointmentType" name="type" required style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+								<option value="Routine Checkup">Routine Checkup</option>
+								<option value="Consultation">Consultation</option>
+								<option value="Follow-up">Follow-up</option>
+								<option value="Emergency">Emergency</option>
+								<option value="Surgery">Surgery</option>
+							</select>
+						</div>
+						
+						<div style="margin-bottom:20px;">
+							<label style="display:block; font-weight:600; color:#374151; margin-bottom:8px;">Room *</label>
+							<select id="room" name="room" required style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+								<option value="Room 201">Room 201</option>
+								<option value="Room 202">Room 202</option>
+								<option value="Room 203">Room 203</option>
+								<option value="Room 101">Room 101</option>
+								<option value="Room 102">Room 102</option>
+								<option value="Emergency Room">Emergency Room</option>
+								<option value="Consultation Room A">Consultation Room A</option>
+								<option value="Consultation Room B">Consultation Room B</option>
+							</select>
+						</div>
+						
+						<div style="margin-bottom:20px;">
+							<label style="display:block; font-weight:600; color:#374151; margin-bottom:8px;">Notes</label>
+							<textarea id="notes" name="notes" rows="3" style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:14px; resize:vertical;" placeholder="Additional notes..."></textarea>
+						</div>
+					</div>
+					
+					<!-- Right Column -->
+					<div>
+						<div style="margin-bottom:20px;">
+							<label style="display:block; font-weight:600; color:#374151; margin-bottom:8px;">Patient ID *</label>
+							<input type="text" id="patientId" name="patient_id" required style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+						</div>
+						
+						<div style="margin-bottom:20px;">
+							<label style="display:block; font-weight:600; color:#374151; margin-bottom:8px;">Time *</label>
+							<select id="appointmentTime" name="time" required style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+								<option value="08:00">8:00 AM</option>
+								<option value="08:30">8:30 AM</option>
+								<option value="09:00">9:00 AM</option>
+								<option value="09:30">9:30 AM</option>
+								<option value="10:00">10:00 AM</option>
+								<option value="10:30">10:30 AM</option>
+								<option value="11:00">11:00 AM</option>
+								<option value="11:30">11:30 AM</option>
+								<option value="13:00">1:00 PM</option>
+								<option value="13:30">1:30 PM</option>
+								<option value="14:00">2:00 PM</option>
+								<option value="14:30">2:30 PM</option>
+								<option value="15:00">3:00 PM</option>
+								<option value="15:30">3:30 PM</option>
+								<option value="16:00">4:00 PM</option>
+								<option value="16:30">4:30 PM</option>
+							</select>
+						</div>
+						
+						<div style="margin-bottom:20px;">
+							<label style="display:block; font-weight:600; color:#374151; margin-bottom:8px;">Duration *</label>
+							<select id="duration" name="duration" required style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+								<option value="30">30 minutes</option>
+								<option value="45">45 minutes</option>
+								<option value="60">1 hour</option>
+								<option value="90">1.5 hours</option>
+								<option value="120">2 hours</option>
+							</select>
+						</div>
+						
+						<div style="margin-bottom:20px;">
+							<label style="display:block; font-weight:600; color:#374151; margin-bottom:8px;">Priority *</label>
+							<select id="priority" name="priority" required style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+								<option value="Normal">Normal</option>
+								<option value="High">High</option>
+								<option value="Urgent">Urgent</option>
+								<option value="Emergency">Emergency</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				<div style="display:flex; gap:12px; justify-content:flex-end; margin-top:32px; padding-top:24px; border-top:1px solid #e5e7eb;">
+					<button type="button" id="cancelBtn" style="padding:12px 24px; background:#f3f4f6; color:#374151; border:1px solid #d1d5db; border-radius:8px; font-weight:600; cursor:pointer;">Cancel</button>
+					<button type="submit" style="padding:12px 24px; background:#2563eb; color:#fff; border:none; border-radius:8px; font-weight:600; cursor:pointer;">Schedule Appointment</button>
+				</div>
+			</form>
 		</div>
 	</div>
 
@@ -260,6 +374,96 @@
 				});
 			}
 		}
+		
+		// Schedule Appointment Modal Functions
+		const scheduleBtn = document.getElementById('scheduleApptBtn');
+		const scheduleModal = document.getElementById('scheduleModal');
+		const closeModal = document.getElementById('closeModal');
+		const cancelBtn = document.getElementById('cancelBtn');
+		const appointmentForm = document.getElementById('appointmentForm');
+		
+		// Set default date to today
+		document.getElementById('appointmentDate').value = new Date().toISOString().split('T')[0];
+		
+		// Open modal - only when schedule button is clicked
+		scheduleBtn.addEventListener('click', (e) => {
+			e.preventDefault();
+			e.stopPropagation();
+			scheduleModal.style.display = 'flex';
+			scheduleModal.style.alignItems = 'center';
+			scheduleModal.style.justifyContent = 'center';
+		});
+		
+		// Close modal functions
+		function closeScheduleModal() {
+			scheduleModal.style.display = 'none';
+			appointmentForm.reset();
+		}
+		
+		closeModal.addEventListener('click', closeScheduleModal);
+		cancelBtn.addEventListener('click', closeScheduleModal);
+		
+		// Close modal when clicking outside
+		scheduleModal.addEventListener('click', (e) => {
+			if (e.target === scheduleModal) {
+				closeScheduleModal();
+			}
+		});
+		
+		// Handle form submission
+		appointmentForm.addEventListener('submit', (e) => {
+			e.preventDefault();
+			
+			const formData = new FormData(appointmentForm);
+			
+			// Add doctor information
+			formData.append('doctor_id', '<?= session('user_id') ?? '' ?>');
+			formData.append('doctor_name', '<?= session('role') === 'doctor' ? 'Dr. ' . (session('user_name') ?? 'Doctor') : 'Doctor' ?>');
+			formData.append('status', 'Scheduled');
+			
+			// Send to backend
+			fetch('<?= site_url('doctor/appointments/create') ?>', {
+				method: 'POST',
+				body: formData
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					alert('Appointment scheduled successfully!');
+					closeScheduleModal();
+					location.reload(); // Refresh to show new appointment
+				} else {
+					alert('Error: ' + (data.message || 'Failed to schedule appointment'));
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				alert('Error scheduling appointment. Please try again.');
+			});
+		});
+		
+		// Prevent clicks on appointment items from triggering any actions
+		document.querySelectorAll('.appointment-item').forEach(item => {
+			item.addEventListener('click', (e) => {
+				// Only allow clicks on action buttons, prevent clicks on the item itself
+				if (!e.target.closest('.appointment-actions')) {
+					e.preventDefault();
+					e.stopPropagation();
+					e.stopImmediatePropagation();
+					return false;
+				}
+			});
+			
+			// Also prevent any mouse events
+			item.addEventListener('mousedown', (e) => {
+				if (!e.target.closest('.appointment-actions')) {
+					e.preventDefault();
+					e.stopPropagation();
+					e.stopImmediatePropagation();
+					return false;
+				}
+			});
+		});
 	})();
 	</script>
 </body>
