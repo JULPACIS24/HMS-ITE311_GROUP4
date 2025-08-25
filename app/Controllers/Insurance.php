@@ -10,8 +10,20 @@ class Insurance extends Controller
     {
         if (! session('isLoggedIn')) return redirect()->to('/login');
         
-        // This will render the Insurance Claims dashboard
-        return view('auth/insurance_claims');
+        // Load the BillModel to fetch real insurance data
+        $billModel = new \App\Models\BillModel();
+        
+        // Get insurance claims with detailed information
+        $insuranceClaims = $billModel->getInsuranceClaims();
+        
+        // Get insurance statistics for the dashboard
+        $stats = $billModel->getInsuranceStatistics();
+        
+        // Pass data to the view
+        return view('auth/insurance_claims', [
+            'insuranceClaims' => $insuranceClaims,
+            'stats' => $stats
+        ]);
     }
 
     public function submitClaim()

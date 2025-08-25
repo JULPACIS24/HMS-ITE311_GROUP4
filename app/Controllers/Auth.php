@@ -63,6 +63,8 @@ class Auth extends BaseController
 			'user_id'    => $user['id'],
 			'user_name'  => $user['name'],
 			'role'       => $user['role'] ?? null,
+			'specialty'  => $user['specialty'] ?? null,
+			'department' => $user['department'] ?? null,
 			'isLoggedIn' => true,
 		]);
 

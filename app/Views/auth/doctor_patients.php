@@ -83,12 +83,12 @@
 						<div class="user-chip" id="userBtn" style="cursor:pointer">
 							<div class="avatar">DR</div>
 							<div class="user-meta">
-								<div class="user-name">Dr. Maria Santos</div>
-								<div class="user-role">Cardiology</div>
+								<div class="user-name"><?= session('role') === 'doctor' ? 'Dr. ' . (session('user_name') ?? 'Doctor') : 'Doctor' ?></div>
+								<div class="user-role"><?= session('specialty') ?? session('department') ?? 'Medical' ?></div>
 							</div>
 						</div>
 						<div class="user-pop" id="userPop" style="display:none; position:absolute; right:0; top:44px; width:260px; background:#fff; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,.12); overflow:hidden; z-index:30;">
-							<div style="display:flex; gap:10px; padding:12px 14px; border-bottom:1px solid #f1f5f9"><div style="width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:#6366f1;color:#fff;font-weight:800">DR</div><div><div style="font-weight:700">Dr. Maria Santos</div><div style="color:#64748b;font-size:12px">Cardiology Department</div><div style="color:#94a3b8;font-size:12px">ID: DOC-2024-001</div></div></div>
+							<div style="display:flex; gap:10px; padding:12px 14px; border-bottom:1px solid #f1f5f9"><div style="width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:#6366f1;color:#fff;font-weight:800">DR</div><div><div style="font-weight:700"><?= session('role') === 'doctor' ? 'Dr. ' . (session('user_name') ?? 'Doctor') : 'Doctor' ?></div><div style="color:#64748b;font-size:12px"><?= session('specialty') ?? session('department') ?? 'Medical' ?> Department</div><div style="color:#94a3b8;font-size:12px">ID: <?= session('user_id') ?? 'DOC-2024-001' ?></div></div></div>
 							<div style="padding:6px 0"><a href="#" class="menu-link" style="display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;color:#0f172a;font-size:14px">👤 My Profile</a><a href="#" class="menu-link" style="display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;color:#0f172a;font-size:14px">⚙️ Settings</a><a href="#" class="menu-link" style="display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;color:#0f172a;font-size:14px">🕒 Work Schedule</a></div>
 							<div style="border-top:1px solid #f1f5f9"></div>
 							<div style="padding:6px 0"><a href="<?= site_url('logout') ?>" class="menu-link" style="display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;color:#ef4444;font-size:14px">🚪 Sign Out</a></div>
@@ -99,10 +99,10 @@
 
 			<!-- KPIs -->
 			<div class="kpi-grid">
-				<div class="kpi"><div class="kpi-title">Total Patients</div><div class="kpi-value">248</div><div class="kpi-sub">+12 this week</div><div class="kpi-icon i-blue">👥</div></div>
-				<div class="kpi"><div class="kpi-title">Active Cases</div><div class="kpi-value">156</div><div class="kpi-sub" style="color:#64748b">Currently admitted</div><div class="kpi-icon i-green">📈</div></div>
-				<div class="kpi"><div class="kpi-title">Critical Patients</div><div class="kpi-value">8</div><div class="kpi-sub" style="color:#ef4444">Require attention</div><div class="kpi-icon i-red">⏰</div></div>
-				<div class="kpi"><div class="kpi-title">Discharged Today</div><div class="kpi-value">5</div><div class="kpi-sub" style="color:#64748b">Recovery completed</div><div class="kpi-icon i-purple">✅</div></div>
+				<div class="kpi"><div class="kpi-title">Total Patients</div><div class="kpi-value"><?= $stats['total_patients'] ?? 0 ?></div><div class="kpi-sub">+12 this week</div><div class="kpi-icon i-blue">👥</div></div>
+				<div class="kpi"><div class="kpi-title">Active Cases</div><div class="kpi-value"><?= $stats['active_cases'] ?? 0 ?></div><div class="kpi-sub" style="color:#64748b">Currently admitted</div><div class="kpi-icon i-green">📈</div></div>
+				<div class="kpi"><div class="kpi-title">Critical Patients</div><div class="kpi-value"><?= $stats['critical_patients'] ?? 0 ?></div><div class="kpi-sub" style="color:#ef4444">Require attention</div><div class="kpi-icon i-red">⏰</div></div>
+				<div class="kpi"><div class="kpi-title">Discharged Today</div><div class="kpi-value"><?= $stats['discharged_today'] ?? 0 ?></div><div class="kpi-sub" style="color:#64748b">Recovery completed</div><div class="kpi-icon i-purple">✅</div></div>
 			</div>
 
 			<!-- Controls Row (moved below KPIs) -->
@@ -130,54 +130,39 @@
 								<th>Patient ID</th>
 								<th>Name</th>
 								<th>Age/Gender</th>
-								<th>Condition</th>
-								<th>Status</th>
-								<th>Room</th>
-								<th>Last Visit</th>
+								<th>Contact</th>
+								<th>Blood Type</th>
+								<th>Emergency Contact</th>
+								<th>Last Updated</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>P-2024-001</td>
-								<td>John Rodriguez</td>
-								<td>45 / Male</td>
-								<td>Hypertension</td>
-								<td><span class="status s-active">Active</span></td>
-								<td>Room 201</td>
-								<td>2024-01-15</td>
-								<td>👁️  ✎</td>
-							</tr>
-							<tr>
-								<td>P-2024-002</td>
-								<td>Maria Garcia</td>
-								<td>32 / Female</td>
-								<td>Diabetes Type 2</td>
-								<td><span class="status s-active">Active</span></td>
-								<td>Room 203</td>
-								<td>2024-01-14</td>
-								<td>👁️  ✎</td>
-							</tr>
-							<tr>
-								<td>P-2024-003</td>
-								<td>Carlos Martinez</td>
-								<td>58 / Male</td>
-								<td>Heart Disease</td>
-								<td><span class="status s-critical">Critical</span></td>
-								<td>ICU-01</td>
-								<td>2024-01-13</td>
-								<td>👁️  ✎</td>
-							</tr>
-							<tr>
-								<td>P-2024-004</td>
-								<td>Ana Dela Cruz</td>
-								<td>28 / Female</td>
-								<td>Post-Surgery Recovery</td>
-								<td><span class="status s-stable">Stable</span></td>
-								<td>Room 205</td>
-								<td>2024-01-12</td>
-								<td>👁️  ✎</td>
-							</tr>
+							<?php if (!empty($patients)): ?>
+								<?php foreach ($patients as $patient): ?>
+									<tr>
+										<td>P-<?= str_pad($patient['id'], 3, '0', STR_PAD_LEFT) ?></td>
+										<td><?= esc($patient['first_name'] . ' ' . $patient['last_name']) ?></td>
+										<td><?= $patient['age'] ?? 'N/A' ?> / <?= esc($patient['gender']) ?></td>
+										<td><?= esc($patient['phone']) ?></td>
+										<td><?= esc($patient['blood_type'] ?? 'N/A') ?></td>
+										<td><?= esc($patient['emergency_name'] ?? 'N/A') ?></td>
+										<td><?= date('Y-m-d', strtotime($patient['updated_at'] ?? $patient['created_at'])) ?></td>
+										<td>
+											<a href="<?= site_url('doctor/patients/view/' . $patient['id']) ?>" style="text-decoration:none;color:#2563eb;margin-right:8px;">👁️</a>
+											<a href="<?= site_url('doctor/patients/edit/' . $patient['id']) ?>" style="text-decoration:none;color:#10b981;">✎</a>
+										</td>
+									</tr>
+								<?php endforeach; ?>
+							<?php else: ?>
+								<tr>
+									<td colspan="8" style="text-align:center;padding:40px;color:#64748b;">
+										<div style="font-size:16px;margin-bottom:8px;">👥</div>
+										<div>No patients found</div>
+										<div style="font-size:12px;margin-top:4px;">Add your first patient to get started</div>
+									</td>
+								</tr>
+							<?php endif; ?>
 						</tbody>
 					</table>
 				</div>

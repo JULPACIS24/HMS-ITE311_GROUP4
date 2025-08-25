@@ -100,7 +100,7 @@
 			<header class="header">
 				<div class="header-left">
 					<h1>Dashboard</h1>
-					<span class="subtext">Welcome back, Dr. Santos. Here's your overview for today.</span>
+					<span class="subtext">Welcome back, <?= session('role') === 'doctor' ? 'Dr. ' . (session('user_name') ?? 'Doctor') : 'Doctor' ?>. Here's your overview for today.</span>
 				</div>
 				<div class="actions">
 					<div class="notif-wrap">
@@ -137,14 +137,14 @@
 						<div class="user-chip" id="userBtn" style="cursor:pointer">
 							<div class="avatar">DR</div>
 							<div class="user-meta">
-								<div class="user-name">Dr. Maria Santos</div>
-								<div class="user-role">Cardiology</div>
+								<div class="user-name"><?= session('role') === 'doctor' ? 'Dr. ' . (session('user_name') ?? 'Doctor') : 'Doctor' ?></div>
+								<div class="user-role"><?= session('specialty') ?? session('department') ?? 'Medical' ?></div>
 							</div>
 						</div>
 						<div class="user-pop" id="userPop" style="display:none; position:absolute; right:0; top:44px; width:260px; background:#fff; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,.12); overflow:hidden; z-index:30;">
 							<div style="display:flex; gap:10px; padding:12px 14px; border-bottom:1px solid #f1f5f9">
 								<div class="big" style="width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:#6366f1;color:#fff;font-weight:800">DR</div>
-								<div><div style="font-weight:700">Dr. Maria Santos</div><div style="color:#64748b;font-size:12px">Cardiology Department</div><div style="color:#94a3b8;font-size:12px">ID: DOC-2024-001</div></div>
+								<div><div style="font-weight:700"><?= session('role') === 'doctor' ? 'Dr. ' . (session('user_name') ?? 'Doctor') : 'Doctor' ?></div><div style="color:#64748b;font-size:12px"><?= session('specialty') ?? session('department') ?? 'Medical' ?> Department</div><div style="color:#94a3b8;font-size:12px">ID: <?= session('user_id') ?? 'DOC-2024-001' ?></div></div>
 							</div>
 							<div class="menu-list" style="padding:6px 0">
 								<a href="#" class="menu-link" style="display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;color:#0f172a;font-size:14px">👤 My Profile</a>

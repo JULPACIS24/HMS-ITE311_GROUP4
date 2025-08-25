@@ -390,7 +390,7 @@
                                     <option value="">Select Patient</option>
                                     <?php if (!empty($patients)): ?>
                                         <?php foreach ($patients as $patient): ?>
-                                            <option value="<?= $patient['id'] ?>"><?= esc($patient['name']) ?> - ID: <?= esc($patient['patient_id']) ?></option>
+                                            <option value="<?= $patient['id'] ?>"><?= esc($patient['first_name'] . ' ' . $patient['last_name']) ?> - ID: <?= esc($patient['id']) ?></option>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>
@@ -682,15 +682,15 @@ function updatePatientInfo() {
         console.log('Found patient:', patient);
         
         if (patient) {
-            document.getElementById('patientId').value = patient.patient_id || patientId;
-            document.getElementById('contactNumber').value = patient.contact || patient.phone || '';
+            document.getElementById('patientId').value = patient.id || patientId;
+            document.getElementById('contactNumber').value = patient.phone || '';
             document.getElementById('email').value = patient.email || '';
             document.getElementById('philhealthNumber').value = patient.philhealth_number || '';
             document.getElementById('philhealthCategory').value = patient.philhealth_category || '';
             document.getElementById('insuranceProvider').value = patient.insurance_provider || '';
             document.getElementById('insurancePolicyNumber').value = patient.insurance_policy_number || '';
-            document.getElementById('emergencyContact').value = patient.emergency_contact || '';
-            document.getElementById('emergencyContactNumber').value = patient.emergency_contact_number || '';
+            document.getElementById('emergencyContact').value = patient.emergency_name || '';
+            document.getElementById('emergencyContactNumber').value = patient.emergency_phone || '';
         } else {
             console.log('Patient not found in array');
             // Clear all fields
@@ -941,7 +941,7 @@ function generateBill(e) {
     // Prepare bill data
     const billData = {
         patient_id: patientId,
-        patient_name: patient.name,
+        patient_name: patient ? (patient.first_name + ' ' + patient.last_name) : '',
         bill_date: billDate,
         due_date: dueDate,
         services: JSON.stringify(servicesData),

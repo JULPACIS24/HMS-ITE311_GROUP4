@@ -179,6 +179,8 @@
         .status-pending { background: #fef3c7; color: #d97706; }
         .status-urgent { background: #fecaca; color: #dc2626; }
         .status-normal { background: #dbeafe; color: #1e40af; }
+        .status-completed { background: #dcfce7; color: #16a34a; }
+        .status-cancelled { background: #fee2e2; color: #dc2626; }
         
         .request-content {
             display: grid;
@@ -316,25 +318,25 @@
             
             <div class="summary-cards">
                 <div class="summary-card">
-                    <h2 class="card-number blue">24</h2>
+                    <h2 class="card-number blue"><?= $stats['total_requests'] ?? 0 ?></h2>
                     <p class="card-label">Total Requests</p>
-                    <p class="card-subtitle green">+3 today</p>
+                    <p class="card-subtitle green">All time</p>
                 </div>
                 
                 <div class="summary-card">
-                    <h2 class="card-number orange">8</h2>
+                    <h2 class="card-number orange"><?= $stats['pending'] ?? 0 ?></h2>
                     <p class="card-label">Pending</p>
                     <p class="card-subtitle">Awaiting processing</p>
                 </div>
                 
                 <div class="summary-card">
-                    <h2 class="card-number purple">6</h2>
+                    <h2 class="card-number purple"><?= $stats['in_progress'] ?? 0 ?></h2>
                     <p class="card-label">In Progress</p>
                     <p class="card-subtitle">Being processed</p>
                 </div>
                 
                 <div class="summary-card">
-                    <h2 class="card-number green">10</h2>
+                    <h2 class="card-number green"><?= $stats['completed'] ?? 0 ?></h2>
                     <p class="card-label">Completed</p>
                     <p class="card-subtitle">Results ready</p>
                 </div>
@@ -357,152 +359,82 @@
             </div>
             
             <div class="requests-list">
-                <div class="request-card">
-                    <div class="request-header">
-                        <div class="request-info">
-                            <h3>LAB-2024-001</h3>
-                            <p>Patient: John Dela Cruz</p>
-                            <p>Requested by: Dr. Maria Santos | Cardiology</p>
-                        </div>
-                        <div class="status-tags">
-                            <span class="status-tag status-in-progress">In Progress</span>
-                            <span class="status-tag status-urgent">Urgent</span>
+                <?php if (empty($labRequests ?? [])): ?>
+                    <div class="request-card">
+                        <div class="request-header">
+                            <div class="request-info">
+                                <h3>No Lab Requests</h3>
+                                <p>No laboratory requests have been created yet.</p>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="request-content">
-                        <div class="tests-requested">
-                            <h4>Tests Requested</h4>
-                            <ul class="test-list">
-                                <li>Complete Blood Count</li>
-                                <li>Lipid Profile</li>
-                                <li>HbA1c</li>
-                            </ul>
+                <?php else: ?>
+                    <?php foreach ($labRequests as $request): ?>
+                        <div class="request-card">
+                            <div class="request-header">
+                                <div class="request-info">
+                                    <h3><?= esc($request['lab_id']) ?></h3>
+                                    <p>Patient: <?= esc($request['patient_name']) ?></p>
+                                    <p>Requested by: <?= esc($request['doctor_name']) ?></p>
+                                </div>
+                                <div class="status-tags">
+                                    <span class="status-tag status-<?= strtolower(str_replace(' ', '-', $request['status'])) ?>"><?= esc($request['status']) ?></span>
+                                    <?php if ($request['priority'] === 'STAT'): ?>
+                                        <span class="status-tag status-urgent">STAT</span>
+                                    <?php elseif ($request['priority'] === 'Urgent'): ?>
+                                        <span class="status-tag status-urgent">Urgent</span>
+                                    <?php else: ?>
+                                        <span class="status-tag status-normal">Routine</span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            
+                            <div class="request-content">
+                                <div class="tests-requested">
+                                    <h4>Tests Requested</h4>
+                                    <ul class="test-list">
+                                        <?php 
+                                        $tests = explode(', ', $request['tests']);
+                                        foreach ($tests as $test): 
+                                        ?>
+                                            <li><?= esc(trim($test)) ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                                
+                                <div class="request-details">
+                                    <h4>Request Details</h4>
+                                    <ul class="detail-list">
+                                        <li>
+                                            <span class="detail-label">Request Date:</span>
+                                            <span><?= date('Y-m-d', strtotime($request['created_at'])) ?></span>
+                                        </li>
+                                        <li>
+                                            <span class="detail-label">Expected Date:</span>
+                                            <span><?= esc($request['expected_date']) ?></span>
+                                        </li>
+                                        <li>
+                                            <span class="detail-label">Priority:</span>
+                                            <span><?= esc($request['priority']) ?></span>
+                                        </li>
+                                        <?php if (!empty($request['clinical_notes'])): ?>
+                                        <li>
+                                            <span class="detail-label">Notes:</span>
+                                            <span><?= esc($request['clinical_notes']) ?></span>
+                                        </li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button class="action-btn btn-view" onclick="viewRequestDetails('<?= esc($request['lab_id']) ?>')">View Details</button>
+                                <button class="action-btn btn-update" onclick="updateRequestStatus('<?= esc($request['lab_id']) ?>')">Update Status</button>
+                                <button class="action-btn btn-print" onclick="printRequest('<?= esc($request['lab_id']) ?>')">Print Request</button>
+                            </div>
                         </div>
-                        
-                        <div class="request-details">
-                            <h4>Request Details</h4>
-                            <ul class="detail-list">
-                                <li>
-                                    <span class="detail-label">Request Date:</span>
-                                    <span>2024-01-15</span>
-                                </li>
-                                <li>
-                                    <span class="detail-label">Expected Date:</span>
-                                    <span>2024-01-15</span>
-                                </li>
-                                <li>
-                                    <span class="detail-label">Notes:</span>
-                                    <span>Pre-operative clearance required</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button class="action-btn btn-view" onclick="viewRequestDetails('LAB-2024-001')">View Details</button>
-                        <button class="action-btn btn-update" onclick="updateRequestStatus('LAB-2024-001')">Update Status</button>
-                        <button class="action-btn btn-print" onclick="printRequest('LAB-2024-001')">Print Request</button>
-                    </div>
-                </div>
-                
-                <div class="request-card">
-                    <div class="request-header">
-                        <div class="request-info">
-                            <h3>LAB-2024-002</h3>
-                            <p>Patient: Ana Rodriguez</p>
-                            <p>Requested by: Dr. Roberto Garcia | Pediatrics</p>
-                        </div>
-                        <div class="status-tags">
-                            <span class="status-tag status-pending">Pending</span>
-                            <span class="status-tag status-normal">Normal</span>
-                        </div>
-                    </div>
-                    
-                    <div class="request-content">
-                        <div class="tests-requested">
-                            <h4>Tests Requested</h4>
-                            <ul class="test-list">
-                                <li>Routine Urinalysis</li>
-                                <li>Complete Blood Count</li>
-                                <li>Blood Glucose</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="request-details">
-                            <h4>Request Details</h4>
-                            <ul class="detail-list">
-                                <li>
-                                    <span class="detail-label">Request Date:</span>
-                                    <span>2024-01-15</span>
-                                </li>
-                                <li>
-                                    <span class="detail-label">Expected Date:</span>
-                                    <span>2024-01-16</span>
-                                </li>
-                                <li>
-                                    <span class="detail-label">Notes:</span>
-                                    <span>Routine checkup</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button class="action-btn btn-view" onclick="viewRequestDetails('LAB-2024-002')">View Details</button>
-                        <button class="action-btn btn-update" onclick="updateRequestStatus('LAB-2024-002')">Update Status</button>
-                        <button class="action-btn btn-print" onclick="printRequest('LAB-2024-002')">Print Request</button>
-                    </div>
-                </div>
-                
-                <div class="request-card">
-                    <div class="request-header">
-                        <div class="request-info">
-                            <h3>LAB-2024-003</h3>
-                            <p>Patient: Carlos Mendoza</p>
-                            <p>Requested by: Dr. Elena Santos | Internal Medicine</p>
-                        </div>
-                        <div class="status-tags">
-                            <span class="status-tag status-in-progress">In Progress</span>
-                            <span class="status-tag status-normal">Normal</span>
-                        </div>
-                    </div>
-                    
-                    <div class="request-content">
-                        <div class="tests-requested">
-                            <h4>Tests Requested</h4>
-                            <ul class="test-list">
-                                <li>Comprehensive Metabolic Panel</li>
-                                <li>Thyroid Function Tests</li>
-                                <li>Vitamin D Level</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="request-details">
-                            <h4>Request Details</h4>
-                            <ul class="detail-list">
-                                <li>
-                                    <span class="detail-label">Request Date:</span>
-                                    <span>2024-01-14</span>
-                                </li>
-                                <li>
-                                    <span class="detail-label">Expected Date:</span>
-                                    <span>2024-01-17</span>
-                                </li>
-                                <li>
-                                    <span class="detail-label">Notes:</span>
-                                    <span>Annual physical examination</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button class="action-btn btn-view" onclick="viewRequestDetails('LAB-2024-003')">View Details</button>
-                        <button class="action-btn btn-update" onclick="updateRequestStatus('LAB-2024-003')">Update Status</button>
-                        <button class="action-btn btn-print" onclick="printRequest('LAB-2024-003')">Print Request</button>
-                    </div>
-                </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>
