@@ -414,14 +414,81 @@ class Doctor extends BaseController
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
 		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
-		return view('auth/doctor_consultations');
+		
+		$consultationModel = new \App\Models\ConsultationModel();
+		$appointmentModel = new \App\Models\AppointmentModel();
+		
+		// Get consultation statistics for the current doctor
+		$stats = $consultationModel->getDoctorConsultationStats(session('user_id'));
+		
+		// Get consultations for the current doctor
+		$consultations = $consultationModel->getConsultationsWithDetails(session('user_id'));
+		
+		// Get upcoming appointments that can be converted to consultations
+		// Filter by the current doctor's name - try different variations
+		$doctorName = session('user_name');
+		$doctorNameVariations = [
+			$doctorName,
+			'Dr. ' . $doctorName,
+			'Dr. Ivan',
+			'Ivan',
+			'Dr Ivan'
+		];
+		
+		// Debug: Log the doctor name and all appointments
+		log_message('info', 'Doctor consultations - Doctor name: ' . $doctorName);
+		
+		// First, let's see ALL appointments to debug
+		$allAppointments = $appointmentModel->findAll();
+		log_message('info', 'Doctor consultations - Total appointments in system: ' . count($allAppointments));
+		foreach ($allAppointments as $apt) {
+			log_message('info', 'All appointment: ' . $apt['patient_name'] . ' with Dr. ' . $apt['doctor_name'] . ' at ' . $apt['date_time'] . ' (status: ' . $apt['status'] . ')');
+		}
+		
+		// Now get appointments for this specific doctor with patient information - try different name variations
+		$upcomingAppointments = [];
+		foreach ($doctorNameVariations as $name) {
+			$appointments = $appointmentModel->select('appointments.*, patients.id as patient_db_id, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name')
+											->join('patients', 'patients.id = appointments.patient_id', 'left')
+											->where('appointments.doctor_name', $name)
+											->where('appointments.status', 'Confirmed')
+											->orderBy('appointments.date_time', 'ASC')
+											->findAll();
+			if (!empty($appointments)) {
+				$upcomingAppointments = $appointments;
+				log_message('info', 'Doctor consultations - Found appointments using name: ' . $name);
+				break;
+			}
+		}
+		
+		// If still no appointments, get all confirmed appointments for debugging
+		if (empty($upcomingAppointments)) {
+			$upcomingAppointments = $appointmentModel->where('status', 'Confirmed')
+													->orderBy('date_time', 'ASC')
+													->findAll();
+			log_message('info', 'Doctor consultations - No appointments found with any name variation, showing all confirmed appointments');
+		}
+		
+		// Debug: Log the appointments found for this doctor
+		log_message('info', 'Doctor consultations - Found ' . count($upcomingAppointments) . ' confirmed appointments for doctor');
+		foreach ($upcomingAppointments as $apt) {
+			log_message('info', 'Upcoming appointment: ' . $apt['patient_name'] . ' at ' . $apt['date_time']);
+		}
+		
+		return view('auth/doctor_consultations', [
+			'stats' => $stats,
+			'consultations' => $consultations,
+			'upcomingAppointments' => $upcomingAppointments
+		]);
 	}
 
 	public function schedule()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
 		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
-		return view('auth/doctor_schedule');
+		
+		// Redirect to the new schedule system
+		return redirect()->to('/schedule');
 	}
 
 	public function reports()
@@ -619,8 +686,264 @@ class Doctor extends BaseController
 			]);
 		}
 	}
-}
 
-?>
+	public function startConsultation()
+	{
+		if (! session('isLoggedIn')) return redirect()->to('/login');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		
+		$appointmentId = $this->request->getPost('appointment_id');
+		$patientId = $this->request->getPost('patient_id');
+		
+		$appointmentModel = new \App\Models\AppointmentModel();
+		$patientModel = new \App\Models\PatientModel();
+		$consultationModel = new \App\Models\ConsultationModel();
+		
+		// Get appointment and patient details
+		$appointment = $appointmentModel->find($appointmentId);
+		$patient = $patientModel->find($patientId);
+		
+		if (!$appointment || !$patient) {
+			return $this->response->setJSON(['success' => false, 'message' => 'Appointment or patient not found.']);
+		}
+		
+		// Check if consultation already exists
+		$existingConsultation = $consultationModel->where('appointment_id', $appointmentId)->first();
+		if ($existingConsultation) {
+			return $this->response->setJSON(['success' => false, 'message' => 'Consultation already exists for this appointment.']);
+		}
+		
+		// Create new consultation
+		$consultationData = [
+			'appointment_id' => $appointmentId,
+			'patient_id' => $patientId,
+			'patient_name' => $patient['first_name'] . ' ' . $patient['last_name'],
+			'patient_id_formatted' => $patient['patient_id'] ?? 'P-' . date('Y') . '-' . str_pad($patient['id'], 3, '0', STR_PAD_LEFT),
+			'doctor_id' => session('user_id'),
+			'doctor_name' => session('user_name'),
+			'consultation_type' => $appointment['type'] ?? 'Initial Consultation',
+			'date_time' => $appointment['date_time'],
+			'duration' => 60, // Default duration
+			'status' => 'In Progress',
+			'blood_pressure' => '120/80',
+			'heart_rate' => '72 bpm',
+			'temperature' => '36.5°C',
+			'weight' => '70 kg',
+		];
+		
+		$consultationId = $consultationModel->insert($consultationData);
+		
+		if ($consultationId) {
+			// Update appointment status
+			$appointmentModel->update($appointmentId, ['status' => 'In Progress']);
+			
+			return $this->response->setJSON([
+				'success' => true,
+				'message' => 'Consultation started successfully!',
+				'consultation_id' => $consultationId
+			]);
+		} else {
+			return $this->response->setJSON([
+				'success' => false,
+				'message' => 'Failed to start consultation. Please try again.'
+			]);
+		}
+	}
+
+	public function saveConsultation()
+	{
+		if (! session('isLoggedIn')) return redirect()->to('/login');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		
+		$consultationModel = new \App\Models\ConsultationModel();
+		$patientModel = new \App\Models\PatientModel();
+		
+		// Get form data from the modal
+		$patientId = $this->request->getPost('patient_id');
+		$consultationType = $this->request->getPost('consultation_type');
+		$chiefComplaint = $this->request->getPost('chief_complaint');
+		$dateTime = $this->request->getPost('date_time');
+		$duration = $this->request->getPost('duration');
+		$notes = $this->request->getPost('notes');
+		
+		// Log the received data for debugging
+		log_message('info', 'Save consultation - Received data: ' . json_encode([
+			'patient_id' => $patientId,
+			'consultation_type' => $consultationType,
+			'chief_complaint' => $chiefComplaint,
+			'date_time' => $dateTime,
+			'duration' => $duration,
+			'notes' => $notes
+		]));
+		
+		// Validate required fields
+		if (!$patientId || !$consultationType || !$dateTime) {
+			log_message('error', 'Save consultation - Missing required fields: patient_id=' . $patientId . ', consultation_type=' . $consultationType . ', date_time=' . $dateTime);
+			return $this->response->setJSON(['success' => false, 'message' => 'Missing required fields.']);
+		}
+		
+		// Get patient details
+		$patient = $patientModel->find($patientId);
+		if (!$patient) {
+			log_message('error', 'Save consultation - Patient not found: ' . $patientId);
+			return $this->response->setJSON(['success' => false, 'message' => 'Patient not found.']);
+		}
+		
+		// Find existing appointment for this patient and doctor
+		$appointmentModel = new \App\Models\AppointmentModel();
+		$existingAppointment = $appointmentModel->where('patient_id', $patientId)
+			->where('doctor_id', session('user_id'))
+			->where('status', 'Confirmed')
+			->orderBy('date_time', 'DESC')
+			->first();
+		
+		// Create new consultation
+		$consultationData = [
+			'patient_id' => $patientId,
+			'patient_name' => $patient['first_name'] . ' ' . $patient['last_name'],
+			'patient_id_formatted' => $patient['patient_id'] ?? 'P-' . date('Y') . '-' . str_pad($patient['id'], 3, '0', STR_PAD_LEFT),
+			'doctor_id' => session('user_id'),
+			'doctor_name' => session('user_name'),
+			'consultation_type' => $consultationType,
+			'date_time' => $dateTime,
+			'duration' => $duration ?: 30,
+			'status' => 'Active',
+			'chief_complaint' => $chiefComplaint,
+			'notes' => $notes,
+			// Link to appointment if found
+			'appointment_id' => $existingAppointment ? $existingAppointment['id'] : null,
+			// Set default values for medical fields
+			'blood_pressure' => '120/80',
+			'heart_rate' => '72 bpm',
+			'temperature' => '36.5°C',
+			'weight' => '70 kg',
+		];
+		
+		log_message('info', 'Save consultation - Attempting to insert: ' . json_encode($consultationData));
+		
+		try {
+			$consultationId = $consultationModel->insert($consultationData);
+			
+			if ($consultationId) {
+				log_message('info', 'Save consultation - Successfully created consultation with ID: ' . $consultationId);
+				
+				return $this->response->setJSON([
+					'success' => true, 
+					'message' => 'Consultation created successfully!',
+					'consultation_id' => $consultationId
+				]);
+			} else {
+				log_message('error', 'Save consultation - Failed to insert consultation data');
+				return $this->response->setJSON(['success' => false, 'message' => 'Failed to create consultation.']);
+			}
+		} catch (\Exception $e) {
+			log_message('error', 'Save consultation - Exception: ' . $e->getMessage());
+			return $this->response->setJSON(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
+		}
+	}
+
+	public function completeConsultation()
+	{
+		if (! session('isLoggedIn')) return redirect()->to('/login');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		
+		$consultationId = $this->request->getPost('consultation_id');
+		
+		$consultationModel = new \App\Models\ConsultationModel();
+		$appointmentModel = new \App\Models\AppointmentModel();
+		
+		// Get consultation
+		$consultation = $consultationModel->find($consultationId);
+		if (!$consultation) {
+			return $this->response->setJSON(['success' => false, 'message' => 'Consultation not found.']);
+		}
+		
+		// Check if this consultation belongs to the logged-in doctor
+		if ($consultation['doctor_id'] != session('user_id')) {
+			return $this->response->setJSON(['success' => false, 'message' => 'You can only update your own consultations.']);
+		}
+		
+		// Update consultation status
+		$consultationModel->update($consultationId, ['status' => 'Completed']);
+		
+		// Update appointment status if it exists
+		if ($consultation['appointment_id']) {
+			$appointmentModel->update($consultation['appointment_id'], ['status' => 'Completed']);
+		}
+		
+		return $this->response->setJSON(['success' => true, 'message' => 'Consultation completed successfully!']);
+	}
+
+	public function getConsultationDetails($id)
+	{
+		if (! session('isLoggedIn')) return redirect()->to('/login');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		
+		$consultationModel = new \App\Models\ConsultationModel();
+		$consultation = $consultationModel->find($id);
+		
+		if (!$consultation) {
+			return $this->response->setJSON(['success' => false, 'message' => 'Consultation not found.']);
+		}
+		
+		// Check if this consultation belongs to the logged-in doctor
+		if ($consultation['doctor_id'] != session('user_id')) {
+			return $this->response->setJSON(['success' => false, 'message' => 'You can only view your own consultations.']);
+		}
+		
+		return $this->response->setJSON(['success' => true, 'consultation' => $consultation]);
+	}
+
+	public function getAppointmentDetails($appointmentId)
+	{
+		if (! session('isLoggedIn')) return $this->response->setJSON(['success' => false, 'message' => 'Not authenticated']);
+		if (session('role') && session('role') !== 'doctor') return $this->response->setJSON(['success' => false, 'message' => 'Unauthorized']);
+		
+		$appointmentModel = new \App\Models\AppointmentModel();
+		$appointment = $appointmentModel->find($appointmentId);
+		
+		if (!$appointment) {
+			return $this->response->setJSON(['success' => false, 'message' => 'Appointment not found']);
+		}
+		
+		return $this->response->setJSON(['success' => true, 'appointment' => $appointment]);
+	}
+
+	public function getPatientConsultations($patientId)
+	{
+		if (! session('isLoggedIn')) return $this->response->setJSON(['success' => false, 'message' => 'Not authenticated']);
+		
+		// Allow both doctors and admins to access this method
+		if (session('role') && !in_array(session('role'), ['doctor', 'admin'])) {
+			return $this->response->setJSON(['success' => false, 'message' => 'Unauthorized access']);
+		}
+		
+		$consultationModel = new \App\Models\ConsultationModel();
+		$userModel = new \App\Models\UserModel();
+		
+		// Get all consultations for the patient with appointment details (including room)
+		$consultations = $consultationModel->select('consultations.*, patients.first_name, patients.last_name, patients.phone, appointments.appointment_code, appointments.room')
+			->join('patients', 'patients.id = consultations.patient_id', 'left')
+			->join('appointments', 'appointments.id = consultations.appointment_id', 'left')
+			->where('consultations.patient_id', $patientId)
+			->orderBy('consultations.date_time', 'DESC')
+			->findAll();
+		
+		// Get doctor names for each consultation
+		foreach ($consultations as &$consultation) {
+			if ($consultation['doctor_id']) {
+				$doctor = $userModel->find($consultation['doctor_id']);
+				$consultation['doctor_name'] = $doctor ? $doctor['name'] : 'Unknown';
+			} else {
+				$consultation['doctor_name'] = 'Unknown';
+			}
+		}
+		
+		return $this->response->setJSON([
+			'success' => true, 
+			'consultations' => $consultations
+		]);
+	}
+}
 
 

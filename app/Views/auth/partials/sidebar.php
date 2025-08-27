@@ -57,16 +57,26 @@
 		.menu-item.active { background:#eef2ff; color:#1d4ed8; border-left-color:#2563eb }
 		.menu-icon { width:20px; text-align:center }
 		
-		/* Dashboard and Logout styling to match other sidebar items */
+		/* Dashboard, Logout, Branch Management, and System Settings styling to match other sidebar items */
 		.menu-item.dashboard,
-		.menu-item.logout {
-			color: #374151;
+		.menu-item.logout,
+		.menu-item[href*="branch-management"],
+		.menu-item[href*="settings"] {
+			color: #334155;
 		}
 		
 		.menu-item.dashboard:hover,
-		.menu-item.logout:hover {
+		.menu-item.logout:hover,
+		.menu-item[href*="branch-management"]:hover,
+		.menu-item[href*="settings"]:hover {
 			background: #dbeafe;
 			color: #1e40af;
+		}
+		
+		/* Ensure Branch Management and System Settings maintain consistent color when other items are active */
+		.menu-item[href*="branch-management"]:not(.active),
+		.menu-item[href*="settings"]:not(.active) {
+			color: #334155 !important;
 		}
 	</style>
 
@@ -104,7 +114,6 @@
 				<div class="submenu">
 					<a class="subitem" href="<?= site_url('scheduling/doctor') ?>">Doctor Schedule</a>
 					<a class="subitem" href="<?= site_url('scheduling/nurse') ?>">Nurse Schedule</a>
-					<a class="subitem" href="<?= site_url('appointments') ?>">Appointments</a>
 				</div>
 			</div>
 
@@ -157,27 +166,14 @@
 				<div class="submenu">
 					<a class="subitem" href="<?= site_url('employee-records') ?>">Employee Records</a>
 					<a class="subitem" href="<?= site_url('role-management') ?>">Role Management</a>
-					<a class="subitem" href="#">Access Control</a>
 				</div>
 			</div>
 
-			<div class="menu-group" data-group="branch">
-				<button class="group-toggle" type="button"><span class="menu-icon">🏢</span>Branch Management <span class="chev">›</span></button>
-				<div class="submenu">
-					<a class="subitem" href="#">Branches</a>
-					<a class="subitem" href="#">Departments</a>
-				</div>
-			</div>
+			<a href="<?= site_url('branch-management') ?>" class="menu-item"><span class="menu-icon">🏢</span>Branch Management</a>
 
 
 
-			<div class="menu-group" data-group="settings">
-				<button class="group-toggle" type="button"><span class="menu-icon">⚙️</span>System Settings <span class="chev">›</span></button>
-				<div class="submenu">
-					<a class="subitem" href="<?= site_url('settings') ?>">General</a>
-					<a class="subitem" href="<?= site_url('settings') ?>">Security</a>
-				</div>
-			</div>
+			<a href="<?= site_url('settings') ?>" class="menu-item"><span class="menu-icon">⚙️</span>System Settings</a>
 		<?php endif; ?>
 
 		<a href="<?= site_url('logout') ?>" class="menu-item logout"><span class="menu-icon">🚪</span>Logout</a>
@@ -255,7 +251,7 @@
 			});
 
 			// Keep Staff Management submenu open when on staff-related pages
-			if (path.includes('employee-records') || path.includes('role-management') || path.includes('access-control')) {
+			if (path.includes('employee-records') || path.includes('role-management')) {
 				const staffGroup = document.querySelector('[data-group="staff"]');
 				if (staffGroup) {
 					staffGroup.classList.add('open');
@@ -270,7 +266,7 @@
 			}
 			
 			// Scheduling group
-			if (path.includes('scheduling/doctor') || path.includes('scheduling/nurse') || path.includes('appointments')) {
+			if (path.includes('scheduling/doctor') || path.includes('scheduling/nurse')) {
 				const schedulingGroup = document.querySelector('[data-group="scheduling"]');
 				schedulingGroup && schedulingGroup.classList.add('open');
 			}

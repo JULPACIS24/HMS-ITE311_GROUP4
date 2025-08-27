@@ -42,7 +42,7 @@
                                         ?> • 
                                         <?= esc($p['gender'] ?? 'N/A') ?>
                                     </div>
-                                    <div class="patient-visits" id="visits-<?= $p['id'] ?>">Loading...</div>
+                                    <div class="patient-visits" id="visits-<?= $p['id'] ?>">Loading consultations...</div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -428,6 +428,11 @@
     font-weight: 500;
 }
 
+.record-room {
+    font-weight: 500;
+    color: #8b5cf6;
+}
+
 .record-actions {
     display: flex;
     gap: 10px;
@@ -657,24 +662,24 @@ function loadVisitCounts() {
 
 // Load patient visits count
 function loadPatientVisits(patientId) {
-    fetch(`<?= site_url('scheduling/getPatientAppointments/') ?>${patientId}`)
+    fetch(`<?= site_url('doctor/consultations/getPatientConsultations/') ?>${patientId}`)
         .then(response => response.json())
         .then(data => {
             const visitsElement = document.getElementById(`visits-${patientId}`);
             if (visitsElement) {
-                if (data.success && data.appointments) {
-                    const visitCount = data.appointments.length;
-                    visitsElement.textContent = `${visitCount} visit${visitCount !== 1 ? 's' : ''}`;
+                if (data.success && data.consultations) {
+                    const visitCount = data.consultations.length;
+                    visitsElement.textContent = `${visitCount} consultation${visitCount !== 1 ? 's' : ''}`;
                 } else {
-                    visitsElement.textContent = '0 visits';
+                    visitsElement.textContent = '0 consultations';
                 }
             }
         })
         .catch(error => {
-            console.error('Error loading visits:', error);
+            console.error('Error loading consultations:', error);
             const visitsElement = document.getElementById(`visits-${patientId}`);
             if (visitsElement) {
-                visitsElement.textContent = '0 visits';
+                visitsElement.textContent = '0 consultations';
             }
         });
 }
@@ -692,8 +697,8 @@ function selectPatient(patientId, patientData) {
     // Display patient info in timeline header
     displayPatientInfo(patientData);
     
-    // Load and display real appointment data
-    loadPatientAppointments(patientId);
+    // Load and display real consultation data
+    loadPatientConsultations(patientId);
     
     // Reset record details
     resetRecordDetails();
@@ -717,11 +722,11 @@ function displayPatientInfo(patient) {
     `;
 }
 
-// Update patient info with appointment data
-function updatePatientInfoWithAppointments(patient, appointments) {
+// Update patient info with consultation data
+function updatePatientInfoWithConsultations(patient, consultations) {
     const patientInfoContainer = document.getElementById('selectedPatientInfo');
-    const visitCount = appointments ? appointments.length : 0;
-    const lastVisit = appointments && appointments.length > 0 ? appointments[0].date : 'No visits yet';
+    const visitCount = consultations ? consultations.length : 0;
+    const lastVisit = consultations && consultations.length > 0 ? consultations[0].date_time : 'No consultations yet';
     
     patientInfoContainer.innerHTML = `
         <div class="selected-patient-header">
@@ -729,16 +734,16 @@ function updatePatientInfoWithAppointments(patient, appointments) {
             <div class="selected-patient-details">
                 <div class="selected-patient-name">${patient.first_name} ${patient.last_name}</div>
                 <div class="selected-patient-meta">P${String(patient.id).padStart(3, '0')} • ${patient.gender}</div>
-                <div class="selected-patient-visits">${visitCount} total visits • Last: ${lastVisit}</div>
+                <div class="selected-patient-visits">${visitCount} total consultations • Last: ${lastVisit}</div>
             </div>
         </div>
     `;
 }
 
-// Load real patient appointments from database
-function loadPatientAppointments(patientId) {
-    console.log('Loading appointments for patient ID:', patientId);
-    fetch(`<?= site_url('scheduling/getPatientAppointments/') ?>${patientId}`)
+// Load real patient consultations from database
+function loadPatientConsultations(patientId) {
+    console.log('Loading consultations for patient ID:', patientId);
+    fetch(`<?= site_url('doctor/consultations/getPatientConsultations/') ?>${patientId}`)
         .then(response => {
             console.log('Response status:', response.status);
             return response.json();
@@ -746,26 +751,26 @@ function loadPatientAppointments(patientId) {
         .then(data => {
             console.log('Response data:', data);
             if (data.success) {
-                const appointments = data.appointments || [];
-                console.log('Appointments found:', appointments);
-                displayAppointmentTimeline(appointments);
+                const consultations = data.consultations || [];
+                console.log('Consultations found:', consultations);
+                displayConsultationTimeline(consultations);
                 // Update visit count
-                updateVisitCount(patientId, appointments.length);
-                // Update patient info with appointment data
+                updateVisitCount(patientId, consultations.length);
+                // Update patient info with consultation data
                 const patientItem = document.querySelector(`[data-patient-id="${patientId}"]`);
                 if (patientItem) {
                     const patientData = JSON.parse(patientItem.getAttribute('onclick').match(/selectPatient\((\d+), (.+)\)/)[2]);
-                    updatePatientInfoWithAppointments(patientData, appointments);
+                    updatePatientInfoWithConsultations(patientData, consultations);
                 }
             } else {
-                console.error('Error loading appointments:', data.message);
-                displayAppointmentTimeline([]);
+                console.error('Error loading consultations:', data.message);
+                displayConsultationTimeline([]);
                 updateVisitCount(patientId, 0);
             }
         })
         .catch(error => {
-            console.error('Error loading appointments:', error);
-            displayAppointmentTimeline([]);
+            console.error('Error loading consultations:', error);
+            displayConsultationTimeline([]);
             updateVisitCount(patientId, 0);
         });
 }
@@ -778,59 +783,65 @@ function updateVisitCount(patientId, count) {
     }
 }
 
-// Display appointment timeline
-function displayAppointmentTimeline(appointments) {
+// Display consultation timeline
+function displayConsultationTimeline(consultations) {
     const timelineContent = document.getElementById('timelineContent');
     
-    if (appointments.length === 0) {
+    if (consultations.length === 0) {
         timelineContent.innerHTML = `
-            <div class="no-appointments">
+            <div class="no-consultations">
                 <div style="text-align: center; color: #94a3b8; padding: 40px;">
-                    <div style="font-size: 48px; margin-bottom: 16px;">📅</div>
-                    <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px;">No Appointments</div>
-                    <div style="color: #64748b;">This patient has no scheduled appointments yet.</div>
+                    <div style="font-size: 48px; margin-bottom: 16px;">🩺</div>
+                    <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px;">No Consultations</div>
+                    <div style="color: #64748b;">This patient has no medical consultations yet. Follow-ups will appear here once a doctor creates a consultation.</div>
                 </div>
             </div>
         `;
         return;
     }
     
-    // Sort appointments by date (newest first)
-    appointments.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Sort consultations by date (newest first)
+    consultations.sort((a, b) => new Date(b.date_time) - new Date(a.date_time));
     
-    timelineContent.innerHTML = appointments.map(appointment => {
-        const status = appointment.status || 'scheduled';
-        const statusClass = status.toLowerCase();
+    timelineContent.innerHTML = consultations.map(consultation => {
+        const status = consultation.status || 'active';
         const statusText = status.charAt(0).toUpperCase() + status.slice(1);
         
-        // Get status color based on appointment type and status
+        // Get status color based on consultation status
         let statusColor = '#3b82f6'; // default blue
         if (status.toLowerCase() === 'completed') statusColor = '#10b981'; // green
-        if (status.toLowerCase() === 'pending') statusColor = '#f59e0b'; // orange
+        if (status.toLowerCase() === 'active') statusColor = '#f59e0b'; // orange
         if (status.toLowerCase() === 'cancelled') statusColor = '#ef4444'; // red
-        if (appointment.type && appointment.type.toLowerCase() === 'emergency') statusColor = '#ef4444'; // red for emergency
         
-        // Generate medical description based on appointment type
-        let medicalDescription = appointment.notes || 'Regular medical consultation';
-        if (appointment.type && appointment.type.toLowerCase() === 'follow-up') {
+        // Format date for display
+        const consultationDate = new Date(consultation.date_time);
+        const formattedDate = consultationDate.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: '2-digit', 
+            day: '2-digit' 
+        });
+        
+        // Generate medical description based on consultation type
+        let medicalDescription = consultation.chief_complaint || 'Medical consultation';
+        if (consultation.consultation_type && consultation.consultation_type.toLowerCase() === 'follow-up') {
             medicalDescription = 'Follow-up consultation - Monitoring progress';
-        } else if (appointment.type && appointment.type.toLowerCase() === 'emergency') {
-            medicalDescription = 'Emergency care - Immediate treatment required';
+        } else if (consultation.consultation_type && consultation.consultation_type.toLowerCase() === 'emergency') {
+            medicalDescription = 'Emergency consultation - Immediate care provided';
         }
         
         return `
-            <div class="timeline-item" onclick="selectAppointment(${JSON.stringify(appointment).replace(/"/g, '&quot;')})">
+            <div class="timeline-item" onclick="selectConsultation(${JSON.stringify(consultation).replace(/"/g, '&quot;')})">
                 <div class="timeline-dot" style="background-color: ${statusColor}"></div>
                 <div class="timeline-content-info">
                     <div class="timeline-title">
-                        <strong>${appointment.type || 'General Checkup'}</strong> (${appointment.date})
+                        <strong>${consultation.consultation_type || 'General Consultation'}</strong> (${formattedDate})
                     </div>
                     <div class="timeline-description">
                         ${medicalDescription}
                     </div>
                     <div class="timeline-doctor">
-                        Dr. ${appointment.doctor_name || 'Unknown'}
-                        <span class="timeline-room">• Room ${appointment.room || 'N/A'}</span>
+                        Dr. ${consultation.doctor_name || 'Unknown'}
+                        <span class="timeline-room">• Room ${consultation.room || 'N/A'}</span>
                     </div>
                     <div class="timeline-status-badge" style="background-color: ${statusColor}; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">
                         ${statusText}
@@ -841,8 +852,8 @@ function displayAppointmentTimeline(appointments) {
     }).join('');
 }
 
-// Select appointment
-function selectAppointment(appointment) {
+// Select consultation
+function selectConsultation(consultation) {
     // Remove selected class from all timeline items
     document.querySelectorAll('.timeline-item').forEach(item => {
         item.classList.remove('selected');
@@ -851,30 +862,36 @@ function selectAppointment(appointment) {
     // Add selected class to clicked item
     event.currentTarget.classList.add('selected');
     
-    // Display appointment details
-    displayAppointmentDetails(appointment);
+    // Display consultation details
+    displayConsultationDetails(consultation);
 }
 
-// Display appointment details
-function displayAppointmentDetails(appointment) {
+// Display consultation details
+function displayConsultationDetails(consultation) {
     const recordDetails = document.getElementById('recordDetails');
-    const status = appointment.status || 'scheduled';
-    const statusClass = status.toLowerCase();
+    const status = consultation.status || 'active';
     const statusText = status.charAt(0).toUpperCase() + status.slice(1);
     
-    // Generate mock medical data based on appointment type (in real app, this would come from database)
-    const vitalSigns = generateVitalSigns(appointment);
-    const diagnosis = generateDiagnosis(appointment);
-    const treatmentPlan = generateTreatmentPlan(appointment);
-    const prescriptions = generatePrescriptions(appointment);
+    // Format date for display
+    const consultationDate = new Date(consultation.date_time);
+    const formattedDate = consultationDate.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit' 
+    });
+    const formattedTime = consultationDate.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    });
     
     recordDetails.innerHTML = `
         <div class="record-header">
             <div class="record-header-main">
-                <h3>${appointment.type || 'General Checkup'}</h3>
+                <h3>${consultation.consultation_type || 'General Consultation'}</h3>
                 <div class="record-header-meta">
-                    <span class="record-date">${appointment.date}</span>
-                    <span class="record-doctor">Dr. ${appointment.doctor_name || 'Unknown'}</span>
+                    <span class="record-date">${formattedDate} ${formattedTime}</span>
+                    <span class="record-doctor">Dr. ${consultation.doctor_name || 'Unknown'}</span>
+                    ${consultation.room ? `<span class="record-room">📍 ${consultation.room}</span>` : ''}
                 </div>
             </div>
             <div class="record-actions">
@@ -888,95 +905,51 @@ function displayAppointmentDetails(appointment) {
                 <div class="vital-signs-grid">
                     <div class="vital-sign-item">
                         <span class="vital-label">Blood Pressure:</span>
-                        <span class="vital-value">${vitalSigns.bloodPressure}</span>
+                        <span class="vital-value">${consultation.blood_pressure || 'N/A'}</span>
                     </div>
                     <div class="vital-sign-item">
                         <span class="vital-label">Heart Rate:</span>
-                        <span class="vital-value">${vitalSigns.heartRate}</span>
+                        <span class="vital-value">${consultation.heart_rate || 'N/A'}</span>
                     </div>
                     <div class="vital-sign-item">
                         <span class="vital-label">Temperature:</span>
-                        <span class="vital-value">${vitalSigns.temperature}</span>
+                        <span class="vital-value">${consultation.temperature || 'N/A'}</span>
                     </div>
                     <div class="vital-sign-item">
                         <span class="vital-label">Weight:</span>
-                        <span class="vital-value">${vitalSigns.weight}</span>
+                        <span class="vital-value">${consultation.weight || 'N/A'}</span>
                     </div>
                 </div>
             </div>
             <div class="record-section">
-                <div class="record-label">Diagnosis</div>
-                <div class="record-value">${diagnosis}</div>
+                <div class="record-label">Chief Complaint</div>
+                <div class="record-value">${consultation.chief_complaint || 'No complaint recorded'}</div>
+            </div>
+            <div class="record-section">
+                <div class="record-label">History of Present Illness</div>
+                <div class="record-value">${consultation.history_illness || 'No history recorded'}</div>
+            </div>
+            <div class="record-section">
+                <div class="record-label">Physical Examination</div>
+                <div class="record-value">${consultation.physical_exam || 'No examination recorded'}</div>
+            </div>
+            <div class="record-section">
+                <div class="record-label">Assessment & Diagnosis</div>
+                <div class="record-value">${consultation.assessment || 'No diagnosis recorded'}</div>
             </div>
             <div class="record-section">
                 <div class="record-label">Treatment Plan</div>
-                <div class="record-value">${treatmentPlan}</div>
+                <div class="record-value">${consultation.treatment_plan || 'No treatment plan recorded'}</div>
             </div>
             <div class="record-section">
-                <div class="record-label">Prescriptions</div>
-                <div class="record-value">${prescriptions}</div>
-            </div>
-            <div class="record-section">
-                <div class="record-label">Notes</div>
-                <div class="record-value">${appointment.notes || 'No additional notes available'}</div>
+                <div class="record-label">Additional Notes</div>
+                <div class="record-value">${consultation.notes || 'No additional notes available'}</div>
             </div>
         </div>
     `;
 }
 
-// Generate mock vital signs (in real app, this would come from database)
-function generateVitalSigns(appointment) {
-    const baseVitals = {
-        bloodPressure: '130/80',
-        heartRate: '72 bpm',
-        temperature: '36.5°C',
-        weight: '75kg'
-    };
-    
-    // Modify based on appointment type
-    if (appointment.type && appointment.type.toLowerCase() === 'emergency') {
-        baseVitals.bloodPressure = '140/90';
-        baseVitals.heartRate = '85 bpm';
-    } else if (appointment.type && appointment.type.toLowerCase() === 'follow-up') {
-        baseVitals.bloodPressure = '125/78';
-        baseVitals.heartRate = '68 bpm';
-    }
-    
-    return baseVitals;
-}
 
-// Generate mock diagnosis (in real app, this would come from database)
-function generateDiagnosis(appointment) {
-    if (appointment.type && appointment.type.toLowerCase() === 'follow-up') {
-        return 'Diabetes Type 2 - Monitoring';
-    } else if (appointment.type && appointment.type.toLowerCase() === 'emergency') {
-        return 'Chest Pain - Non-cardiac';
-    } else {
-        return 'Hypertension - Controlled';
-    }
-}
-
-// Generate mock treatment plan (in real app, this would come from database)
-function generateTreatmentPlan(appointment) {
-    if (appointment.type && appointment.type.toLowerCase() === 'follow-up') {
-        return 'Continue Metformin 500mg twice daily, monitor blood sugar levels';
-    } else if (appointment.type && appointment.type.toLowerCase() === 'emergency') {
-        return 'Pain management with Ibuprofen, follow-up in 48 hours';
-    } else {
-        return 'Continue Amlodipine 5mg daily';
-    }
-}
-
-// Generate mock prescriptions (in real app, this would come from database)
-function generatePrescriptions(appointment) {
-    if (appointment.type && appointment.type.toLowerCase() === 'follow-up') {
-        return 'Metformin 500mg - 2x daily';
-    } else if (appointment.type && appointment.type.toLowerCase() === 'emergency') {
-        return 'Ibuprofen 400mg - as needed for pain';
-    } else {
-        return 'Amlodipine 5mg - 1x daily';
-    }
-}
 
 // Reset record details
 function resetRecordDetails() {
@@ -1003,5 +976,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+<?php echo view('auth/partials/footer'); ?>
 
 <?php echo view('auth/partials/footer'); ?>

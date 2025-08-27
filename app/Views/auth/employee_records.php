@@ -240,6 +240,26 @@
                 .close:hover {
                     color: #dc2626;
                 }
+
+                .notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 12px 20px;
+                    border-radius: 6px;
+                    color: white;
+                    font-weight: 500;
+                    z-index: 1001;
+                    display: none;
+                }
+
+                .notification.success {
+                    background: #10b981;
+                }
+
+                .notification.error {
+                    background: #ef4444;
+                }
             </style>
 
             <section class="search-section">
@@ -252,21 +272,21 @@
                         <label for="searchDepartment">Department</label>
                         <select id="searchDepartment">
                             <option value="">All Departments</option>
-                            <option value="medical">Medical</option>
-                            <option value="nursing">Nursing</option>
-                            <option value="pharmacy">Pharmacy</option>
-                            <option value="laboratory">Laboratory</option>
-                            <option value="finance">Finance</option>
-                            <option value="front_desk">Front Desk</option>
-                            <option value="it">IT</option>
+                            <option value="Medical">Medical</option>
+                            <option value="Nursing">Nursing</option>
+                            <option value="Pharmacy">Pharmacy</option>
+                            <option value="Laboratory">Laboratory</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Front Desk">Front Desk</option>
+                            <option value="IT">IT</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="searchStatus">Status</label>
                         <select id="searchStatus">
                             <option value="">All Status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -298,7 +318,54 @@
                             </tr>
                         </thead>
                         <tbody id="employeeTableBody">
-                            <!-- Employee data will be populated here -->
+                            <?php if (!empty($employees)): ?>
+                                <?php foreach ($employees as $employee): ?>
+                                    <?php 
+                                    $initials = '';
+                                    $nameParts = explode(' ', $employee['name']);
+                                    foreach ($nameParts as $part) {
+                                        if (!empty($part)) {
+                                            $initials .= strtoupper(substr($part, 0, 1));
+                                        }
+                                    }
+                                    $statusClass = $employee['status'] === 'Active' ? 'status-active' : 'status-inactive';
+                                    $roleDisplay = ucwords(str_replace('_', ' ', $employee['role']));
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <div class="employee-avatar"><?= $initials ?></div>
+                                                <div>
+                                                    <div style="font-weight: 600;"><?= esc($employee['name']) ?></div>
+                                                    <div style="font-size: 12px; color: #64748b;">
+                                                        <?= $roleDisplay ?>
+                                                        <?php if (!empty($employee['specialty'])): ?>
+                                                            • <?= esc($employee['specialty']) ?>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>EMP<?= str_pad($employee['id'], 3, '0', STR_PAD_LEFT) ?></td>
+                                        <td><?= esc($employee['department']) ?></td>
+                                        <td><?= $roleDisplay ?></td>
+                                        <td><?= esc($employee['email']) ?></td>
+                                        <td><span class="status-badge <?= $statusClass ?>"><?= esc($employee['status']) ?></span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn view-btn" onclick="viewEmployee(<?= $employee['id'] ?>)">View</button>
+                                                <button class="action-btn edit-btn" onclick="editEmployee(<?= $employee['id'] ?>)">Edit</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="7" style="text-align: center; padding: 20px; color: #64748b;">
+                                        No employees found.
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -325,6 +392,7 @@
                         <span class="close" onclick="closeModal('editEmployeeModal')">&times;</span>
                     </div>
                     <form id="editEmployeeForm">
+                        <input type="hidden" id="editId" name="id">
                         <div class="form-group">
                             <label for="editName">Name</label>
                             <input type="text" id="editName" name="name" required>
@@ -345,6 +413,23 @@
                                 <option value="it_staff">IT Staff</option>
                             </select>
                         </div>
+                        <div class="form-group" id="specialtyGroup" style="display: none;">
+                            <label for="editSpecialty">Specialty</label>
+                            <select id="editSpecialty" name="specialty">
+                                <option value="Cardiologist">Cardiologist</option>
+                                <option value="Pediatrician">Pediatrician</option>
+                                <option value="Surgeon">Surgeon</option>
+                                <option value="General Physician">General Physician</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="nurseDepartmentGroup" style="display: none;">
+                            <label for="editNurseDepartment">Department</label>
+                            <select id="editNurseDepartment" name="nurse_department">
+                                <option value="Emergency">Emergency</option>
+                                <option value="ICU">ICU</option>
+                                <option value="Medical">Medical</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="editStatus">Status</label>
                             <select id="editStatus" name="status" required>
@@ -359,143 +444,43 @@
                     </form>
                 </div>
             </div>
+
+            <!-- Notification -->
+            <div id="notification" class="notification"></div>
         </div>
     </main>
 </div>
 <?php echo view('auth/partials/logout_confirm'); ?>
 
 <script>
-// Sample employee data (in a real app, this would come from the Staff Management system)
-const employees = [
-    {
-        id: 'EMP001',
-        name: 'Dr. John Doe',
-        email: 'john.doe@hms.com',
-        role: 'doctor',
-        department: 'Medical',
-        status: 'Active',
-        position: 'Senior Doctor',
-        phone: '+63 912 345 6789'
-    },
-    {
-        id: 'EMP002',
-        name: 'Jane Smith',
-        email: 'jane.smith@hms.com',
-        role: 'nurse',
-        department: 'Nursing',
-        status: 'Active',
-        position: 'Head Nurse',
-        phone: '+63 923 456 7890'
-    },
-    {
-        id: 'EMP003',
-        name: 'Mike Johnson',
-        email: 'mike.johnson@hms.com',
-        role: 'it_staff',
-        department: 'IT',
-        status: 'Active',
-        position: 'System Admin',
-        phone: '+63 934 567 8901'
-    },
-    {
-        id: 'EMP004',
-        name: 'Sarah Lee',
-        email: 'sarah.lee@hms.com',
-        role: 'pharmacist',
-        department: 'Pharmacy',
-        status: 'Active',
-        position: 'Pharmacist',
-        phone: '+63 945 678 9012'
-    }
-];
-
-function loadEmployees() {
-    const tbody = document.getElementById('employeeTableBody');
-    tbody.innerHTML = '';
-    
-    employees.forEach(emp => {
-        const initials = emp.name.split(' ').map(n => n[0]).join('').toUpperCase();
-        const statusClass = emp.status === 'Active' ? 'status-active' : 'status-inactive';
-        
-        tbody.innerHTML += `
-            <tr>
-                <td>
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <div class="employee-avatar">${initials}</div>
-                        <div>
-                            <div style="font-weight: 600;">${emp.name}</div>
-                            <div style="font-size: 12px; color: #64748b;">${emp.position}</div>
-                        </div>
-                    </div>
-                </td>
-                <td>${emp.id}</td>
-                <td>${emp.department}</td>
-                <td>${emp.role.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</td>
-                <td>${emp.email}</td>
-                <td><span class="status-badge ${statusClass}">${emp.status}</span></td>
-                <td>
-                    <div class="action-buttons">
-                        <button class="action-btn view-btn" onclick="viewEmployee('${emp.id}')">View</button>
-                        <button class="action-btn edit-btn" onclick="editEmployee('${emp.id}')">Edit</button>
-                    </div>
-                </td>
-            </tr>
-        `;
-    });
-}
+// Store employees data from PHP
+const employees = <?= json_encode($employees ?? []) ?>;
 
 function searchRecords() {
     const name = document.getElementById('searchName').value.toLowerCase();
     const department = document.getElementById('searchDepartment').value.toLowerCase();
     const status = document.getElementById('searchStatus').value.toLowerCase();
     
-    const filteredEmployees = employees.filter(emp => {
-        const nameMatch = !name || emp.name.toLowerCase().includes(name);
-        const deptMatch = !department || emp.department.toLowerCase().includes(department);
-        const statusMatch = !status || emp.status.toLowerCase().includes(status);
-        
-        return nameMatch && deptMatch && statusMatch;
-    });
+    const rows = document.querySelectorAll('#employeeTableBody tr');
     
-    const tbody = document.getElementById('employeeTableBody');
-    tbody.innerHTML = '';
-    
-    filteredEmployees.forEach(emp => {
-        const initials = emp.name.split(' ').map(n => n[0]).join('').toUpperCase();
-        const statusClass = emp.status === 'Active' ? 'status-active' : 'status-inactive';
+    rows.forEach(row => {
+        const nameCell = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+        const deptCell = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+        const statusCell = row.querySelector('td:nth-child(6)').textContent.toLowerCase();
         
-        tbody.innerHTML += `
-            <tr>
-                <td>
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <div class="employee-avatar">${initials}</div>
-                        <div>
-                            <div style="font-weight: 600;">${emp.name}</div>
-                            <div style="font-size: 12px; color: #64748b;">${emp.position}</div>
-                        </div>
-                    </div>
-                </td>
-                <td>${emp.id}</td>
-                <td>${emp.department}</td>
-                <td>${emp.role.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</td>
-                <td>${emp.email}</td>
-                <td><span class="status-badge ${statusClass}">${emp.status}</span></td>
-                <td>
-                    <div class="action-buttons">
-                        <button class="action-btn view-btn" onclick="viewEmployee('${emp.id}')">View</button>
-                        <button class="action-btn edit-btn" onclick="editEmployee('${emp.id}')">Edit</button>
-                    </div>
-                </td>
-            </tr>
-        `;
+        const nameMatch = !name || nameCell.includes(name);
+        const deptMatch = !department || deptCell.includes(department);
+        const statusMatch = !status || statusCell.includes(status);
+        
+        row.style.display = nameMatch && deptMatch && statusMatch ? '' : 'none';
     });
 }
 
 function exportRecords() {
     const csvContent = "data:text/csv;charset=utf-8," 
-        + "Employee ID,Name,Email,Role,Department,Status,Position,Phone\n"
+        + "Employee ID,Name,Email,Role,Department,Status,Specialty\n"
         + employees.map(emp => 
-            `${emp.id},${emp.name},${emp.email},${emp.role},${emp.department},${emp.status},${emp.position},${emp.phone}`
+            `EMP${String(emp.id).padStart(3, '0')},${emp.name},${emp.email},${emp.role},${emp.department},${emp.status},${emp.specialty || ''}`
         ).join("\n");
     
     const encodedUri = encodeURI(csvContent);
@@ -506,28 +491,33 @@ function exportRecords() {
     link.click();
     document.body.removeChild(link);
     
-    alert('Employee records exported successfully!');
+    showNotification('Employee records exported successfully!', 'success');
 }
 
 function viewEmployee(employeeId) {
-    const employee = employees.find(emp => emp.id === employeeId);
-    if (!employee) return;
+    const employee = employees.find(emp => emp.id == employeeId);
+    if (!employee) {
+        showNotification('Employee not found!', 'error');
+        return;
+    }
+    
+    const roleDisplay = employee.role.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
     
     document.getElementById('viewEmployeeTitle').textContent = `${employee.name} - Details`;
     document.getElementById('viewEmployeeContent').innerHTML = `
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div>
                 <h4 style="margin-bottom: 10px; color: #374151;">Basic Information</h4>
-                <p><strong>Employee ID:</strong> ${employee.id}</p>
+                <p><strong>Employee ID:</strong> EMP${String(employee.id).padStart(3, '0')}</p>
                 <p><strong>Name:</strong> ${employee.name}</p>
                 <p><strong>Email:</strong> ${employee.email}</p>
-                <p><strong>Phone:</strong> ${employee.phone}</p>
+                <p><strong>Created:</strong> ${new Date(employee.created_at).toLocaleDateString()}</p>
             </div>
             <div>
                 <h4 style="margin-bottom: 10px; color: #374151;">Employment Details</h4>
-                <p><strong>Role:</strong> ${employee.role.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+                <p><strong>Role:</strong> ${roleDisplay}</p>
                 <p><strong>Department:</strong> ${employee.department}</p>
-                <p><strong>Position:</strong> ${employee.position}</p>
+                ${employee.specialty ? `<p><strong>Specialty:</strong> ${employee.specialty}</p>` : ''}
                 <p><strong>Status:</strong> <span class="status-badge ${employee.status === 'Active' ? 'status-active' : 'status-inactive'}">${employee.status}</span></p>
             </div>
         </div>
@@ -537,15 +527,35 @@ function viewEmployee(employeeId) {
 }
 
 function editEmployee(employeeId) {
-    const employee = employees.find(emp => emp.id === employeeId);
-    if (!employee) return;
+    const employee = employees.find(emp => emp.id == employeeId);
+    if (!employee) {
+        showNotification('Employee not found!', 'error');
+        return;
+    }
     
+    document.getElementById('editId').value = employee.id;
     document.getElementById('editName').value = employee.name;
     document.getElementById('editEmail').value = employee.email;
     document.getElementById('editRole').value = employee.role;
     document.getElementById('editStatus').value = employee.status;
     
-    document.getElementById('editEmployeeForm').setAttribute('data-employee-id', employeeId);
+    // Show/hide specialty field for doctors
+    const specialtyGroup = document.getElementById('specialtyGroup');
+    const nurseDepartmentGroup = document.getElementById('nurseDepartmentGroup');
+    
+    if (employee.role === 'doctor') {
+        specialtyGroup.style.display = 'block';
+        nurseDepartmentGroup.style.display = 'none';
+        document.getElementById('editSpecialty').value = employee.specialty || 'General Physician';
+    } else if (employee.role === 'nurse') {
+        specialtyGroup.style.display = 'none';
+        nurseDepartmentGroup.style.display = 'block';
+        document.getElementById('editNurseDepartment').value = employee.department || 'Medical';
+    } else {
+        specialtyGroup.style.display = 'none';
+        nurseDepartmentGroup.style.display = 'none';
+    }
+    
     document.getElementById('editEmployeeModal').style.display = 'block';
 }
 
@@ -553,39 +563,64 @@ function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
 }
 
+function showNotification(message, type) {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.className = `notification ${type}`;
+    notification.style.display = 'block';
+    
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 3000);
+}
+
+// Handle role change in edit form
+document.getElementById('editRole').addEventListener('change', function() {
+    const specialtyGroup = document.getElementById('specialtyGroup');
+    const nurseDepartmentGroup = document.getElementById('nurseDepartmentGroup');
+    
+    if (this.value === 'doctor') {
+        specialtyGroup.style.display = 'block';
+        nurseDepartmentGroup.style.display = 'none';
+    } else if (this.value === 'nurse') {
+        specialtyGroup.style.display = 'none';
+        nurseDepartmentGroup.style.display = 'block';
+    } else {
+        specialtyGroup.style.display = 'none';
+        nurseDepartmentGroup.style.display = 'none';
+    }
+});
+
 // Handle edit form submission
 document.getElementById('editEmployeeForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const employeeId = this.getAttribute('data-employee-id');
-    const employee = employees.find(emp => emp.id === employeeId);
+    const formData = new FormData(this);
     
-    if (employee) {
-        employee.name = document.getElementById('editName').value;
-        employee.email = document.getElementById('editEmail').value;
-        employee.role = document.getElementById('editRole').value;
-        employee.status = document.getElementById('editStatus').value;
-        
-        // Update department based on role
-        const roleToDetails = {
-            'doctor': { department: 'Medical', position: 'Doctor' },
-            'nurse': { department: 'Nursing', position: 'Nurse' },
-            'pharmacist': { department: 'Pharmacy', position: 'Pharmacist' },
-            'laboratory': { department: 'Laboratory', position: 'Lab Technician' },
-            'accountant': { department: 'Finance', position: 'Accountant' },
-            'receptionist': { department: 'Front Desk', position: 'Receptionist' },
-            'it_staff': { department: 'IT', position: 'IT Staff' }
-        };
-        
-        if (roleToDetails[employee.role]) {
-            employee.department = roleToDetails[employee.role].department;
-            employee.position = roleToDetails[employee.role].position;
+    fetch('<?= site_url('staff-management/update-employee') ?>', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
         }
-        
-        loadEmployees();
-        closeModal('editEmployeeModal');
-        alert('Employee updated successfully!');
-    }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification(data.message, 'success');
+            closeModal('editEmployeeModal');
+            // Reload the page to show updated data
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        } else {
+            showNotification(data.message || 'Failed to update employee', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('An error occurred while updating employee', 'error');
+    });
 });
 
 // Close modals when clicking outside
@@ -595,8 +630,8 @@ window.onclick = function(event) {
     }
 }
 
-// Load employees on page load
-document.addEventListener('DOMContentLoaded', function() {
-    loadEmployees();
-});
+// Search functionality on input change
+document.getElementById('searchName').addEventListener('input', searchRecords);
+document.getElementById('searchDepartment').addEventListener('change', searchRecords);
+document.getElementById('searchStatus').addEventListener('change', searchRecords);
 </script>

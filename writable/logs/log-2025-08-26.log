@@ -1,0 +1,860 @@
+ERROR - 2025-08-26 01:33:27 --> mysqli_sql_exception: Table 'san_miguel_hms.branches' doesn't exist in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `br...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `br...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `br...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `br...', NULL, false)
+#4 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\hms_group4\app\Database\Seeds\BranchSeeder.php(90): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\hms_group4\system\Database\Seeder.php(149): App\Database\Seeds\BranchSeeder->run()
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-08-26 01:34:18 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Builder::findAll()
+[Method: GET, Route: branch-management]
+in APPPATH\Models\BranchModel.php on line 89.
+ 1 APPPATH\Controllers\BranchManagement.php(33): App\Models\BranchModel->getAllBranches([...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BranchManagement->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BranchManagement))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 01:34:24 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Builder::findAll()
+[Method: GET, Route: branch-management]
+in APPPATH\Models\BranchModel.php on line 89.
+ 1 APPPATH\Controllers\BranchManagement.php(33): App\Models\BranchModel->getAllBranches([...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BranchManagement->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BranchManagement))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 01:34:52 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Builder::findAll()
+[Method: GET, Route: branch-management]
+in APPPATH\Models\BranchModel.php on line 89.
+ 1 APPPATH\Controllers\BranchManagement.php(33): App\Models\BranchModel->getAllBranches([...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BranchManagement->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BranchManagement))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 01:50:42 --> Error: Class "App\Models\StaffModel" not found
+[Method: GET, Route: settings]
+in APPPATH\Controllers\Settings.php on line 18.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Settings->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 01:50:44 --> Error: Class "App\Models\StaffModel" not found
+[Method: GET, Route: settings]
+in APPPATH\Controllers\Settings.php on line 18.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Settings->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 01:50:46 --> Error: Class "App\Models\StaffModel" not found
+[Method: GET, Route: settings]
+in APPPATH\Controllers\Settings.php on line 18.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Settings->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 01:50:55 --> Error: Class "App\Models\StaffModel" not found
+[Method: GET, Route: settings]
+in APPPATH\Controllers\Settings.php on line 18.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Settings->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 13:23:45 --> mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-08-26 13:23:45 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+[Method: GET, Route: doctor/consultations]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 2 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 4 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:23:45 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 4 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 6 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:23:45 --> [Caused by] mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 5 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 7 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 13:23:55 --> mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-08-26 13:23:55 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+[Method: GET, Route: doctor/consultations]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 2 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 4 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:23:55 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 4 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 6 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:23:55 --> [Caused by] mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 5 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 7 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 13:28:04 --> mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-08-26 13:28:04 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+[Method: GET, Route: doctor/consultations]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 2 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 4 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:28:04 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 4 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 6 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:28:04 --> [Caused by] mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 5 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 7 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 13:28:59 --> mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-08-26 13:28:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+[Method: GET, Route: doctor/consultations]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 2 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 4 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:28:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 4 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 6 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:28:59 --> [Caused by] mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 5 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 7 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 13:31:18 --> mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-08-26 13:31:18 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+[Method: GET, Route: doctor/consultations]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 2 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 4 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:31:18 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 4 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 6 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:31:18 --> [Caused by] mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 5 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 7 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 13:31:20 --> mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-08-26 13:31:20 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+[Method: GET, Route: doctor/consultations]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 2 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 4 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:31:20 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 4 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 6 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:31:20 --> [Caused by] mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 5 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 7 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 13:31:29 --> mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-08-26 13:31:29 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+[Method: GET, Route: doctor/consultations]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 2 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 4 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:31:29 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 4 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 6 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 13:31:29 --> [Caused by] mysqli_sql_exception: Table 'san_miguel_hms.consultations' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = \'10\'
+AND DATE(date_time) = \'2025-08-26\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `consultations`
+WHERE `doctor_id` = :doctor_id:
+AND DATE(date_time) = :DATE(date_time):', [...], false)
+ 5 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Models\ConsultationModel.php(69): CodeIgniter\Model->countAllResults()
+ 7 APPPATH\Controllers\Doctor.php(422): App\Models\ConsultationModel->getDoctorConsultationStats('10')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 21:33:07 --> mysqli_sql_exception: Duplicate column name 'patient_id' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `ap...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `ap...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `ap...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\Forge.php(772): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `ap...')
+#4 C:\xampp\htdocs\hms_group4\app\Database\Migrations\2025-08-19-000003_AddPatientAndDoctorIdToAppointments.php(14): CodeIgniter\Database\Forge->addColumn('appointments', Array)
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(876): App\Database\Migrations\AddPatientAndDoctorIdToAppointments->up()
+#6 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-26 21:34:35 --> mysqli_sql_exception: Duplicate column name 'patient_id' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `ap...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `ap...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `ap...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\Forge.php(772): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `ap...')
+#4 C:\xampp\htdocs\hms_group4\app\Database\Migrations\2025-08-19-000003_AddPatientAndDoctorIdToAppointments.php(14): CodeIgniter\Database\Forge->addColumn('appointments', Array)
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(876): App\Database\Migrations\AddPatientAndDoctorIdToAppointments->up()
+#6 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-26 21:50:16 --> mysqli_sql_exception: Duplicate column name 'patient_id' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `ap...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `ap...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `ap...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\Forge.php(772): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `ap...')
+#4 C:\xampp\htdocs\hms_group4\app\Database\Migrations\2025-08-19-000004_AddPatientIdToAppointments.php(14): CodeIgniter\Database\Forge->addColumn('appointments', Array)
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(876): App\Database\Migrations\AddPatientIdToAppointments->up()
+#6 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-26 21:53:05 --> mysqli_sql_exception: Duplicate column name 'patient_id' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `ap...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `ap...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `ap...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\Forge.php(772): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `ap...')
+#4 C:\xampp\htdocs\hms_group4\app\Database\Migrations\2025-08-19-000004_AddPatientIdToAppointments.php(14): CodeIgniter\Database\Forge->addColumn('appointments', Array)
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(876): App\Database\Migrations\AddPatientIdToAppointments->up()
+#6 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-26 21:53:58 --> mysqli_sql_exception: Duplicate column name 'patient_id' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `ap...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `ap...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `ap...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\Forge.php(772): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `ap...')
+#4 C:\xampp\htdocs\hms_group4\app\Database\Migrations\2025-08-19-000004_AddPatientIdToAppointments.php(14): CodeIgniter\Database\Forge->addColumn('appointments', Array)
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(876): App\Database\Migrations\AddPatientIdToAppointments->up()
+#6 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-26 22:56:15 --> mysqli_sql_exception: Column 'doctor_id' cannot be null in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `pr...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `pr...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `pr...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `pr...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(672): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->createPrescription()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-08-26 22:56:15 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'doctor_id' cannot be null
+[Method: POST, Route: doctor/prescriptions/create]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (:prescription_id:, :patient_name:, :patient_id:, :doctor_name:, :doctor_id:, :diagnosis:, :medications:, :notes:, :status:, :total_amount:, :insurance_covered:, :created_date:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Doctor.php(672): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->createPrescription()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 22:56:15 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'doctor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (\'RX-2025-002\', \'reyson arante\', \'P-000002\', \' \', NULL, \'sakit\', \'[{\\"name\\":\\"Metoprolol\\",\\"dosage\\":\\"500mg\\",\\"frequency\\":\\"Once daily\\",\\"duration\\":\\"10\\"}]\', \'wala\', \'Pending\', 150, \'Yes\', \'2025-08-26 22:56:15\', \'2025-08-26 22:56:15\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (\'RX-2025-002\', \'reyson arante\', \'P-000002\', \' \', NULL, \'sakit\', \'[{\\"name\\":\\"Metoprolol\\",\\"dosage\\":\\"500mg\\",\\"frequency\\":\\"Once daily\\",\\"duration\\":\\"10\\"}]\', \'wala\', \'Pending\', 150, \'Yes\', \'2025-08-26 22:56:15\', \'2025-08-26 22:56:15\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (:prescription_id:, :patient_name:, :patient_id:, :doctor_name:, :doctor_id:, :diagnosis:, :medications:, :notes:, :status:, :total_amount:, :insurance_covered:, :created_date:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Doctor.php(672): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->createPrescription()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 22:56:15 --> [Caused by] mysqli_sql_exception: Column 'doctor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (\'RX-2025-002\', \'reyson arante\', \'P-000002\', \' \', NULL, \'sakit\', \'[{\\"name\\":\\"Metoprolol\\",\\"dosage\\":\\"500mg\\",\\"frequency\\":\\"Once daily\\",\\"duration\\":\\"10\\"}]\', \'wala\', \'Pending\', 150, \'Yes\', \'2025-08-26 22:56:15\', \'2025-08-26 22:56:15\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (\'RX-2025-002\', \'reyson arante\', \'P-000002\', \' \', NULL, \'sakit\', \'[{\\"name\\":\\"Metoprolol\\",\\"dosage\\":\\"500mg\\",\\"frequency\\":\\"Once daily\\",\\"duration\\":\\"10\\"}]\', \'wala\', \'Pending\', 150, \'Yes\', \'2025-08-26 22:56:15\', \'2025-08-26 22:56:15\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (\'RX-2025-002\', \'reyson arante\', \'P-000002\', \' \', NULL, \'sakit\', \'[{\\"name\\":\\"Metoprolol\\",\\"dosage\\":\\"500mg\\",\\"frequency\\":\\"Once daily\\",\\"duration\\":\\"10\\"}]\', \'wala\', \'Pending\', 150, \'Yes\', \'2025-08-26 22:56:15\', \'2025-08-26 22:56:15\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (:prescription_id:, :patient_name:, :patient_id:, :doctor_name:, :doctor_id:, :diagnosis:, :medications:, :notes:, :status:, :total_amount:, :insurance_covered:, :created_date:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Doctor.php(672): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->createPrescription()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-26 22:56:19 --> mysqli_sql_exception: Column 'doctor_id' cannot be null in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `pr...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `pr...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `pr...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `pr...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(672): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->createPrescription()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-08-26 22:56:19 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'doctor_id' cannot be null
+[Method: POST, Route: doctor/prescriptions/create]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (:prescription_id:, :patient_name:, :patient_id:, :doctor_name:, :doctor_id:, :diagnosis:, :medications:, :notes:, :status:, :total_amount:, :insurance_covered:, :created_date:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Doctor.php(672): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->createPrescription()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 22:56:19 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'doctor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (\'RX-2025-002\', \'reyson arante\', \'P-000002\', \' \', NULL, \'sakit\', \'[{\\"name\\":\\"Metoprolol\\",\\"dosage\\":\\"500mg\\",\\"frequency\\":\\"Once daily\\",\\"duration\\":\\"10\\"}]\', \'wala\', \'Pending\', 150, \'Yes\', \'2025-08-26 22:56:19\', \'2025-08-26 22:56:19\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (\'RX-2025-002\', \'reyson arante\', \'P-000002\', \' \', NULL, \'sakit\', \'[{\\"name\\":\\"Metoprolol\\",\\"dosage\\":\\"500mg\\",\\"frequency\\":\\"Once daily\\",\\"duration\\":\\"10\\"}]\', \'wala\', \'Pending\', 150, \'Yes\', \'2025-08-26 22:56:19\', \'2025-08-26 22:56:19\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (:prescription_id:, :patient_name:, :patient_id:, :doctor_name:, :doctor_id:, :diagnosis:, :medications:, :notes:, :status:, :total_amount:, :insurance_covered:, :created_date:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Doctor.php(672): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->createPrescription()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-26 22:56:19 --> [Caused by] mysqli_sql_exception: Column 'doctor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (\'RX-2025-002\', \'reyson arante\', \'P-000002\', \' \', NULL, \'sakit\', \'[{\\"name\\":\\"Metoprolol\\",\\"dosage\\":\\"500mg\\",\\"frequency\\":\\"Once daily\\",\\"duration\\":\\"10\\"}]\', \'wala\', \'Pending\', 150, \'Yes\', \'2025-08-26 22:56:19\', \'2025-08-26 22:56:19\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (\'RX-2025-002\', \'reyson arante\', \'P-000002\', \' \', NULL, \'sakit\', \'[{\\"name\\":\\"Metoprolol\\",\\"dosage\\":\\"500mg\\",\\"frequency\\":\\"Once daily\\",\\"duration\\":\\"10\\"}]\', \'wala\', \'Pending\', 150, \'Yes\', \'2025-08-26 22:56:19\', \'2025-08-26 22:56:19\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (\'RX-2025-002\', \'reyson arante\', \'P-000002\', \' \', NULL, \'sakit\', \'[{\\"name\\":\\"Metoprolol\\",\\"dosage\\":\\"500mg\\",\\"frequency\\":\\"Once daily\\",\\"duration\\":\\"10\\"}]\', \'wala\', \'Pending\', 150, \'Yes\', \'2025-08-26 22:56:19\', \'2025-08-26 22:56:19\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `prescriptions` (`prescription_id`, `patient_name`, `patient_id`, `doctor_name`, `doctor_id`, `diagnosis`, `medications`, `notes`, `status`, `total_amount`, `insurance_covered`, `created_date`, `updated_at`) VALUES (:prescription_id:, :patient_name:, :patient_id:, :doctor_name:, :doctor_id:, :diagnosis:, :medications:, :notes:, :status:, :total_amount:, :insurance_covered:, :created_date:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Doctor.php(672): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->createPrescription()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

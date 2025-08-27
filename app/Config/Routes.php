@@ -69,8 +69,24 @@ $routes->post('doctor/lab-requests/delete/(:num)', 'Doctor::deleteLabRequest/$1'
 $routes->get('doctor/prescriptions', 'Doctor::prescriptions', ['filter' => 'auth']);
 $routes->post('doctor/prescriptions/create', 'Doctor::createPrescription', ['filter' => 'auth']);
 $routes->get('doctor/consultations', 'Doctor::consultations', ['filter' => 'auth']);
+$routes->post('doctor/consultations/start', 'Doctor::startConsultation', ['filter' => 'auth']);
+$routes->post('doctor/consultations/save', 'Doctor::saveConsultation', ['filter' => 'auth']);
+$routes->post('doctor/consultations/complete', 'Doctor::completeConsultation', ['filter' => 'auth']);
+$routes->get('doctor/consultations/details/(:num)', 'Doctor::getConsultationDetails/$1', ['filter' => 'auth']);
+$routes->get('doctor/consultations/getPatientConsultations/(:num)', 'Doctor::getPatientConsultations/$1', ['filter' => 'auth']);
+$routes->get('doctor/appointments/(:num)', 'Doctor::getAppointmentDetails/$1', ['filter' => 'auth']);
 $routes->get('doctor/schedule', 'Doctor::schedule', ['filter' => 'auth']);
 $routes->get('doctor/reports', 'Doctor::reports', ['filter' => 'auth']);
+
+// Schedule routes
+$routes->get('schedule', 'ScheduleController::index', ['filter' => 'auth']);
+$routes->post('schedule/getWeek', 'ScheduleController::getWeek', ['filter' => 'auth']);
+$routes->post('schedule/addSchedule', 'ScheduleController::addSchedule', ['filter' => 'auth']);
+$routes->post('schedule/blockTime', 'ScheduleController::blockTime', ['filter' => 'auth']);
+$routes->post('schedule/getScheduleDetails', 'ScheduleController::getScheduleDetails', ['filter' => 'auth']);
+$routes->post('schedule/updateSchedule', 'ScheduleController::updateSchedule', ['filter' => 'auth']);
+$routes->post('schedule/deleteSchedule', 'ScheduleController::deleteSchedule', ['filter' => 'auth']);
+$routes->post('schedule/getWeekDates', 'ScheduleController::getWeekDates', ['filter' => 'auth']);
 
 // Receptionist Dashboard
 $routes->get('receptionist', 'Receptionist::index', ['filter' => 'auth']);
@@ -161,3 +177,27 @@ $routes->get('/role-management', 'StaffManagement::roleManagement', ['filter' =>
 $routes->post('/staff-management/update-employee', 'StaffManagement::updateEmployee', ['filter' => 'auth']);
 $routes->get('/staff-management/get-employee/(:num)', 'StaffManagement::getEmployee/$1', ['filter' => 'auth']);
 $routes->get('/staff-management/statistics', 'StaffManagement::getStatistics', ['filter' => 'auth']);
+
+// Branch Management Routes
+$routes->get('/branch-management', 'BranchManagement::index', ['filter' => 'auth']);
+$routes->get('/branch-management/create', 'BranchManagement::create', ['filter' => 'auth']);
+$routes->post('/branch-management/create', 'BranchManagement::create', ['filter' => 'auth']);
+$routes->get('/branch-management/edit/(:num)', 'BranchManagement::edit/$1', ['filter' => 'auth']);
+$routes->post('/branch-management/edit/(:num)', 'BranchManagement::edit/$1', ['filter' => 'auth']);
+$routes->get('/branch-management/view/(:num)', 'BranchManagement::view/$1', ['filter' => 'auth']);
+$routes->get('/branch-management/delete/(:num)', 'BranchManagement::delete/$1', ['filter' => 'auth']);
+$routes->get('/branch-management/update-statistics/(:num)', 'BranchManagement::updateStatistics/$1', ['filter' => 'auth']);
+$routes->get('/branch-management/get-branches-ajax', 'BranchManagement::getBranchesAjax', ['filter' => 'auth']);
+$routes->get('/branch-management/get-statistics-ajax', 'BranchManagement::getStatisticsAjax', ['filter' => 'auth']);
+
+// Settings Routes
+$routes->get('/settings', 'Settings::index', ['filter' => 'auth']);
+$routes->get('/settings/security', 'Settings::security', ['filter' => 'auth']);
+$routes->get('/settings/notifications', 'Settings::notifications', ['filter' => 'auth']);
+$routes->get('/settings/backup', 'Settings::backup', ['filter' => 'auth']);
+$routes->get('/settings/audit-logs', 'Settings::auditLogs', ['filter' => 'auth']);
+$routes->post('/settings/save-general', 'Settings::saveGeneral', ['filter' => 'auth']);
+$routes->post('/settings/save-security', 'Settings::saveSecurity', ['filter' => 'auth']);
+$routes->post('/settings/save-notifications', 'Settings::saveNotifications', ['filter' => 'auth']);
+$routes->post('/settings/save-backup', 'Settings::saveBackup', ['filter' => 'auth']);
+$routes->get('/settings/export-logs', 'Settings::exportLogs', ['filter' => 'auth']);

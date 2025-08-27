@@ -24,7 +24,6 @@
 		</a>
 		<a href="<?= site_url('doctor/consultations') ?>" class="menu-item<?= strpos($path,'doctor/consultations')===0 ? ' active' : '' ?>"><span class="menu-icon">🩺</span>Consultations</a>
 		<a href="<?= site_url('doctor/schedule') ?>" class="menu-item<?= strpos($path,'doctor/schedule')===0 ? ' active' : '' ?>"><span class="menu-icon">🗓️</span>My Schedule</a>
-		<a href="<?= site_url('doctor/reports') ?>" class="menu-item<?= strpos($path,'doctor/reports')===0 ? ' active' : '' ?>"><span class="menu-icon">📈</span>Medical Reports</a>
 	</div>
 </nav>
 
