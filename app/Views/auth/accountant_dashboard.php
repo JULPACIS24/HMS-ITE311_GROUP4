@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Laboratory Dashboard</title>
+	<title>Accountant Dashboard</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<style>
@@ -62,6 +62,7 @@
 		.icon-green { background:#16a34a }
 		.icon-orange { background:#f59e0b }
 		.icon-purple { background:#8b5cf6 }
+		.icon-red { background:#ef4444 }
 
 		.grid-2 { display:grid; grid-template-columns:2fr 1.2fr; gap:18px; margin-bottom:18px }
 		.card { background:#fff; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.08); overflow:hidden }
@@ -91,33 +92,21 @@
 		.badge-time { background:#eef2ff; color:#1d4ed8; padding:4px 8px; border-radius:8px; font-weight:600; font-size:12px }
 		.link { color:#2563eb; text-decoration:none; font-size:12px }
 
-		/* Table Styles */
-		.table-container { overflow-x: auto; }
-		.data-table { width:100%; border-collapse:collapse; font-size:14px; }
-		.data-table th { background:#f9fafb; padding:12px 16px; text-align:left; font-weight:600; color:#374151; border-bottom:1px solid #e5e7eb; }
-		.data-table td { padding:12px 16px; border-bottom:1px solid #f3f4f6; color:#374151; }
-		.data-table tr:hover { background:#f9fafb; }
-		.priority-badge { padding:4px 8px; border-radius:12px; font-size:10px; font-weight:600; text-transform:uppercase; }
-		.priority-high { background:#fef2f2; color:#dc2626; }
-		.priority-medium { background:#fffbeb; color:#d97706; }
-		.priority-low { background:#f0fdf4; color:#16a34a; }
-		.status-badge { padding:4px 8px; border-radius:12px; font-size:10px; font-weight:600; text-transform:uppercase; }
-		.status-in-progress { background:#dbeafe; color:#2563eb; }
-		.status-sample-receive { background:#f3e8ff; color:#7c3aed; }
-		.status-pending { background:#f3f4f6; color:#6b7280; }
+		/* Trend indicators */
+		.trend-up { color:#10b981; }
+		.trend-down { color:#ef4444; }
+		.trend-arrow { font-size:12px; margin-right:4px; }
 
-		/* Quick Actions */
-		.quick-action-item { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid #f1f5f9; cursor:pointer; transition:background 0.2s; }
-		.quick-action-item:hover { background:#f9fafb; }
-		.quick-action-item:last-child { border-bottom:none; }
-		.quick-action-icon { width:40px; height:40px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px; color:white; }
-		.quick-action-icon.blue { background:#3b82f6; }
-		.quick-action-icon.green { background:#10b981; }
-		.quick-action-icon.purple { background:#8b5cf6; }
-		.quick-action-icon.orange { background:#f59e0b; }
-		.quick-action-content { flex:1; }
-		.quick-action-title { font-weight:600; color:#1f2937; font-size:14px; margin-bottom:2px; }
-		.quick-action-desc { font-size:12px; color:#6b7280; }
+		/* Quick Actions Grid */
+		.quick-actions-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px }
+		.quick-action-btn { display:flex; flex-direction:column; align-items:center; padding:20px; border:2px solid #f3f4f6; border-radius:12px; background:white; cursor:pointer; transition:all 0.2s; text-decoration:none; color:#374151 }
+		.quick-action-btn:hover { border-color:#3b82f6; transform:translateY(-2px); box-shadow:0 4px 8px rgba(59, 130, 246, 0.1) }
+		.quick-action-icon { width:40px; height:40px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px; color:white; margin-bottom:8px }
+		.quick-action-icon.blue { background:#3b82f6 }
+		.quick-action-icon.green { background:#10b981 }
+		.quick-action-icon.purple { background:#8b5cf6 }
+		.quick-action-icon.orange { background:#f59e0b }
+		.quick-action-text { font-size:12px; font-weight:500; text-align:center }
 
 		@media (max-width: 1200px){ .metric-grid{grid-template-columns:repeat(2,1fr)} .grid-2{grid-template-columns:1fr} .grid-2b{grid-template-columns:1fr} }
 	</style>
@@ -126,30 +115,29 @@
 	<div class="container">
 		<nav class="sidebar">
 			<div class="sidebar-header">
-				<div class="admin-icon">🧪</div>
+				<div class="admin-icon">💰</div>
 				<div style="display:flex;flex-direction:column">
-					<span class="sidebar-title">Laboratory</span>
-					<span class="sidebar-sub">Lab Department</span>
+					<span class="sidebar-title">Accountant</span>
+					<span class="sidebar-sub">Finance Department</span>
 				</div>
 			</div>
 			<div class="sidebar-menu">
-				<a href="<?= site_url('laboratory') ?>" class="menu-item active"><span class="menu-icon">📊</span>Dashboard</a>
-				<a href="<?= site_url('laboratory/requests') ?>" class="menu-item"><span class="menu-icon">📋</span>Test Requests</a>
-				<a href="<?= site_url('laboratory/results') ?>" class="menu-item"><span class="menu-icon">📄</span>Test Results</a>
-				<a href="<?= site_url('laboratory/equipment') ?>" class="menu-item"><span class="menu-icon">⚙️</span>Equipment</a>
-				<a href="<?= site_url('laboratory/tracking') ?>" class="menu-item"><span class="menu-icon">📈</span>Sample Tracking</a>
-				<a href="<?= site_url('laboratory/reports') ?>" class="menu-item"><span class="menu-icon">📋</span>Lab Reports</a>
-				<a href="<?= site_url('laboratory/quality') ?>" class="menu-item"><span class="menu-icon">🛡️</span>Quality Control</a>
-				<a href="<?= site_url('laboratory/inventory') ?>" class="menu-item"><span class="menu-icon">📦</span>Lab Inventory</a>
-				<a href="<?= site_url('laboratory/settings') ?>" class="menu-item"><span class="menu-icon">⚙️</span>Settings</a>
+				<a href="<?= site_url('accountant') ?>" class="menu-item active"><span class="menu-icon">📊</span>Dashboard</a>
+				<a href="<?= site_url('accountant/billing') ?>" class="menu-item"><span class="menu-icon">📄</span>Billing & Payments</a>
+				<a href="<?= site_url('accountant/invoices') ?>" class="menu-item"><span class="menu-icon">📋</span>Invoices</a>
+				<a href="<?= site_url('accountant/insurance') ?>" class="menu-item"><span class="menu-icon">🛡️</span>Insurance Claims</a>
+				<a href="<?= site_url('accountant/reports') ?>" class="menu-item"><span class="menu-icon">📈</span>Financial Reports</a>
+				<a href="<?= site_url('accountant/accounts') ?>" class="menu-item"><span class="menu-icon">👥</span>Account Management</a>
+				<a href="<?= site_url('accountant/transactions') ?>" class="menu-item"><span class="menu-icon">⏰</span>Transaction History</a>
+				<a href="<?= site_url('accountant/settings') ?>" class="menu-item"><span class="menu-icon">⚙️</span>Settings</a>
 			</div>
 		</nav>
 
 		<main class="main-content">
 			<header class="header">
 				<div class="header-left">
-					<h1>Laboratory Management</h1>
-					<span class="subtext">Today: <span id="current-date"></span></span>
+					<h1>Dashboard</h1>
+					<span class="subtext">Welcome back, manage your financial operations.</span>
 				</div>
 				<div class="actions">
 					<div class="notif-wrap">
@@ -162,16 +150,16 @@
 					</div>
 					<div class="user-wrap" style="position:relative">
 						<div class="user-chip" id="userBtn" style="cursor:pointer">
-							<div class="avatar">LT</div>
+							<div class="avatar">A</div>
 							<div class="user-meta">
-								<div class="user-name">Lab Technician</div>
-								<div class="user-role">Laboratory Staff</div>
+								<div class="user-name">Admin</div>
+								<div class="user-role">Accountant</div>
 							</div>
 						</div>
 						<div class="user-pop" id="userPop" style="display:none; position:absolute; right:0; top:44px; width:260px; background:#fff; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,.12); overflow:hidden; z-index:30;">
 							<div style="display:flex; gap:10px; padding:12px 14px; border-bottom:1px solid #f1f5f9">
-								<div class="big" style="width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:#6366f1;color:#fff;font-weight:800">LT</div>
-								<div><div style="font-weight:700">Lab Technician</div><div style="color:#64748b;font-size:12px">Laboratory Staff</div><div style="color:#94a3b8;font-size:12px">ID: LT-2024-001</div></div>
+								<div class="big" style="width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:#6366f1;color:#fff;font-weight:800">A</div>
+								<div><div style="font-weight:700">Admin</div><div style="color:#64748b;font-size:12px">Accountant</div><div style="color:#94a3b8;font-size:12px">ID: AC-2024-001</div></div>
 							</div>
 							<div class="menu-list" style="padding:6px 0">
 								<a href="#" class="menu-link" style="display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;color:#0f172a;font-size:14px">👤 My Profile</a>
@@ -188,124 +176,113 @@
 			</header>
 
 			<div class="dashboard-content">
-				<!-- Main Title -->
-				<h2 style="font-size:24px; font-weight:700; color:#1f2937; margin-bottom:20px;">Laboratory Dashboard</h2>
-
 				<!-- KPI Metrics -->
 				<div class="metric-grid">
 					<div class="metric">
-						<div class="metric-title">Tests Today</div>
-						<div class="metric-value">42</div>
-						<div class="metric-sub">+8 from yesterday</div>
-						<div class="metric-icon icon-blue">🧪</div>
+						<div class="metric-title">Daily Revenue</div>
+						<div class="metric-value">₱24,320</div>
+						<div class="metric-sub">
+							<span class="trend-arrow trend-up">↗</span>
+							<span class="trend-up">12.5%</span>
+						</div>
+						<div class="metric-icon icon-green">💰</div>
 					</div>
 					<div class="metric">
-						<div class="metric-title">Pending Results</div>
+						<div class="metric-title">Pending Invoices</div>
 						<div class="metric-value">18</div>
-						<div class="metric-sub">Awaiting processing</div>
-						<div class="metric-icon icon-orange">⏰</div>
+						<div class="metric-sub">
+							<span class="trend-arrow trend-down">↘</span>
+							<span class="trend-down">3.2%</span>
+						</div>
+						<div class="metric-icon icon-purple">📄</div>
 					</div>
 					<div class="metric">
-						<div class="metric-title">Completed Tests</div>
-						<div class="metric-value">156</div>
-						<div class="metric-sub">This week</div>
-						<div class="metric-icon icon-green">✅</div>
+						<div class="metric-title">Insurance Claims</div>
+						<div class="metric-value">42</div>
+						<div class="metric-sub">
+							<span class="trend-arrow trend-up">↗</span>
+							<span class="trend-up">8.1%</span>
+						</div>
+						<div class="metric-icon icon-blue">🛡️</div>
 					</div>
 					<div class="metric">
-						<div class="metric-title">Critical Results</div>
-						<div class="metric-value">3</div>
-						<div class="metric-sub">Requires attention</div>
-						<div class="metric-icon icon-purple">⚠️</div>
+						<div class="metric-title">Outstanding Balance</div>
+						<div class="metric-value">₱156,840</div>
+						<div class="metric-sub">
+							<span class="trend-arrow trend-down">↘</span>
+							<span class="trend-down">5.3%</span>
+						</div>
+						<div class="metric-icon icon-red">⚠️</div>
 					</div>
 				</div>
 
-				<!-- Bottom Row: Pending Test Requests and Quick Actions -->
+				<!-- Bottom Row: Pending Financial Tasks and Quick Actions -->
 				<div class="grid-2b">
 					<div class="card">
-						<div class="card-header" style="display:flex;justify-content:space-between;align-items:center">Pending Test Requests <a class="link" href="#">View All</a></div>
+						<div class="card-header" style="display:flex;justify-content:space-between;align-items:center">Pending Financial Tasks <a class="link" href="#">View All</a></div>
 						<div class="card-content">
-							<div class="table-container">
-								<table class="data-table">
-									<thead>
-										<tr>
-											<th>TEST ID</th>
-											<th>PATIENT</th>
-											<th>TEST TYPE</th>
-											<th>PRIORITY</th>
-											<th>STATUS</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><strong>LAB-001</strong></td>
-											<td>Maria Santos<br><small style="color:#6b7280;">Requested by Dr. Rodriguez</small></td>
-											<td>Complete Blood Count (Blood)</td>
-											<td><span class="priority-badge priority-high">high</span></td>
-											<td><span class="status-badge status-in-progress">In Progress</span></td>
-										</tr>
-										<tr>
-											<td><strong>LAB-002</strong></td>
-											<td>Juan Dela Cruz<br><small style="color:#6b7280;">Requested by Dr. Garcia</small></td>
-											<td>Lipid Profile (Blood)</td>
-											<td><span class="priority-badge priority-medium">medium</span></td>
-											<td><span class="status-badge status-sample-receive">Sample Receive</span></td>
-										</tr>
-										<tr>
-											<td><strong>LAB-003</strong></td>
-											<td>Ana Reyes<br><small style="color:#6b7280;">Requested by Dr. Martinez</small></td>
-											<td>Urinalysis (Urine)</td>
-											<td><span class="priority-badge priority-low">low</span></td>
-											<td><span class="status-badge status-pending">Pending</span></td>
-										</tr>
-										<tr>
-											<td><strong>LAB-004</strong></td>
-											<td>Carlos Mendoza<br><small style="color:#6b7280;">Requested by Dr. Lopez</small></td>
-											<td>Chest X-Ray (Imaging)</td>
-											<td><span class="priority-badge priority-high">high</span></td>
-											<td><span class="status-badge status-in-progress">In Progress</span></td>
-										</tr>
-									</tbody>
-								</table>
+							<div class="task">
+								<div class="task-icon">📄</div>
+								<div style="flex:1">
+									<div class="task-title">Invoice Review - Emergency Surgery</div>
+									<div class="task-meta">Assigned to: Maria Santos</div>
+									<div style="color:#6b7280; font-size:12px; margin-top:4px;">Status: Pending Review</div>
+								</div>
+								<span class="sev sev-high">high</span>
+								<button style="padding:6px 12px; border:none; border-radius:6px; background:#3b82f6; color:white; font-size:12px; font-weight:500; cursor:pointer; margin-left:10px;">Review</button>
+							</div>
+							<div class="task">
+								<div class="task-icon">🛡️</div>
+								<div style="flex:1">
+									<div class="task-title">Insurance Claim Processing</div>
+									<div class="task-meta">Assigned to: John Dela Cruz</div>
+									<div style="color:#6b7280; font-size:12px; margin-top:4px;">Status: Processing</div>
+								</div>
+								<span class="sev sev-medium">medium</span>
+								<button style="padding:6px 12px; border:none; border-radius:6px; background:#3b82f6; color:white; font-size:12px; font-weight:500; cursor:pointer; margin-left:10px;">Follow Up</button>
+							</div>
+							<div class="task">
+								<div class="task-icon">📊</div>
+								<div style="flex:1">
+									<div class="task-title">Monthly Financial Report</div>
+									<div class="task-meta">Assigned to: Ana Rodriguez</div>
+									<div style="color:#6b7280; font-size:12px; margin-top:4px;">Status: In Progress</div>
+								</div>
+								<span class="sev sev-medium">medium</span>
+								<button style="padding:6px 12px; border:none; border-radius:6px; background:#3b82f6; color:white; font-size:12px; font-weight:500; cursor:pointer; margin-left:10px;">Monitor</button>
+							</div>
+							<div class="task">
+								<div class="task-icon">💳</div>
+								<div style="flex:1">
+									<div class="task-title">Payment Reconciliation</div>
+									<div class="task-meta">Assigned to: Carlos Mendoza</div>
+									<div style="color:#6b7280; font-size:12px; margin-top:4px;">Status: Pending</div>
+								</div>
+								<span class="sev sev-low">low</span>
+								<button style="padding:6px 12px; border:none; border-radius:6px; background:#3b82f6; color:white; font-size:12px; font-weight:500; cursor:pointer; margin-left:10px;">Assign</button>
 							</div>
 						</div>
 					</div>
 					<div class="card">
 						<div class="card-header" style="display:flex;justify-content:space-between;align-items:center">Quick Actions <a class="link" href="#">View All</a></div>
 						<div class="card-content">
-							<div class="quick-action-item">
-								<div class="quick-action-icon blue">➕</div>
-								<div class="quick-action-content">
-									<div class="quick-action-title">New Test Request</div>
-									<div class="quick-action-desc">Create a new laboratory test request</div>
-								</div>
-							</div>
-							<div class="quick-action-item">
-								<div class="quick-action-icon green">📝</div>
-								<div class="quick-action-content">
-									<div class="quick-action-title">Enter Results</div>
-									<div class="quick-action-desc">Input test results and reports</div>
-								</div>
-							</div>
-							<div class="quick-action-item">
-								<div class="quick-action-icon purple">📈</div>
-								<div class="quick-action-content">
-									<div class="quick-action-title">Sample Tracking</div>
-									<div class="quick-action-desc">Track sample collection and processing</div>
-								</div>
-							</div>
-							<div class="quick-action-item">
-								<div class="quick-action-icon orange">⚙️</div>
-								<div class="quick-action-content">
-									<div class="quick-action-title">Equipment Status</div>
-									<div class="quick-action-desc">Check laboratory equipment status</div>
-								</div>
-							</div>
-							<div class="quick-action-item">
-								<div class="quick-action-icon blue">📄</div>
-								<div class="quick-action-content">
-									<div class="quick-action-title">Generate Report</div>
-									<div class="quick-action-desc">Generate laboratory reports</div>
-								</div>
+							<div class="quick-actions-grid">
+								<a href="#" class="quick-action-btn">
+									<div class="quick-action-icon blue">📄</div>
+									<div class="quick-action-text">Create Invoice</div>
+								</a>
+								<a href="#" class="quick-action-btn">
+									<div class="quick-action-icon green">💳</div>
+									<div class="quick-action-text">Process Payment</div>
+								</a>
+								<a href="#" class="quick-action-btn">
+									<div class="quick-action-icon purple">📊</div>
+									<div class="quick-action-text">Generate Report</div>
+								</a>
+								<a href="#" class="quick-action-btn">
+									<div class="quick-action-icon orange">⚙️</div>
+									<div class="quick-action-text">Manage Accounts</div>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -315,22 +292,6 @@
 	</div>
 
     <script>
-    // Update date and time
-    function updateDateTime() {
-        const now = new Date();
-        const dateStr = now.toLocaleDateString('en-US', { 
-            month: 'numeric', 
-            day: 'numeric', 
-            year: 'numeric' 
-        });
-        
-        document.getElementById('current-date').textContent = dateStr;
-    }
-
-    // Update time every second
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
-
     // Toggle user pop
     const ubtn = document.getElementById('userBtn');
     const upop = document.getElementById('userPop');

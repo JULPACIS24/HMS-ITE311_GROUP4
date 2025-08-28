@@ -22,8 +22,12 @@
 			<div class="menu-icon">🧪</div>
 			<div>Lab Requests</div>
 		</a>
-		<a href="<?= site_url('doctor/consultations') ?>" class="menu-item<?= strpos($path,'doctor/consultations')===0 ? ' active' : '' ?>"><span class="menu-icon">🩺</span>Consultations</a>
-		<a href="<?= site_url('doctor/schedule') ?>" class="menu-item<?= strpos($path,'doctor/schedule')===0 ? ' active' : '' ?>"><span class="menu-icon">🗓️</span>My Schedule</a>
+			<a href="<?= site_url('doctor/consultations') ?>" class="menu-item<?= strpos($path,'doctor/consultations')===0 ? ' active' : '' ?>"><span class="menu-icon">🩺</span>Consultations</a>
+		<a href="<?= site_url('doctor/medical-certificates') ?>" class="menu-item <?= strpos(current_url(), '/doctor/medical-certificates') !== false ? 'active' : '' ?>">
+			<div class="menu-icon">📋</div>
+			<div>Medical Reports</div>
+		</a>
+		<a href="<?= site_url('schedule') ?>" class="menu-item<?= strpos($path,'schedule')===0 ? ' active' : '' ?>"><span class="menu-icon">🗓️</span>My Schedule</a>
 	</div>
 </nav>
 

@@ -32,7 +32,7 @@ class CreateSchedules extends Migration
             ],
             'type' => [
                 'type'       => 'ENUM',
-                'constraint' => ['appointment', 'ward_rounds', 'surgery', 'on_call', 'blocked'],
+                'constraint' => ['appointment', 'ward_rounds', 'surgery', 'on_call', 'blocked', 'consultation'],
                 'default'    => 'appointment',
             ],
             'date' => [

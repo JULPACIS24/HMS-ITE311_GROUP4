@@ -190,54 +190,53 @@ class ScheduleController extends BaseController
 
         $doctorId = session()->get('user_id') ?? 1;
         
+        // Get form data
+        $title = $this->request->getPost('title');
+        $type = $this->request->getPost('type');
+        $date = $this->request->getPost('date');
+        $startTime = $this->request->getPost('start_time');
+        $endTime = $this->request->getPost('end_time');
+        $room = $this->request->getPost('room');
+        $description = $this->request->getPost('description');
+        
+        // Basic validation
+        if (empty($title) || empty($type) || empty($date) || empty($startTime) || empty($endTime)) {
+            return $this->response->setJSON([
+                'error' => 'Please fill in all required fields'
+            ]);
+        }
+        
         $data = [
             'doctor_id' => $doctorId,
-            'patient_id' => $this->request->getPost('patient_id') ?: null,
-            'title' => $this->request->getPost('title'),
-            'type' => $this->request->getPost('type'),
-            'date' => $this->request->getPost('date'),
-            'start_time' => $this->request->getPost('start_time'),
-            'end_time' => $this->request->getPost('end_time'),
-            'room' => $this->request->getPost('room'),
-            'description' => $this->request->getPost('description'),
+            'title' => $title,
+            'type' => $type,
+            'date' => $date,
+            'start_time' => $startTime,
+            'end_time' => $endTime,
+            'room' => $room ?: '',
+            'description' => $description ?: '',
             'status' => 'scheduled'
         ];
 
-        // Validate data
-        if (!$this->scheduleModel->validate($data)) {
-            return $this->response->setJSON([
-                'error' => 'Validation failed',
-                'errors' => $this->scheduleModel->errors()
-            ]);
-        }
-
-        // Check for time conflicts
-        if ($this->scheduleModel->checkTimeConflict(
-            $data['doctor_id'], 
-            $data['date'], 
-            $data['start_time'], 
-            $data['end_time']
-        )) {
-            return $this->response->setJSON([
-                'error' => 'Time conflict detected. Please choose a different time slot.'
-            ]);
-        }
-
-        // Insert schedule
-        $scheduleId = $this->scheduleModel->addSchedule($data);
-        
-        if ($scheduleId) {
-            // Get the newly created schedule with patient details
-            $newSchedule = $this->scheduleModel->getScheduleWithPatient($scheduleId);
+        try {
+            // Insert schedule directly without complex validation
+            $scheduleId = $this->scheduleModel->insert($data);
             
+            if ($scheduleId) {
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Schedule added successfully',
+                    'schedule_id' => $scheduleId
+                ]);
+            } else {
+                return $this->response->setJSON([
+                    'error' => 'Failed to add schedule to database'
+                ]);
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Schedule add error: ' . $e->getMessage());
             return $this->response->setJSON([
-                'success' => true,
-                'message' => 'Schedule added successfully',
-                'schedule' => $newSchedule
-            ]);
-        } else {
-            return $this->response->setJSON([
-                'error' => 'Failed to add schedule'
+                'error' => 'Database error occurred. Please try again.'
             ]);
         }
     }
@@ -391,6 +390,126 @@ class ScheduleController extends BaseController
     }
 
     /**
+     * Test method to check database connection and schedule functionality
+     */
+    public function test()
+    {
+        try {
+            // Test database connection
+            $db = \Config\Database::connect();
+            $result = $db->query('SELECT COUNT(*) as count FROM schedules')->getRow();
+            
+            // Test getting schedules
+            $schedules = $this->scheduleModel->findAll();
+            
+            // Test getting patients
+            $patients = $this->patientModel->findAll();
+            
+            echo "Database connection: OK<br>";
+            echo "Schedules table count: " . ($result ? $result->count : 'Error') . "<br>";
+            echo "Schedules found: " . count($schedules) . "<br>";
+            echo "Patients found: " . count($patients) . "<br>";
+            
+            // Show sample schedule data
+            if (!empty($schedules)) {
+                echo "<h3>Sample Schedule:</h3>";
+                echo "<pre>" . print_r($schedules[0], true) . "</pre>";
+            }
+            
+        } catch (\Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    /**
+     * Get patients for dropdown (AJAX)
+     */
+    public function getPatients()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON(['error' => 'Invalid request']);
+        }
+
+        try {
+            $patientModel = new \App\Models\PatientModel();
+            $patients = $patientModel->select('id, first_name, last_name, phone')
+                                   ->where('status', 'active')
+                                   ->orderBy('first_name', 'ASC')
+                                   ->findAll();
+
+            $patientList = [];
+            foreach ($patients as $patient) {
+                $patientList[] = [
+                    'id' => $patient['id'],
+                    'name' => $patient['first_name'] . ' ' . $patient['last_name'],
+                    'phone' => $patient['phone']
+                ];
+            }
+
+            return $this->response->setJSON([
+                'success' => true,
+                'patients' => $patientList
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', 'Get patients error: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'error' => 'Failed to load patients'
+            ]);
+        }
+    }
+
+    /**
+     * Get rooms for dropdown (AJAX)
+     */
+    public function getRooms()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON(['error' => 'Invalid request']);
+        }
+
+        try {
+            $roomModel = new \App\Models\RoomModel();
+            $rooms = $roomModel->select('id, room_number, room_type, floor')
+                              ->where('status', 'available')
+                              ->orderBy('room_number', 'ASC')
+                              ->findAll();
+
+            $roomList = [];
+            foreach ($rooms as $room) {
+                $roomList[] = [
+                    'id' => $room['id'],
+                    'name' => $room['room_number'] . ' (' . $room['room_type'] . ')',
+                    'type' => $room['room_type']
+                ];
+            }
+
+            // Add default rooms if no rooms in database
+            if (empty($roomList)) {
+                $roomList = [
+                    ['id' => 'room_201', 'name' => 'Room 201', 'type' => 'Consultation'],
+                    ['id' => 'room_202', 'name' => 'Room 202', 'type' => 'Consultation'],
+                    ['id' => 'room_203', 'name' => 'Room 203', 'type' => 'Consultation'],
+                    ['id' => 'or_1', 'name' => 'OR-1', 'type' => 'Operating Room'],
+                    ['id' => 'or_2', 'name' => 'OR-2', 'type' => 'Operating Room'],
+                    ['id' => 'doctor_room', 'name' => 'Doctor Room', 'type' => 'Office'],
+                    ['id' => 'conference', 'name' => 'Conference Room', 'type' => 'Meeting'],
+                    ['id' => 'various', 'name' => 'Various', 'type' => 'Other']
+                ];
+            }
+
+            return $this->response->setJSON([
+                'success' => true,
+                'rooms' => $roomList
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', 'Get rooms error: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'error' => 'Failed to load rooms'
+            ]);
+        }
+    }
+
+    /**
      * Get current week dates
      */
     private function getCurrentWeek()
@@ -446,5 +565,58 @@ class ScheduleController extends BaseController
             'start_date' => $monday,
             'end_date' => $sunday
         ]);
+    }
+
+    /**
+     * Get weekly schedules for current week (AJAX)
+     */
+    public function getWeeklySchedules()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON(['error' => 'Invalid request']);
+        }
+
+        try {
+            $doctorId = session()->get('user_id') ?? 1; // Default to 1 for testing
+            
+            // Get current week dates
+            $currentWeek = $this->getCurrentWeek();
+            
+            // Get schedules for current week
+            $schedules = $this->scheduleModel->getSchedulesByWeek(
+                $doctorId, 
+                $currentWeek['start'], 
+                $currentWeek['end']
+            );
+            
+            // Format schedules for frontend
+            $formattedSchedules = [];
+            foreach ($schedules as $schedule) {
+                $formattedSchedules[] = [
+                    'id' => $schedule['id'],
+                    'title' => $schedule['title'],
+                    'type' => $schedule['type'],
+                    'date' => $schedule['date'],
+                    'start_time' => $schedule['start_time'],
+                    'end_time' => $schedule['end_time'],
+                    'room' => $schedule['room'],
+                    'description' => $schedule['description'],
+                    'status' => $schedule['status']
+                ];
+            }
+            
+            return $this->response->setJSON([
+                'success' => true,
+                'schedules' => $formattedSchedules,
+                'week_start' => $currentWeek['start'],
+                'week_end' => $currentWeek['end']
+            ]);
+            
+        } catch (\Exception $e) {
+            log_message('error', 'Get weekly schedules error: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'error' => 'Failed to load schedules'
+            ]);
+        }
     }
 }

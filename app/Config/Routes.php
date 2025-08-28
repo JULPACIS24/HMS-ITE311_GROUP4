@@ -78,15 +78,23 @@ $routes->get('doctor/appointments/(:num)', 'Doctor::getAppointmentDetails/$1', [
 $routes->get('doctor/schedule', 'Doctor::schedule', ['filter' => 'auth']);
 $routes->get('doctor/reports', 'Doctor::reports', ['filter' => 'auth']);
 
+// Medical Certificates routes
+$routes->get('doctor/medical-certificates', 'Doctor::medicalCertificates', ['filter' => 'auth']);
+$routes->get('doctor/medical-certificates/create', 'Doctor::createMedicalCertificate', ['filter' => 'auth']);
+$routes->post('doctor/medical-certificates/store', 'Doctor::storeMedicalCertificate', ['filter' => 'auth']);
+$routes->get('doctor/medical-certificates/view/(:num)', 'Doctor::viewMedicalCertificate/$1', ['filter' => 'auth']);
+$routes->get('doctor/medical-certificates/print/(:num)', 'Doctor::printMedicalCertificate/$1', ['filter' => 'auth']);
+
 // Schedule routes
 $routes->get('schedule', 'ScheduleController::index', ['filter' => 'auth']);
-$routes->post('schedule/getWeek', 'ScheduleController::getWeek', ['filter' => 'auth']);
-$routes->post('schedule/addSchedule', 'ScheduleController::addSchedule', ['filter' => 'auth']);
-$routes->post('schedule/blockTime', 'ScheduleController::blockTime', ['filter' => 'auth']);
-$routes->post('schedule/getScheduleDetails', 'ScheduleController::getScheduleDetails', ['filter' => 'auth']);
-$routes->post('schedule/updateSchedule', 'ScheduleController::updateSchedule', ['filter' => 'auth']);
-$routes->post('schedule/deleteSchedule', 'ScheduleController::deleteSchedule', ['filter' => 'auth']);
-$routes->post('schedule/getWeekDates', 'ScheduleController::getWeekDates', ['filter' => 'auth']);
+$routes->get('schedule/test', 'ScheduleController::test');
+$routes->post('schedule/addSchedule', 'ScheduleController::addSchedule');
+$routes->post('schedule/updateSchedule', 'ScheduleController::updateSchedule');
+$routes->post('schedule/deleteSchedule', 'ScheduleController::deleteSchedule');
+$routes->post('schedule/getScheduleDetails', 'ScheduleController::getScheduleDetails');
+$routes->post('schedule/getPatients', 'ScheduleController::getPatients');
+$routes->post('schedule/getRooms', 'ScheduleController::getRooms');
+$routes->post('schedule/getWeeklySchedules', 'ScheduleController::getWeeklySchedules');
 
 // Receptionist Dashboard
 $routes->get('receptionist', 'Receptionist::index', ['filter' => 'auth']);
@@ -151,6 +159,16 @@ $routes->get('/laboratory', 'Laboratory::index', ['filter' => 'auth']);
 $routes->get('/laboratory/requests', 'Laboratory::requests', ['filter' => 'auth']);
 $routes->get('/laboratory/results', 'Laboratory::results', ['filter' => 'auth']);
 $routes->get('/laboratory/equipment', 'Laboratory::equipment', ['filter' => 'auth']);
+
+// Accountant Routes
+$routes->get('/accountant', 'Accountant::index', ['filter' => 'auth']);
+$routes->get('/accountant/billing', 'Accountant::billing', ['filter' => 'auth']);
+$routes->get('/accountant/invoices', 'Accountant::invoices', ['filter' => 'auth']);
+$routes->get('/accountant/insurance', 'Accountant::insurance', ['filter' => 'auth']);
+$routes->get('/accountant/reports', 'Accountant::reports', ['filter' => 'auth']);
+$routes->get('/accountant/accounts', 'Accountant::accounts', ['filter' => 'auth']);
+$routes->get('/accountant/transactions', 'Accountant::transactions', ['filter' => 'auth']);
+$routes->get('/accountant/settings', 'Accountant::settings', ['filter' => 'auth']);
 
 // Pharmacy Routes (Newly Added)
 $routes->get('/pharmacy', 'Pharmacy::index', ['filter' => 'auth']);

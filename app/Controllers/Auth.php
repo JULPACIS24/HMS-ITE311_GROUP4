@@ -96,6 +96,15 @@ class Auth extends BaseController
 		if (($user['role'] ?? '') === 'nurse') {
 			return redirect()->to('/nurse');
 		}
+		if (($user['role'] ?? '') === 'pharmacist') {
+			return redirect()->to('/pharmacy');
+		}
+		if (($user['role'] ?? '') === 'laboratory') {
+			return redirect()->to('/laboratory');
+		}
+		if (($user['role'] ?? '') === 'accountant') {
+			return redirect()->to('/accountant');
+		}
 
 		return redirect()->to('/dashboard');
 	}

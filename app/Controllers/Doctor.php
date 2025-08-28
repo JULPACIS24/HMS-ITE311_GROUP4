@@ -944,6 +944,109 @@ class Doctor extends BaseController
 			'consultations' => $consultations
 		]);
 	}
+
+	// Medical Certificates Methods
+	public function medicalCertificates()
+	{
+		if (! session('isLoggedIn')) return redirect()->to('/login');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		
+		$medicalCertificateModel = new \App\Models\MedicalCertificateModel();
+		$doctorName = session('user_name');
+		
+		$certificates = $medicalCertificateModel->getByDoctor($doctorName);
+		$stats = $medicalCertificateModel->getDoctorCertificateStats($doctorName);
+		
+		return view('auth/doctor_medical_certificates', [
+			'certificates' => $certificates,
+			'stats' => $stats
+		]);
+	}
+
+	public function createMedicalCertificate()
+	{
+		if (! session('isLoggedIn')) return redirect()->to('/login');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		
+		$patientModel = new \App\Models\PatientModel();
+		$patients = $patientModel->orderBy('first_name', 'ASC')->findAll();
+		
+		return view('auth/doctor_create_medical_certificate', ['patients' => $patients]);
+	}
+
+	public function storeMedicalCertificate()
+	{
+		if (! session('isLoggedIn')) return redirect()->to('/login');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		
+		$medicalCertificateModel = new \App\Models\MedicalCertificateModel();
+		$patientModel = new \App\Models\PatientModel();
+		
+		$patientId = $this->request->getPost('patient_id');
+		$patient = $patientModel->find($patientId);
+		
+		if (!$patient) {
+			return redirect()->back()->with('error', 'Patient not found.');
+		}
+		
+		$certificateData = [
+			'certificate_id' => $medicalCertificateModel->generateCertificateId(),
+			'patient_id' => $patientId,
+			'patient_name' => $patient['first_name'] . ' ' . $patient['last_name'],
+			'patient_age' => $patient['dob'] ? date_diff(date_create($patient['dob']), date_create('today'))->y : 0,
+			'patient_gender' => $patient['gender'],
+			'patient_address' => $patient['address'],
+			'doctor_id' => session('user_id'),
+			'doctor_name' => session('user_name'),
+			'doctor_license' => '114072', // Default license number
+			'issue_date' => $this->request->getPost('issue_date'),
+			'diagnosis' => $this->request->getPost('diagnosis'),
+			'medications' => $this->request->getPost('medications'),
+			'pregnancy_details' => $this->request->getPost('pregnancy_details'),
+			'lmp' => $this->request->getPost('lmp'),
+			'edd' => $this->request->getPost('edd'),
+			'notes' => $this->request->getPost('notes'),
+			'status' => 'Active'
+		];
+		
+		$result = $medicalCertificateModel->insert($certificateData);
+		
+		if ($result) {
+			return redirect()->to('/doctor/medical-certificates')->with('message', 'Medical certificate created successfully!');
+		} else {
+			return redirect()->back()->with('error', 'Failed to create medical certificate.');
+		}
+	}
+
+	public function viewMedicalCertificate($id)
+	{
+		if (! session('isLoggedIn')) return redirect()->to('/login');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		
+		$medicalCertificateModel = new \App\Models\MedicalCertificateModel();
+		$certificate = $medicalCertificateModel->find($id);
+		
+		if (!$certificate) {
+			return redirect()->to('/doctor/medical-certificates')->with('error', 'Medical certificate not found.');
+		}
+		
+		return view('auth/doctor_view_medical_certificate', ['certificate' => $certificate]);
+	}
+
+	public function printMedicalCertificate($id)
+	{
+		if (! session('isLoggedIn')) return redirect()->to('/login');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		
+		$medicalCertificateModel = new \App\Models\MedicalCertificateModel();
+		$certificate = $medicalCertificateModel->find($id);
+		
+		if (!$certificate) {
+			return redirect()->to('/doctor/medical-certificates')->with('error', 'Medical certificate not found.');
+		}
+		
+		return view('auth/doctor_print_medical_certificate', ['certificate' => $certificate]);
+	}
 }
 
 

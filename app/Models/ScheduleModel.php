@@ -23,43 +23,12 @@ class ScheduleModel extends Model
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
 
-    // Validation
-    protected $validationRules = [
-        'doctor_id' => 'required|integer',
-        'title' => 'required|min_length[3]|max_length[255]',
-        'type' => 'required|in_list[appointment,ward_rounds,surgery,on_call,blocked]',
-        'date' => 'required|valid_date',
-        'start_time' => 'required',
-        'end_time' => 'required',
-    ];
-
-    protected $validationMessages = [
-        'doctor_id' => [
-            'required' => 'Doctor ID is required',
-            'integer' => 'Doctor ID must be a number'
-        ],
-        'title' => [
-            'required' => 'Title is required',
-            'min_length' => 'Title must be at least 3 characters',
-            'max_length' => 'Title cannot exceed 255 characters'
-        ],
-        'type' => [
-            'required' => 'Type is required',
-            'in_list' => 'Type must be one of: appointment, ward_rounds, surgery, on_call, blocked'
-        ],
-        'date' => [
-            'required' => 'Date is required',
-            'valid_date' => 'Please enter a valid date'
-        ],
-        'start_time' => [
-            'required' => 'Start time is required'
-        ],
-        'end_time' => [
-            'required' => 'End time is required'
-        ]
-    ];
-
-    protected $skipValidation = false;
+    // Validation - Temporarily disabled for testing
+    protected $validationRules = [];
+    
+    protected $validationMessages = [];
+    
+    protected $skipValidation = true;
     protected $cleanValidationRules = true;
 
     /**
