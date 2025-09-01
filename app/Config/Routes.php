@@ -35,6 +35,7 @@ $routes->get('users', 'Users::index', ['filter' => 'auth']);
 $routes->post('users/store', 'Users::store', ['filter' => 'auth']);
 $routes->get('settings', 'Settings::index', ['filter' => 'auth']);
 $routes->post('/patients/store', 'Patients::store', ['filter' => 'auth']);
+$routes->post('/patients/storeRegistration', 'Patients::storeRegistration', ['filter' => 'auth']);
 
 // IT Dashboard
 $routes->get('it', 'It::index', ['filter' => 'auth']);
@@ -95,6 +96,7 @@ $routes->post('schedule/getScheduleDetails', 'ScheduleController::getScheduleDet
 $routes->post('schedule/getPatients', 'ScheduleController::getPatients');
 $routes->post('schedule/getRooms', 'ScheduleController::getRooms');
 $routes->post('schedule/getWeeklySchedules', 'ScheduleController::getWeeklySchedules');
+$routes->post('schedule/deleteAllSchedules', 'ScheduleController::deleteAllSchedules');
 
 // Receptionist Dashboard
 $routes->get('receptionist', 'Receptionist::index', ['filter' => 'auth']);
@@ -160,6 +162,17 @@ $routes->get('/laboratory/requests', 'Laboratory::requests', ['filter' => 'auth'
 $routes->get('/laboratory/results', 'Laboratory::results', ['filter' => 'auth']);
 $routes->get('/laboratory/equipment', 'Laboratory::equipment', ['filter' => 'auth']);
 
+// Lab Management Routes (Admin)
+$routes->get('/lab-management', 'LabManagement::index', ['filter' => 'auth']);
+$routes->get('/lab-management/requests', 'LabManagement::requests', ['filter' => 'auth']);
+$routes->get('/lab-management/results', 'LabManagement::results', ['filter' => 'auth']);
+$routes->get('/lab-management/equipment', 'LabManagement::equipment', ['filter' => 'auth']);
+$routes->get('/lab-management/new-test', 'LabManagement::newTest', ['filter' => 'auth']);
+$routes->get('/lab-management/view/(:any)', 'LabManagement::view/$1', ['filter' => 'auth']);
+$routes->get('/lab-management/edit/(:any)', 'LabManagement::edit/$1', ['filter' => 'auth']);
+$routes->get('/lab-management/delete/(:any)', 'LabManagement::delete/$1', ['filter' => 'auth']);
+$routes->get('/lab-management/test', 'LabManagement::test');
+
 // Accountant Routes
 $routes->get('/accountant', 'Accountant::index', ['filter' => 'auth']);
 $routes->get('/accountant/billing', 'Accountant::billing', ['filter' => 'auth']);
@@ -171,9 +184,10 @@ $routes->get('/accountant/transactions', 'Accountant::transactions', ['filter' =
 $routes->get('/accountant/settings', 'Accountant::settings', ['filter' => 'auth']);
 
 // Pharmacy Routes (Newly Added)
-$routes->get('/pharmacy', 'Pharmacy::index', ['filter' => 'auth']);
-$routes->get('/pharmacy/inventory', 'Pharmacy::inventory', ['filter' => 'auth']);
-$routes->get('/pharmacy/prescriptions', 'Pharmacy::prescriptions', ['filter' => 'auth']);
+$routes->get('/pharmacy-management', 'Pharmacy::dashboard', ['filter' => 'auth']);
+$routes->get('/pharmacy-management/inventory', 'Pharmacy::inventory', ['filter' => 'auth']);
+$routes->get('/pharmacy-management/prescriptions', 'Pharmacy::prescriptions', ['filter' => 'auth']);
+$routes->get('/pharmacy-management/stock-alerts', 'Pharmacy::stockAlerts', ['filter' => 'auth']);
 $routes->post('/pharmacy/process-order', 'Pharmacy::processOrder', ['filter' => 'auth']);
 $routes->get('/pharmacy/prescription-details/(:segment)', 'Pharmacy::getPrescriptionDetails/$1', ['filter' => 'auth']);
 $routes->get('/pharmacy/alerts', 'Pharmacy::alerts', ['filter' => 'auth']);

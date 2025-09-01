@@ -6,6 +6,15 @@ use CodeIgniter\Controller;
 
 class Pharmacy extends Controller
 {
+    public function dashboard()
+    {
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
+        
+        return view('auth/pharmacy_dashboard');
+    }
+
     public function index()
     {
         if (!session()->get('isLoggedIn')) {

@@ -6,6 +6,68 @@
     <title>Laboratory Results - San Miguel HMS</title>
     <link rel="stylesheet" href="<?= base_url('assets/css/auth.css') ?>">
     <style>
+        /* Sidebar Styles - Match Lab Requests page */
+        .sidebar {
+            width: 250px;
+            background: #fff;
+            color: #0f172a;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 1000;
+            border-right: 1px solid #e5e7eb;
+        }
+        
+        /* Sidebar Header Styling - Match other sidebars */
+        .sidebar .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .sidebar .admin-icon {
+            width: 32px;
+            height: 32px;
+            background: #2563eb;
+            color: #fff;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .sidebar .sidebar-title {
+            font-weight: 800;
+            font-size: 16px;
+            color: #0f172a;
+            line-height: 1.1;
+        }
+        
+        .sidebar .sidebar-subtitle {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.1;
+        }
+        
+        .sidebar .hamburger-menu {
+            margin-left: auto;
+            opacity: 0.8;
+            cursor: pointer;
+            font-size: 18px;
+            color: #64748b;
+        }
+        
+        /* Add spacing between Admin Header and first menu item */
+        .sidebar .sidebar-menu {
+            margin-top: 20px;
+        }
+        
         .lab-results {
             padding: 20px;
             background: #f8fafc;

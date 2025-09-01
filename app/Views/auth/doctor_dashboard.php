@@ -167,26 +167,26 @@
 				<div class="metric-grid">
 					<div class="metric">
 						<div class="metric-title">Today's Appointments</div>
-						<div class="metric-value">12</div>
-						<div class="metric-sub">+2 from yesterday</div>
+						<div class="metric-value">0</div>
+						<div class="metric-sub">No appointments today</div>
 						<div class="metric-icon icon-blue">📅</div>
 					</div>
 					<div class="metric">
 						<div class="metric-title">Active Patients</div>
-						<div class="metric-value">248</div>
-						<div class="metric-sub">Under your care</div>
+						<div class="metric-value">1</div>
+						<div class="metric-sub">yoy gen</div>
 						<div class="metric-icon icon-green">🧑‍⚕️</div>
 					</div>
 					<div class="metric">
 						<div class="metric-title">Pending Lab Results</div>
-						<div class="metric-value">6</div>
-						<div class="metric-sub">Awaiting review</div>
+						<div class="metric-value">0</div>
+						<div class="metric-sub">No pending results</div>
 						<div class="metric-icon icon-orange">🧪</div>
 					</div>
 					<div class="metric">
 						<div class="metric-title">Prescriptions</div>
-						<div class="metric-value">18</div>
-						<div class="metric-sub">This week</div>
+						<div class="metric-value">0</div>
+						<div class="metric-sub">No prescriptions yet</div>
 						<div class="metric-icon icon-purple">💊</div>
 					</div>
 				</div>
@@ -218,20 +218,22 @@
 					<div class="card">
 						<div class="card-header" style="display:flex;justify-content:space-between;align-items:center">Urgent Tasks <a class="link" href="#">View All</a></div>
 						<div class="card-content">
-							<div class="task"><div class="task-icon">🧪</div><div style="flex:1"><div class="task-title">John Rodriguez</div><div class="task-meta">Review cardiac enzyme results • 2 hours ago</div></div><span class="sev sev-high">HIGH</span></div>
-							<div class="task"><div class="task-icon">💊</div><div style="flex:1"><div class="task-title">Maria Garcia</div><div class="task-meta">Update medication dosage • 1 hour ago</div></div><span class="sev sev-high">HIGH</span></div>
-							<div class="task"><div class="task-icon">⚠️</div><div style="flex:1"><div class="task-title">Carlos Martinez</div><div class="task-meta">Emergency consultation request • 30 min ago</div></div><span class="sev sev-critical">CRITICAL</span></div>
-							<div class="task"><div class="task-icon">📍</div><div style="flex:1"><div class="task-title">Ana Dela Cruz</div><div class="task-meta">Post-surgery checkup • 45 min ago</div></div><span class="sev sev-medium">MEDIUM</span></div>
+							<!-- No urgent tasks yet -->
+							<div class="empty-state" style="text-align: center; padding: 20px; color: #6b7280;">
+								<div style="font-size: 24px; margin-bottom: 8px;">📋</div>
+								<div style="font-size: 14px;">No urgent tasks</div>
+							</div>
 						</div>
 					</div>
 					<div class="card">
 						<div class="card-header" style="display:flex;justify-content:space-between;align-items:center">Today's Appointments <a class="link" href="#">Manage Schedule</a></div>
 						<div class="card-content">
-							<div class="appt"><div class="appt-left"><div class="task-icon" style="background:#eef2ff">RS</div><div><div class="task-title">Robert Santos</div><div class="task-meta">Routine Checkup • Room 201</div></div></div><div class="badge-time">9:00 AM</div></div>
-							<div class="appt"><div class="appt-left"><div class="task-icon" style="background:#f5f3ff">LF</div><div><div class="task-title">Lisa Fernandez</div><div class="task-meta">Follow-up • Room 203</div></div></div><div class="badge-time">10:30 AM</div></div>
-							<div class="appt"><div class="appt-left"><div class="task-icon" style="background:#fff7ed">MT</div><div><div class="task-title">Michael Torres</div><div class="task-meta">Consultation • Room 201</div></div></div><div class="badge-time">11:15 AM</div></div>
-							<div class="appt"><div class="appt-left"><div class="task-icon" style="background:#e0f7ef">SR</div><div><div class="task-title">Sarah Reyes</div><div class="task-meta">Emergency • Emergency Room</div></div></div><div class="badge-time">2:00 PM</div></div>
-							<div class="appt"><div class="appt-left"><div class="task-icon" style="background:#ecfeff">DC</div><div><div class="task-title">David Cruz</div><div class="task-meta">Routine Checkup • Room 205</div></div></div><div class="badge-time">3:30 PM</div></div>
+							<!-- No upcoming appointments yet -->
+							<div class="empty-state" style="text-align: center; padding: 20px; color: #6b7280;">
+								<div style="font-size: 24px; margin-bottom: 8px;">📅</div>
+								<div style="font-size: 14px;">No upcoming appointments</div>
+							</div>
+
 						</div>
 					</div>
 				</div>

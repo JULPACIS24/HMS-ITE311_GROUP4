@@ -1,0 +1,1098 @@
+ERROR - 2025-08-30 16:57:21 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'san_miguel_hms' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:202
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(202): mysqli->real_connect('localhost', 'root', '', 'san_miguel_hms', 3306, '', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(715): CodeIgniter\Model->doFirst()
+#6 C:\xampp\htdocs\hms_group4\app\Models\UserModel.php(18): CodeIgniter\BaseModel->first()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\Auth.php(56): App\Models\UserModel->findByEmail('nagisa@gmail.co...')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Auth->attemptLogin()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'san_miguel_hms' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\hms_group4\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\hms_group4\system\BaseModel.php(715): CodeIgniter\Model->doFirst()
+#5 C:\xampp\htdocs\hms_group4\app\Models\UserModel.php(18): CodeIgniter\BaseModel->first()
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Auth.php(56): App\Models\UserModel->findByEmail('nagisa@gmail.co...')
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Auth->attemptLogin()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-08-30 16:57:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'san_miguel_hms'
+[Method: POST, Route: login]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Models\UserModel.php(18): CodeIgniter\BaseModel->first()
+ 6 APPPATH\Controllers\Auth.php(56): App\Models\UserModel->findByEmail('nagisa@gmail.com')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->attemptLogin()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-30 16:59:35 --> mysqli_sql_exception: Can't create table `san_miguel_hms`.`consultations` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `c...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `c...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `c...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `c...')
+#4 C:\xampp\htdocs\hms_group4\app\Database\Migrations\2025-01-27-000004_CreateConsultations.php(141): CodeIgniter\Database\Forge->createTable('consultations')
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateConsultations->up()
+#6 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-30 17:02:50 --> mysqli_sql_exception: Can't create table `san_miguel_hms`.`medical_certificates` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `m...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `m...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `m...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `m...')
+#4 C:\xampp\htdocs\hms_group4\app\Database\Migrations\2025-08-19-000007_CreateMedicalCertificates.php(38): CodeIgniter\Database\Forge->createTable('medical_certifi...')
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateMedicalCertificates->up()
+#6 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-30 17:03:25 --> mysqli_sql_exception: Table 'prescriptions' already exists in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `p...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `p...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `p...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `p...')
+#4 C:\xampp\htdocs\hms_group4\app\Database\Migrations\2025-08-19-000008_CreatePrescriptions.php(81): CodeIgniter\Database\Forge->createTable('prescriptions')
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreatePrescriptions->up()
+#6 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-30 17:05:27 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'san_miguel_hms' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:202
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(202): mysqli->real_connect('localhost', 'root', '', 'san_miguel_hms', 3306, '', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(1525): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#4 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(1545): CodeIgniter\Database\BaseConnection->listTables()
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(768): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#6 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(646): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory('')
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateStatus->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:status', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'san_miguel_hms' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(1525): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(1545): CodeIgniter\Database\BaseConnection->listTables()
+#4 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(768): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(646): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 C:\xampp\htdocs\hms_group4\system\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory('')
+#7 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateStatus->run(Array)
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:status', Array)
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-30 17:05:27 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'san_miguel_hms'
+[Method: CLI, Route: migrate:status]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseConnection.php(1525): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FROM `san_miguel_hms`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(1545): CodeIgniter\Database\BaseConnection->listTables()
+ 4 SYSTEMPATH\Database\MigrationRunner.php(768): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+ 5 SYSTEMPATH\Database\MigrationRunner.php(646): CodeIgniter\Database\MigrationRunner->ensureTable()
+ 6 SYSTEMPATH\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory('')
+ 7 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateStatus->run([])
+ 8 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:status', [])
+ 9 SYSTEMPATH\Boot.php(388): CodeIgniter\CLI\Console->run()
+10 SYSTEMPATH\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+11 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+ERROR - 2025-08-30 17:20:40 --> mysqli_sql_exception: Duplicate column name 'role' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `us...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `us...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `us...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\Forge.php(772): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `us...')
+#4 C:\xampp\htdocs\hms_group4\app\Database\Migrations\2025-08-30-000001_AddRoleToUsers.php(20): CodeIgniter\Database\Forge->addColumn('users', Array)
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(876): App\Database\Migrations\AddRoleToUsers->up()
+#6 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-30 17:21:19 --> mysqli_sql_exception: Duplicate entry 'admin@sanmiguelhms.com' for key 'email' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', NULL, false)
+#4 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\hms_group4\app\Database\Seeds\UserSeeder.php(25): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\hms_group4\system\Database\Seeder.php(149): App\Database\Seeds\UserSeeder->run()
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-30 17:40:54 --> mysqli_sql_exception: Unknown column 'appointments.patient_id' in 'on clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-08-30 17:40:54 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'appointments.patient_id' in 'on clause'
+[Method: GET, Route: doctor/consultations]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-30 17:40:54 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'appointments.patient_id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-30 17:40:54 --> [Caused by] mysqli_sql_exception: Unknown column 'appointments.patient_id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-30 17:56:02 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(163): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->management()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-08-30 17:56:02 --> Scheduling::management() error: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-08-30 18:41:49 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(42): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-08-30 18:41:49 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'patients.name' in 'field list'
+[Method: GET, Route: lab-management]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_requests`.*, `patients`.`name` as `patient_name`, `patients`.`gender` as `patient_gender`, `users`.`name` as `doctor_name`
+FROM `lab_requests`
+JOIN `patients` ON `patients`.`id` = `lab_requests`.`patient_id`
+JOIN `users` ON `users`.`id` = `lab_requests`.`doctor_id`
+ORDER BY `lab_requests`.`created_at` DESC', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\LabManagement.php(42): App\Models\LabRequestModel->getLabRequestsWithDetails()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-30 18:41:49 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'patients.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_requests`.*, `patients`.`name` as `patient_name`, `patients`.`gender` as `patient_gender`, `users`.`name` as `doctor_name`
+FROM `lab_requests`
+JOIN `patients` ON `patients`.`id` = `lab_requests`.`patient_id`
+JOIN `users` ON `users`.`id` = `lab_requests`.`doctor_id`
+ORDER BY `lab_requests`.`created_at` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_requests`.*, `patients`.`name` as `patient_name`, `patients`.`gender` as `patient_gender`, `users`.`name` as `doctor_name`
+FROM `lab_requests`
+JOIN `patients` ON `patients`.`id` = `lab_requests`.`patient_id`
+JOIN `users` ON `users`.`id` = `lab_requests`.`doctor_id`
+ORDER BY `lab_requests`.`created_at` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_requests`.*, `patients`.`name` as `patient_name`, `patients`.`gender` as `patient_gender`, `users`.`name` as `doctor_name`
+FROM `lab_requests`
+JOIN `patients` ON `patients`.`id` = `lab_requests`.`patient_id`
+JOIN `users` ON `users`.`id` = `lab_requests`.`doctor_id`
+ORDER BY `lab_requests`.`created_at` DESC', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\LabManagement.php(42): App\Models\LabRequestModel->getLabRequestsWithDetails()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-30 18:41:49 --> [Caused by] mysqli_sql_exception: Unknown column 'patients.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_requests`.*, `patients`.`name` as `patient_name`, `patients`.`gender` as `patient_gender`, `users`.`name` as `doctor_name`
+FROM `lab_requests`
+JOIN `patients` ON `patients`.`id` = `lab_requests`.`patient_id`
+JOIN `users` ON `users`.`id` = `lab_requests`.`doctor_id`
+ORDER BY `lab_requests`.`created_at` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_requests`.*, `patients`.`name` as `patient_name`, `patients`.`gender` as `patient_gender`, `users`.`name` as `doctor_name`
+FROM `lab_requests`
+JOIN `patients` ON `patients`.`id` = `lab_requests`.`patient_id`
+JOIN `users` ON `users`.`id` = `lab_requests`.`doctor_id`
+ORDER BY `lab_requests`.`created_at` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_requests`.*, `patients`.`name` as `patient_name`, `patients`.`gender` as `patient_gender`, `users`.`name` as `doctor_name`
+FROM `lab_requests`
+JOIN `patients` ON `patients`.`id` = `lab_requests`.`patient_id`
+JOIN `users` ON `users`.`id` = `lab_requests`.`doctor_id`
+ORDER BY `lab_requests`.`created_at` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_requests`.*, `patients`.`name` as `patient_name`, `patients`.`gender` as `patient_gender`, `users`.`name` as `doctor_name`
+FROM `lab_requests`
+JOIN `patients` ON `patients`.`id` = `lab_requests`.`patient_id`
+JOIN `users` ON `users`.`id` = `lab_requests`.`doctor_id`
+ORDER BY `lab_requests`.`created_at` DESC', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\LabManagement.php(42): App\Models\LabRequestModel->getLabRequestsWithDetails()
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-30 18:43:54 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 18:44:04 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 18:46:14 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 18:46:21 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 18:46:25 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-08-30 18:46:27 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "lab-management/requests.php"
+[Method: GET, Route: lab-management/requests]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('lab-management/requests.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('lab-management/requests', [], true)
+ 3 APPPATH\Controllers\LabManagement.php(82): view('lab-management/requests', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LabManagement->requests()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-30 18:46:31 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "lab-management/equipment.php"
+[Method: GET, Route: lab-management/equipment]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('lab-management/equipment.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('lab-management/equipment', [], true)
+ 3 APPPATH\Controllers\LabManagement.php(116): view('lab-management/equipment', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LabManagement->equipment()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-30 18:46:34 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "lab-management/results.php"
+[Method: GET, Route: lab-management/results]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('lab-management/results.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('lab-management/results', [], true)
+ 3 APPPATH\Controllers\LabManagement.php(99): view('lab-management/results', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LabManagement->results()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-30 18:46:38 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "lab-management/requests.php"
+[Method: GET, Route: lab-management/requests]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('lab-management/requests.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('lab-management/requests', [], true)
+ 3 APPPATH\Controllers\LabManagement.php(82): view('lab-management/requests', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LabManagement->requests()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-30 18:46:50 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 18:59:00 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 18:59:09 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:01:19 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:01:21 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:01:21 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:01:22 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:01:23 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:01:23 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:01:24 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:01:24 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:01:25 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:01:25 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:01:51 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:19 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:20 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:22 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:23 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:24 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:24 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:24 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:25 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:25 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:26 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:27 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:27 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:28 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:28 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:29 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:29 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:30 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:03:35 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(163): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->management()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-08-30 19:03:35 --> Scheduling::management() error: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-08-30 19:07:23 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-30 19:07:42 --> mysqli_sql_exception: Unknown column 'patients.name' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `lab_req...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `lab_req...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `lab_req...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `lab_req...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Models\LabRequestModel.php(74): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\LabManagement.php(43): App\Models\LabRequestModel->getLabRequestsWithDetails()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\LabManagement->index()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LabManagement))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}

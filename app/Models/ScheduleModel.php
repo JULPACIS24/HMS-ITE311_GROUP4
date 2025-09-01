@@ -36,7 +36,7 @@ class ScheduleModel extends Model
      */
     public function getSchedulesByWeek($doctorId, $startDate, $endDate)
     {
-        return $this->select('schedules.*, patients.first_name, patients.last_name, patients.phone')
+        return $this->select('schedules.*, COALESCE(patients.first_name, "") as first_name, COALESCE(patients.last_name, "") as last_name, COALESCE(patients.phone, "") as phone')
                     ->join('patients', 'patients.id = schedules.patient_id', 'left')
                     ->where('schedules.doctor_id', $doctorId)
                     ->where('schedules.date >=', $startDate)
@@ -184,5 +184,20 @@ class ScheduleModel extends Model
         }
         
         return $builder->countAllResults() > 0;
+    }
+
+    /**
+     * Delete all schedules for a specific doctor
+     */
+    public function deleteAllSchedulesForDoctor($doctorId)
+    {
+        try {
+            $deletedCount = $this->where('doctor_id', $doctorId)->countAllResults();
+            $this->where('doctor_id', $doctorId)->delete();
+            return $deletedCount;
+        } catch (\Exception $e) {
+            log_message('error', 'Error deleting all schedules for doctor: ' . $e->getMessage());
+            return 0;
+        }
     }
 }

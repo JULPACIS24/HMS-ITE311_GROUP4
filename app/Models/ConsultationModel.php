@@ -62,6 +62,23 @@ class ConsultationModel extends Model
     {
         $today = date('Y-m-d');
         $thisMonth = date('Y-m');
+        $thisWeek = date('Y-m-d', strtotime('monday this week'));
+        $nextWeek = date('Y-m-d', strtotime('monday next week'));
+        
+        // Get average duration
+        $avgDurationResult = $this->select('AVG(duration) as avg_duration')
+                                 ->where('doctor_id', $doctorId)
+                                 ->where('duration >', 0)
+                                 ->first();
+        
+        $avgDuration = $avgDurationResult ? round($avgDurationResult['avg_duration']) : 0;
+        
+        // Get follow-ups scheduled for this week
+        $followUps = $this->where('doctor_id', $doctorId)
+                         ->where('consultation_type', 'Follow-up')
+                         ->where('date_time >=', $thisWeek)
+                         ->where('date_time <', $nextWeek)
+                         ->countAllResults();
         
         $stats = [
             'total' => $this->where('doctor_id', $doctorId)
@@ -72,12 +89,13 @@ class ConsultationModel extends Model
                              ->countAllResults(),
             'completed' => $this->where('doctor_id', $doctorId)
                                 ->where('DATE(date_time)', $today)
-                                ->where('status', 'Completed')
-                                ->countAllResults(),
+                                ->countAllResults(), // Count all consultations today, regardless of status
             'emergency' => $this->where('doctor_id', $doctorId)
                                 ->where('consultation_type', 'Emergency')
                                 ->where('date_time >=', date('Y-m-d H:i:s', strtotime('-24 hours')))
                                 ->countAllResults(),
+            'avg_duration' => $avgDuration,
+            'follow_ups' => $followUps,
         ];
         
         return $stats;

@@ -206,8 +206,20 @@ class ScheduleController extends BaseController
             ]);
         }
         
+        // Handle patient_id - if title is a patient name, try to find their ID
+        $patientId = null;
+        if ($type !== 'rest_day' && $title !== 'Rest Day') {
+            // Check if title matches a patient name
+            $patientModel = new \App\Models\PatientModel();
+            $patient = $patientModel->where('CONCAT(first_name, " ", last_name)', $title)->first();
+            if ($patient) {
+                $patientId = $patient['id'];
+            }
+        }
+        
         $data = [
             'doctor_id' => $doctorId,
+            'patient_id' => $patientId,
             'title' => $title,
             'type' => $type,
             'date' => $date,
@@ -433,7 +445,6 @@ class ScheduleController extends BaseController
         try {
             $patientModel = new \App\Models\PatientModel();
             $patients = $patientModel->select('id, first_name, last_name, phone')
-                                   ->where('status', 'active')
                                    ->orderBy('first_name', 'ASC')
                                    ->findAll();
 
@@ -441,7 +452,8 @@ class ScheduleController extends BaseController
             foreach ($patients as $patient) {
                 $patientList[] = [
                     'id' => $patient['id'],
-                    'name' => $patient['first_name'] . ' ' . $patient['last_name'],
+                    'first_name' => $patient['first_name'],
+                    'last_name' => $patient['last_name'],
                     'phone' => $patient['phone']
                 ];
             }
@@ -568,6 +580,44 @@ class ScheduleController extends BaseController
     }
 
     /**
+     * Delete all schedules for current doctor (AJAX)
+     */
+    public function deleteAllSchedules()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON(['error' => 'Invalid request']);
+        }
+
+        try {
+            $doctorId = session()->get('user_id') ?? 1; // Default to 1 for testing
+            
+            // Delete all schedules for this doctor
+            $deletedCount = $this->scheduleModel->deleteAllSchedulesForDoctor($doctorId);
+            
+            if ($deletedCount > 0) {
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => "Successfully deleted {$deletedCount} schedules",
+                    'deleted_count' => $deletedCount
+                ]);
+            } else {
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'No schedules found to delete',
+                    'deleted_count' => 0
+                ]);
+            }
+            
+        } catch (\Exception $e) {
+            log_message('error', 'Delete all schedules error: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'success' => false,
+                'error' => 'Failed to delete schedules: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+        /**
      * Get weekly schedules for current week (AJAX)
      */
     public function getWeeklySchedules()

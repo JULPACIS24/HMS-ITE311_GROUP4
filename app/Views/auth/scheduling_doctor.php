@@ -59,7 +59,7 @@
 		<form id="apptForm">
 			<div class="modal-body">
 						<label><span>Patient Name *</span>
-			<select name="patient_name" required>
+			<select name="patient_id" required>
 				<option value="">Select Patient</option>
 				<option value="" disabled>Loading patients...</option>
 			</select>
@@ -214,7 +214,7 @@
 			.then(data => {
 				if (data.success) {
 					// Update the patient dropdown
-					const patientSelect = document.querySelector('#addApptModal select[name="patient_name"]');
+					const patientSelect = document.querySelector('#addApptModal select[name="patient_id"]');
 					if (patientSelect) {
 						// Clear existing options except the first one
 						patientSelect.innerHTML = '<option value="">Select Patient</option>';
@@ -222,7 +222,7 @@
 						// Add available patients
 						data.patients.forEach(patient => {
 							const option = document.createElement('option');
-							option.value = (patient.first_name || '') + ' ' + (patient.last_name || '');
+							option.value = patient.id; // Use patient ID as value
 							option.textContent = (patient.first_name || 'Unknown') + ' ' + (patient.last_name || 'Patient');
 							if (patient.phone) {
 								option.textContent += ' (' + patient.phone + ')';

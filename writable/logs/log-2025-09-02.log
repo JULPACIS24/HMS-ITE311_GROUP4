@@ -1,0 +1,1024 @@
+ERROR - 2025-09-02 00:43:47 --> mysqli_sql_exception: Unknown column 'appointments.patient_id' in 'on clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-02 00:43:47 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'appointments.patient_id' in 'on clause'
+[Method: GET, Route: doctor/consultations]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 00:43:47 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'appointments.patient_id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 00:43:47 --> [Caused by] mysqli_sql_exception: Unknown column 'appointments.patient_id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-02 00:44:29 --> mysqli_sql_exception: Unknown column 'appointments.patient_id' in 'on clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-02 00:44:29 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'appointments.patient_id' in 'on clause'
+[Method: GET, Route: doctor/consultations]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 00:44:29 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'appointments.patient_id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 00:44:29 --> [Caused by] mysqli_sql_exception: Unknown column 'appointments.patient_id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-02 00:44:32 --> mysqli_sql_exception: Unknown column 'appointments.patient_id' in 'on clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-02 00:44:32 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'appointments.patient_id' in 'on clause'
+[Method: GET, Route: doctor/consultations]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 00:44:32 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'appointments.patient_id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 00:44:32 --> [Caused by] mysqli_sql_exception: Unknown column 'appointments.patient_id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = \'yad\'
+AND `appointments`.`status` = \'Confirmed\'
+ORDER BY `appointments`.`date_time` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`id` as `patient_db_id`, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name
+FROM `appointments`
+LEFT JOIN `patients` ON `patients`.`id` = `appointments`.`patient_id`
+WHERE `appointments`.`doctor_name` = :appointments.doctor_name:
+AND `appointments`.`status` = :appointments.status:
+ORDER BY `appointments`.`date_time` ASC', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Doctor.php(456): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-02 00:50:30 --> Error in doctor consultations: Undefined array key "patient_db_id"
+ERROR - 2025-09-02 00:50:30 --> Error trace: #0 C:\xampp\htdocs\hms_group4\app\Views\auth\doctor_consultations.php(295): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 295)
+#1 C:\xampp\htdocs\hms_group4\system\View\View.php(226): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\hms_group4\system\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\hms_group4\system\Common.php(1167): CodeIgniter\View\View->render('auth/doctor_con...', Array, true)
+#4 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(478): view('auth/doctor_con...', Array)
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2025-09-02 00:50:36 --> Error in doctor consultations: Undefined array key "patient_db_id"
+ERROR - 2025-09-02 00:50:36 --> Error trace: #0 C:\xampp\htdocs\hms_group4\app\Views\auth\doctor_consultations.php(295): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 295)
+#1 C:\xampp\htdocs\hms_group4\system\View\View.php(226): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\hms_group4\system\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\hms_group4\system\Common.php(1167): CodeIgniter\View\View->render('auth/doctor_con...', Array, true)
+#4 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(478): view('auth/doctor_con...', Array)
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2025-09-02 00:52:58 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(163): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->management()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-09-02 00:52:58 --> Scheduling::management() error: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-09-02 00:53:11 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(403): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getDoctorAppointments('16', '2025-09-01')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-02 00:53:11 --> Error getting doctor appointments: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-09-02 00:53:36 --> mysqli_sql_exception: Unknown column 'patient_id' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ap...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ap...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ap...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ap...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(286): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->createAppointment()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-09-02 00:53:36 --> Error creating appointment: Unknown column 'patient_id' in 'field list'
+ERROR - 2025-09-02 00:53:36 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ap...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#3 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#4 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(286): CodeIgniter\Model->insert(Array)
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->createAppointment()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2025-09-02 00:53:44 --> mysqli_sql_exception: Unknown column 'patient_id' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ap...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ap...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ap...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ap...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(286): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->createAppointment()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-09-02 00:53:44 --> Error creating appointment: Unknown column 'patient_id' in 'field list'
+ERROR - 2025-09-02 00:53:44 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ap...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#3 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#4 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(286): CodeIgniter\Model->insert(Array)
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->createAppointment()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2025-09-02 00:53:53 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(403): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getDoctorAppointments('16', '2025-09-01')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-02 00:53:53 --> Error getting doctor appointments: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-09-02 00:54:17 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(403): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getDoctorAppointments('16', '2025-09-01')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-02 00:54:17 --> Error getting doctor appointments: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-09-02 00:54:21 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(163): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->management()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-09-02 00:54:21 --> Scheduling::management() error: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-09-02 00:54:23 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(163): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->management()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-09-02 00:54:23 --> Scheduling::management() error: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-09-02 00:54:26 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(403): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getDoctorAppointments('16', '2025-09-01')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-02 00:54:26 --> Error getting doctor appointments: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-09-02 00:57:06 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(403): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getDoctorAppointments('16', '2025-09-01')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-02 00:57:06 --> Error getting doctor appointments: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-09-02 00:57:08 --> Error in doctor consultations: Undefined array key "patient_db_id"
+ERROR - 2025-09-02 00:57:08 --> Error trace: #0 C:\xampp\htdocs\hms_group4\app\Views\auth\doctor_consultations.php(297): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array...', 'C:\\xampp\\htdocs...', 297)
+#1 C:\xampp\htdocs\hms_group4\system\View\View.php(226): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\hms_group4\system\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\hms_group4\system\Common.php(1167): CodeIgniter\View\View->render('auth/doctor_con...', Array, true)
+#4 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(478): view('auth/doctor_con...', Array)
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->consultations()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2025-09-02 01:19:17 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(403): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getDoctorAppointments('16', '2025-09-01')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-02 01:19:17 --> Error getting doctor appointments: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-09-02 01:19:19 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(163): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->management()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-09-02 01:19:19 --> Scheduling::management() error: Unknown column 'doctor_id' in 'where clause'
+CRITICAL - 2025-09-02 01:56:25 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "auth/patient_registration.php"
+[Method: GET, Route: patients/add]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('auth/patient_registration.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/patient_registration', [], true)
+ 3 APPPATH\Controllers\Patients.php(21): view('auth/patient_registration')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->add()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 01:56:35 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "auth/patient_registration.php"
+[Method: GET, Route: patients/add]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('auth/patient_registration.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/patient_registration', [], true)
+ 3 APPPATH\Controllers\Patients.php(21): view('auth/patient_registration')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->add()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-02 03:13:14 --> mysqli_sql_exception: Unknown column 'patient_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(715): CodeIgniter\Model->doFirst()
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-02 03:13:14 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'patient_id' in 'where clause'
+[Method: POST, Route: doctor/consultations/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = :patient_id:
+AND `doctor_id` = :doctor_id:
+AND `status` = :status:
+ORDER BY `date_time` DESC
+ LIMIT 1', [...], false)
+ 2 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 4 APPPATH\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 03:13:14 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'patient_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = :patient_id:
+AND `doctor_id` = :doctor_id:
+AND `status` = :status:
+ORDER BY `date_time` DESC
+ LIMIT 1', [...], false)
+ 4 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 6 APPPATH\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 03:13:14 --> [Caused by] mysqli_sql_exception: Unknown column 'patient_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = :patient_id:
+AND `doctor_id` = :doctor_id:
+AND `status` = :status:
+ORDER BY `date_time` DESC
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 7 APPPATH\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-02 03:13:17 --> mysqli_sql_exception: Unknown column 'patient_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(715): CodeIgniter\Model->doFirst()
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-02 03:13:17 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'patient_id' in 'where clause'
+[Method: POST, Route: doctor/consultations/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = :patient_id:
+AND `doctor_id` = :doctor_id:
+AND `status` = :status:
+ORDER BY `date_time` DESC
+ LIMIT 1', [...], false)
+ 2 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 4 APPPATH\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 03:13:17 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'patient_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = :patient_id:
+AND `doctor_id` = :doctor_id:
+AND `status` = :status:
+ORDER BY `date_time` DESC
+ LIMIT 1', [...], false)
+ 4 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 6 APPPATH\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 03:13:17 --> [Caused by] mysqli_sql_exception: Unknown column 'patient_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = :patient_id:
+AND `doctor_id` = :doctor_id:
+AND `status` = :status:
+ORDER BY `date_time` DESC
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 7 APPPATH\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-02 03:13:21 --> mysqli_sql_exception: Unknown column 'patient_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(715): CodeIgniter\Model->doFirst()
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-02 03:13:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'patient_id' in 'where clause'
+[Method: POST, Route: doctor/consultations/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = :patient_id:
+AND `doctor_id` = :doctor_id:
+AND `status` = :status:
+ORDER BY `date_time` DESC
+ LIMIT 1', [...], false)
+ 2 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 4 APPPATH\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 03:13:21 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'patient_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = :patient_id:
+AND `doctor_id` = :doctor_id:
+AND `status` = :status:
+ORDER BY `date_time` DESC
+ LIMIT 1', [...], false)
+ 4 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 6 APPPATH\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 03:13:21 --> [Caused by] mysqli_sql_exception: Unknown column 'patient_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `appointments`
+WHERE `patient_id` = \'9\'
+AND `doctor_id` = \'16\'
+AND `status` = \'Confirmed\'
+ORDER BY `date_time` DESC
+ LIMIT 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `appointments`
+WHERE `patient_id` = :patient_id:
+AND `doctor_id` = :doctor_id:
+AND `status` = :status:
+ORDER BY `date_time` DESC
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 7 APPPATH\Controllers\Doctor.php(806): CodeIgniter\BaseModel->first()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->saveConsultation()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-02 03:13:39 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(163): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->management()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-09-02 03:13:39 --> Scheduling::management() error: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-09-02 03:13:41 --> mysqli_sql_exception: Unknown column 'doctor_id' in 'where clause' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(403): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->getDoctorAppointments('16', '2025-09-01')
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-02 03:13:41 --> Error getting doctor appointments: Unknown column 'doctor_id' in 'where clause'
+ERROR - 2025-09-02 03:14:01 --> mysqli_sql_exception: Unknown column 'patient_id' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ap...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ap...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ap...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ap...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(286): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->createAppointment()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-09-02 03:14:01 --> Error creating appointment: Unknown column 'patient_id' in 'field list'
+ERROR - 2025-09-02 03:14:01 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ap...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#3 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#4 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(286): CodeIgniter\Model->insert(Array)
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->createAppointment()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2025-09-02 03:14:04 --> mysqli_sql_exception: Unknown column 'patient_id' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ap...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ap...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ap...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ap...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(286): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->createAppointment()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-09-02 03:14:04 --> Error creating appointment: Unknown column 'patient_id' in 'field list'
+ERROR - 2025-09-02 03:14:04 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ap...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#3 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#4 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(286): CodeIgniter\Model->insert(Array)
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->createAppointment()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+ERROR - 2025-09-02 03:14:18 --> mysqli_sql_exception: Unknown column 'patient_id' in 'field list' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ap...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ap...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ap...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ap...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(286): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->createAppointment()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-09-02 03:14:18 --> Error creating appointment: Unknown column 'patient_id' in 'field list'
+ERROR - 2025-09-02 03:14:18 --> Stack trace: #0 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ap...', Array, false)
+#1 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#2 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#3 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#4 C:\xampp\htdocs\hms_group4\app\Controllers\Scheduling.php(286): CodeIgniter\Model->insert(Array)
+#5 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Scheduling->createAppointment()
+#6 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scheduling))
+#7 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}

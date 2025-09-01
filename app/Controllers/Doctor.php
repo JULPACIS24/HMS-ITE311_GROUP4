@@ -415,71 +415,56 @@ class Doctor extends BaseController
 		if (! session('isLoggedIn')) return redirect()->to('/login');
 		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
 		
-		$consultationModel = new \App\Models\ConsultationModel();
-		$appointmentModel = new \App\Models\AppointmentModel();
+		// Debug session data
+		log_message('info', 'Doctor consultations - Session data: user_id=' . session('user_id') . ', user_name=' . session('user_name') . ', role=' . session('role'));
 		
-		// Get consultation statistics for the current doctor
-		$stats = $consultationModel->getDoctorConsultationStats(session('user_id'));
-		
-		// Get consultations for the current doctor
-		$consultations = $consultationModel->getConsultationsWithDetails(session('user_id'));
-		
-		// Get upcoming appointments that can be converted to consultations
-		// Filter by the current doctor's name - try different variations
-		$doctorName = session('user_name');
-		$doctorNameVariations = [
-			$doctorName,
-			'Dr. ' . $doctorName,
-			'Dr. Ivan',
-			'Ivan',
-			'Dr Ivan'
-		];
-		
-		// Debug: Log the doctor name and all appointments
-		log_message('info', 'Doctor consultations - Doctor name: ' . $doctorName);
-		
-		// First, let's see ALL appointments to debug
-		$allAppointments = $appointmentModel->findAll();
-		log_message('info', 'Doctor consultations - Total appointments in system: ' . count($allAppointments));
-		foreach ($allAppointments as $apt) {
-			log_message('info', 'All appointment: ' . $apt['patient_name'] . ' with Dr. ' . $apt['doctor_name'] . ' at ' . $apt['date_time'] . ' (status: ' . $apt['status'] . ')');
-		}
-		
-		// Now get appointments for this specific doctor with patient information - try different name variations
-		$upcomingAppointments = [];
-		foreach ($doctorNameVariations as $name) {
-			$appointments = $appointmentModel->select('appointments.*, patients.id as patient_db_id, CONCAT(patients.first_name, " ", patients.last_name) as patient_full_name')
-											->join('patients', 'patients.id = appointments.patient_id', 'left')
-											->where('appointments.doctor_name', $name)
-											->where('appointments.status', 'Confirmed')
-											->orderBy('appointments.date_time', 'ASC')
-											->findAll();
-			if (!empty($appointments)) {
-				$upcomingAppointments = $appointments;
-				log_message('info', 'Doctor consultations - Found appointments using name: ' . $name);
-				break;
-			}
-		}
-		
-		// If still no appointments, get all confirmed appointments for debugging
-		if (empty($upcomingAppointments)) {
-			$upcomingAppointments = $appointmentModel->where('status', 'Confirmed')
-													->orderBy('date_time', 'ASC')
+		try {
+			// Test database connection first
+			$db = \Config\Database::connect();
+			log_message('info', 'Doctor consultations - Database connection successful');
+			
+			$consultationModel = new \App\Models\ConsultationModel();
+			$appointmentModel = new \App\Models\AppointmentModel();
+			
+			// Test if tables exist
+			$tables = $db->listTables();
+			log_message('info', 'Doctor consultations - Available tables: ' . implode(', ', $tables));
+			
+			// Get consultation statistics for the current doctor
+			$stats = $consultationModel->getDoctorConsultationStats(session('user_id'));
+			log_message('info', 'Doctor consultations - Stats retrieved: ' . json_encode($stats));
+			
+			// Get consultations for the current doctor
+			$consultations = $consultationModel->getConsultationsWithDetails(session('user_id'));
+			log_message('info', 'Doctor consultations - Consultations retrieved: ' . count($consultations));
+			
+			// Get upcoming appointments that can be converted to consultations
+			// Use the new doctor_id field instead of doctor_name
+			$upcomingAppointments = $appointmentModel->select('appointments.*, patients.first_name, patients.last_name')
+													->join('patients', 'patients.id = appointments.patient_id', 'left')
+													->where('appointments.doctor_id', session('user_id'))
+													->where('appointments.status', 'Confirmed')
+													->orderBy('appointments.date_time', 'ASC')
 													->findAll();
-			log_message('info', 'Doctor consultations - No appointments found with any name variation, showing all confirmed appointments');
+			
+			log_message('info', 'Doctor consultations - Found appointments for doctor ID: ' . session('user_id') . ', count: ' . count($upcomingAppointments));
+			
+			return view('auth/doctor_consultations', [
+				'stats' => $stats,
+				'consultations' => $consultations,
+				'upcomingAppointments' => $upcomingAppointments
+			]);
+			
+		} catch (\Exception $e) {
+			log_message('error', 'Error in doctor consultations: ' . $e->getMessage());
+			log_message('error', 'Error trace: ' . $e->getTraceAsString());
+			return view('auth/doctor_consultations', [
+				'stats' => ['total' => 0, 'active' => 0, 'completed' => 0, 'emergency' => 0],
+				'consultations' => [],
+				'upcomingAppointments' => [],
+				'error' => 'Unable to load consultations at this time. Please try again. Error: ' . $e->getMessage()
+			]);
 		}
-		
-		// Debug: Log the appointments found for this doctor
-		log_message('info', 'Doctor consultations - Found ' . count($upcomingAppointments) . ' confirmed appointments for doctor');
-		foreach ($upcomingAppointments as $apt) {
-			log_message('info', 'Upcoming appointment: ' . $apt['patient_name'] . ' at ' . $apt['date_time']);
-		}
-		
-		return view('auth/doctor_consultations', [
-			'stats' => $stats,
-			'consultations' => $consultations,
-			'upcomingAppointments' => $upcomingAppointments
-		]);
 	}
 
 	public function schedule()
@@ -791,11 +776,19 @@ class Doctor extends BaseController
 		
 		// Find existing appointment for this patient and doctor
 		$appointmentModel = new \App\Models\AppointmentModel();
-		$existingAppointment = $appointmentModel->where('patient_id', $patientId)
-			->where('doctor_id', session('user_id'))
-			->where('status', 'Confirmed')
-			->orderBy('date_time', 'DESC')
-			->first();
+		$existingAppointment = null;
+		
+		// Only try to find appointment if the appointments table has the patient_id column
+		try {
+			$existingAppointment = $appointmentModel->where('patient_id', $patientId)
+				->where('doctor_id', session('user_id'))
+				->where('status', 'Confirmed')
+				->orderBy('date_time', 'DESC')
+				->first();
+		} catch (\Exception $e) {
+			log_message('info', 'Save consultation - No existing appointment found or appointments table not properly configured: ' . $e->getMessage());
+			// Continue without appointment - this is fine for direct consultations
+		}
 		
 		// Create new consultation
 		$consultationData = [

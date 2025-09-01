@@ -11,7 +11,20 @@
 
 	<style>
 		/* Light theme overrides */
-		.sidebar { background:#fff !important; color:#0f172a !important; border-right:1px solid #e5e7eb }
+		.sidebar { 
+			background:#fff !important; 
+			color:#0f172a !important; 
+			border-right:1px solid #e5e7eb; 
+			overflow-y: hidden !important; 
+			overflow-x: hidden !important;
+			scrollbar-width: none !important;
+			-ms-overflow-style: none !important;
+		}
+		
+		/* Hide scrollbar for webkit browsers */
+		.sidebar::-webkit-scrollbar {
+			display: none !important;
+		}
 		.sidebar-header { border-bottom:1px solid #e5e7eb !important }
 		.admin-icon { background:#2563eb !important; color:#fff }
 		.sidebar-title { color:#0f172a }
@@ -129,23 +142,23 @@
 				</div>
 			</div>
 
-			<!-- Laboratory -->
-			<div class="menu-group" data-group="laboratory">
-				<button class="group-toggle" type="button"><span class="menu-icon">🧪</span>Laboratory <span class="chev">›</span></button>
+			<!-- Lab Management -->
+			<div class="menu-group" data-group="lab-management">
+				<button class="group-toggle" type="button"><span class="menu-icon">🧪</span>Lab Management <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="<?= site_url('laboratory/requests') ?>">Lab Requests</a>
-					<a class="subitem" href="<?= site_url('laboratory/results') ?>">Lab Results</a>
-					<a class="subitem" href="<?= site_url('laboratory/equipment') ?>">Equipment Status</a>
+					<a class="subitem" href="<?= site_url('lab-management/requests') ?>">Lab Requests</a>
+					<a class="subitem" href="<?= site_url('lab-management/results') ?>">Lab Results</a>
+					<a class="subitem" href="<?= site_url('lab-management/equipment') ?>">Equipment Status</a>
 				</div>
 			</div>
 
-			<!-- Pharmacy -->
+			<!-- Pharmacy Management -->
 			<div class="menu-group" data-group="pharmacy">
-				<button class="group-toggle" type="button"><span class="menu-icon">💊</span>Pharmacy <span class="chev">›</span></button>
+				<button class="group-toggle" type="button"><span class="menu-icon">💊</span>Pharmacy Management <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="<?= site_url('pharmacy/inventory') ?>">Inventory Management</a>
-					<a class="subitem" href="<?= site_url('pharmacy/prescriptions') ?>">Prescription Orders</a>
-					<a class="subitem" href="<?= site_url('pharmacy/stock-alerts') ?>">Stock Alerts</a>
+					<a class="subitem" href="<?= site_url('pharmacy-management/inventory') ?>">Inventory Management</a>
+					<a class="subitem" href="<?= site_url('pharmacy-management/prescriptions') ?>">Prescription Orders</a>
+					<a class="subitem" href="<?= site_url('pharmacy-management/stock-alerts') ?>">Stock Alerts</a>
 				</div>
 			</div>
 
@@ -201,12 +214,13 @@
 						} else if (btn.textContent.includes('Billing & Payments')) {
 							// For Billing & Payments group, go to main billing dashboard
 							window.location.href = '<?= site_url('billing') ?>';
-						} else if (btn.textContent.includes('Laboratory')) {
-							// For Laboratory group, go to main laboratory dashboard
-							window.location.href = '<?= site_url('laboratory') ?>';
-						} else if (btn.textContent.includes('Pharmacy')) {
-							// For Pharmacy group, go to main pharmacy dashboard
-							window.location.href = '<?= site_url('pharmacy') ?>';
+						} else if (btn.textContent.includes('Lab Management')) {
+							// For Lab Management group, go to main lab management dashboard
+							// Don't auto-open submenu, just navigate
+							window.location.href = '<?= site_url('lab-management') ?>';
+						} else if (btn.textContent.includes('Pharmacy Management')) {
+							// For Pharmacy Management group, go to main pharmacy dashboard
+							window.location.href = '<?= site_url('pharmacy-management') ?>';
 						} else if (btn.textContent.includes('Reports & Analytics')) {
 							// For Reports & Analytics group, go to main reports dashboard
 							window.location.href = '<?= site_url('reports') ?>';
@@ -245,7 +259,12 @@
 				if(hrefPath && currentPath.includes(hrefPath)){
 					a.classList.add('active'); // Add active class for styling
 					const group = a.closest('[data-group]');
-					group && group.classList.add('open');
+					
+					// For all groups, auto-open when a subitem is active
+					if (group) {
+						group.classList.add('open');
+					}
+					
 					activeSet = true;
 				}
 			});
@@ -277,10 +296,12 @@
 				billingGroup && billingGroup.classList.add('open');
 			}
 			
-			// Laboratory group - same behavior as Billing & Payments
-			if (path.includes('laboratory/requests') || path.includes('laboratory/results') || path.includes('laboratory/equipment')) {
-				const laboratoryGroup = document.querySelector('[data-group="laboratory"]');
-				laboratoryGroup && laboratoryGroup.classList.add('open');
+			// Lab Management group - auto-open when on lab management pages or lab results
+			if (path.includes('lab-management') || path.includes('laboratory_results')) {
+				const labManagementGroup = document.querySelector('[data-group="lab-management"]');
+				if (labManagementGroup) {
+					labManagementGroup.classList.add('open');
+				}
 			}
 			
 			// Pharmacy group - same behavior as other groups
@@ -296,6 +317,8 @@
 			}
 			
 			// No default open; groups open only on user click or when on specific sub-pages
+			
+
 		})();
 	</script>
 </nav>

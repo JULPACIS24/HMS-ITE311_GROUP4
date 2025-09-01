@@ -206,7 +206,7 @@ class Scheduling extends BaseController
         }
 
         $rules = [
-            'patient_name' => 'required|min_length[3]',
+            'patient_id'   => 'required|integer',
             'doctor_name'  => 'required|min_length[3]',
             'date'         => 'required',
             'time'         => 'required',
@@ -222,20 +222,38 @@ class Scheduling extends BaseController
         try {
             $model = new \App\Models\AppointmentModel();
             
-            // Find patient and doctor IDs
+            // Get patient and doctor details
             $patientModel = new \App\Models\PatientModel();
             $userModel = new \App\Models\UserModel();
             
-            $patientName = $this->request->getPost('patient_name');
+            $patientId = $this->request->getPost('patient_id');
             $doctorName = $this->request->getPost('doctor_name');
             $appointmentDate = $this->request->getPost('date');
             
             // Log the received data
-            log_message('info', 'Creating appointment - Patient: ' . $patientName . ', Doctor: ' . $doctorName . ', Date: ' . $appointmentDate);
+            log_message('info', 'Creating appointment - Patient ID: ' . $patientId . ', Doctor: ' . $doctorName . ', Date: ' . $appointmentDate);
+            
+            // Get patient details
+            $patient = $patientModel->find($patientId);
+            if (!$patient) {
+                return $this->response->setJSON([
+                    'success' => false, 
+                    'message' => 'Patient not found in the system. Please register the patient first.'
+                ]);
+            }
+            
+            // Get doctor details
+            $doctor = $userModel->where('name', $doctorName)->where('role', 'doctor')->first();
+            if (!$doctor) {
+                return $this->response->setJSON([
+                    'success' => false, 
+                    'message' => 'Doctor not found in the system. Please check the doctor name.'
+                ]);
+            }
             
             // Check for duplicate appointment (same patient, same date)
             $nextDay = date('Y-m-d', strtotime($appointmentDate . ' +1 day'));
-            $existingAppointment = $model->where('patient_name', $patientName)
+            $existingAppointment = $model->where('patient_id', $patientId)
                                        ->where('date_time >=', $appointmentDate . ' 00:00:00')
                                        ->where('date_time <', $nextDay . ' 00:00:00')
                                        ->first();
@@ -247,33 +265,13 @@ class Scheduling extends BaseController
                 ]);
             }
             
-            // Find patient by name
-            $patient = $patientModel->where("CONCAT(first_name, ' ', last_name)", $patientName)->first();
-            $doctor = $userModel->where('name', $doctorName)->where('role', 'doctor')->first();
-            
-            log_message('info', 'Found patient: ' . ($patient ? 'Yes' : 'No') . ', Found doctor: ' . ($doctor ? 'Yes' : 'No'));
-            
-            if (!$patient) {
-                return $this->response->setJSON([
-                    'success' => false, 
-                    'message' => 'Patient not found in the system. Please register the patient first.'
-                ]);
-            }
-            
-            if (!$doctor) {
-                return $this->response->setJSON([
-                    'success' => false, 
-                    'message' => 'Doctor not found in the system. Please check the doctor name.'
-                ]);
-            }
-            
             $payload = [
                 'appointment_code' => 'APT' . date('YmdHis'),
-                'patient_id'       => $patient['id'],
+                'patient_id'       => $patientId,
                 'doctor_id'        => $doctor['id'],
-                'patient_name'     => $this->request->getPost('patient_name'),
+                'patient_name'     => $patient['first_name'] . ' ' . $patient['last_name'],
                 'patient_phone'    => $patient['phone'],
-                'doctor_name'      => $this->request->getPost('doctor_name'),
+                'doctor_name'      => $doctorName,
                 'date_time'        => $this->request->getPost('date') . ' ' . $this->request->getPost('time'),
                 'type'             => $this->request->getPost('type'),
                 'status'           => $this->request->getPost('status'),
@@ -303,7 +301,7 @@ class Scheduling extends BaseController
         }
 
         $rules = [
-            'patient_name' => 'required|min_length[3]',
+            'patient_id'   => 'required|integer',
             'doctor_name'  => 'required|min_length[3]',
             'date'         => 'required',
             'time'         => 'required',
@@ -319,23 +317,37 @@ class Scheduling extends BaseController
         try {
             $model = new \App\Models\AppointmentModel();
             
-            // Find patient and doctor IDs
+            // Get patient and doctor details
             $patientModel = new \App\Models\PatientModel();
             $userModel = new \App\Models\UserModel();
             
-            $patientName = $this->request->getPost('patient_name');
+            $patientId = $this->request->getPost('patient_id');
             $doctorName = $this->request->getPost('doctor_name');
             
-            // Find patient by name
-            $patient = $patientModel->where("CONCAT(first_name, ' ', last_name)", $patientName)->first();
+            // Get patient details
+            $patient = $patientModel->find($patientId);
+            if (!$patient) {
+                return $this->response->setJSON([
+                    'success' => false, 
+                    'message' => 'Patient not found in the system.'
+                ]);
+            }
+            
+            // Get doctor details
             $doctor = $userModel->where('name', $doctorName)->where('role', 'doctor')->first();
+            if (!$doctor) {
+                return $this->response->setJSON([
+                    'success' => false, 
+                    'message' => 'Doctor not found in the system.'
+                ]);
+            }
             
             $update = [
-                'patient_id'       => $patient ? $patient['id'] : null,
-                'doctor_id'        => $doctor ? $doctor['id'] : null,
-                'patient_name'     => $this->request->getPost('patient_name'),
-                'patient_phone'    => $patient ? $patient['phone'] : '',
-                'doctor_name'      => $this->request->getPost('doctor_name'),
+                'patient_id'       => $patientId,
+                'doctor_id'        => $doctor['id'],
+                'patient_name'     => $patient['first_name'] . ' ' . $patient['last_name'],
+                'patient_phone'    => $patient['phone'],
+                'doctor_name'      => $doctorName,
                 'date_time'        => $this->request->getPost('date') . ' ' . $this->request->getPost('time'),
                 'type'             => $this->request->getPost('type'),
                 'status'           => $this->request->getPost('status'),

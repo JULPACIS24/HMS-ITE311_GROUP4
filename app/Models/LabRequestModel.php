@@ -11,89 +11,122 @@ class LabRequestModel extends Model
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
     protected $useSoftDeletes = false;
-    protected $protectFields = true;
+
     protected $allowedFields = [
-        'lab_id',
-        'patient_name',
         'patient_id',
-        'doctor_name',
-        'tests',
+        'doctor_id',
+        'test_type',
         'priority',
         'status',
-        'expected_date',
-        'clinical_notes',
+        'request_date',
+        'notes',
         'created_at',
         'updated_at'
     ];
 
-    // Dates
     protected $useTimestamps = true;
-    protected $dateFormat = 'datetime';
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
-    protected $deletedField = 'deleted_at';
 
-    // Validation
     protected $validationRules = [
-        'lab_id' => 'required|max_length[50]',
-        'patient_name' => 'required|max_length[255]',
-        'patient_id' => 'required|max_length[50]',
-        'doctor_name' => 'required|max_length[255]',
-        'tests' => 'required',
-        'priority' => 'required|in_list[Routine,Urgent,STAT]',
-        'status' => 'required|in_list[Pending,In Progress,Completed,Cancelled]',
-        'expected_date' => 'required|valid_date',
-        'clinical_notes' => 'permit_empty|max_length[1000]'
+        'patient_id' => 'required|integer',
+        'doctor_id' => 'required|integer',
+        'test_type' => 'required|string|max_length[255]',
+        'priority' => 'required|in_list[normal,high,urgent]',
+        'status' => 'required|in_list[pending,in_progress,completed,ready]'
     ];
 
     protected $validationMessages = [
-        'lab_id' => [
-            'required' => 'Lab ID is required.',
-            'max_length' => 'Lab ID cannot exceed 50 characters.'
-        ],
-        'patient_name' => [
-            'required' => 'Patient name is required.',
-            'max_length' => 'Patient name cannot exceed 255 characters.'
-        ],
         'patient_id' => [
-            'required' => 'Patient ID is required.',
-            'max_length' => 'Patient ID cannot exceed 50 characters.'
+            'required' => 'Patient ID is required',
+            'integer' => 'Patient ID must be a number'
         ],
-        'doctor_name' => [
-            'required' => 'Doctor name is required.',
-            'max_length' => 'Doctor name cannot exceed 255 characters.'
+        'doctor_id' => [
+            'required' => 'Doctor ID is required',
+            'integer' => 'Doctor ID must be a number'
         ],
-        'tests' => [
-            'required' => 'At least one test must be selected.'
+        'test_type' => [
+            'required' => 'Test type is required',
+            'max_length' => 'Test type cannot exceed 255 characters'
         ],
         'priority' => [
-            'required' => 'Priority is required.',
-            'in_list' => 'Priority must be Routine, Urgent, or STAT.'
+            'required' => 'Priority is required',
+            'in_list' => 'Priority must be normal, high, or urgent'
         ],
         'status' => [
-            'required' => 'Status is required.',
-            'in_list' => 'Status must be Pending, In Progress, Completed, or Cancelled.'
-        ],
-        'expected_date' => [
-            'required' => 'Expected date is required.',
-            'valid_date' => 'Expected date must be a valid date.'
-        ],
-        'clinical_notes' => [
-            'max_length' => 'Clinical notes cannot exceed 1000 characters.'
+            'required' => 'Status is required',
+            'in_list' => 'Status must be pending, in_progress, completed, or ready'
         ]
     ];
 
-    protected $skipValidation = true; // Temporarily disable validation for testing
-    protected $cleanValidationRules = true;
+    // Get all lab requests with patient and doctor information
+    public function getLabRequestsWithDetails()
+    {
+        return $this->select('
+            lab_requests.*,
+            patients.name as patient_name,
+            patients.gender as patient_gender,
+            users.name as doctor_name
+        ')
+        ->join('patients', 'patients.id = lab_requests.patient_id')
+        ->join('users', 'users.id = lab_requests.doctor_id')
+        ->orderBy('lab_requests.created_at', 'DESC')
+        ->findAll();
+    }
 
-    // Callbacks
-    protected $allowCallbacks = true;
-    protected $beforeInsert = [];
-    protected $afterInsert = [];
-    protected $beforeUpdate = [];
-    protected $afterUpdate = [];
-    protected $beforeFind = [];
-    protected $afterFind = [];
-    protected $beforeDelete = [];
-    protected $afterDelete = [];
+    // Get lab requests by status
+    public function getLabRequestsByStatus($status)
+    {
+        return $this->select('
+            lab_requests.*,
+            patients.name as patient_name,
+            patients.gender as patient_gender,
+            users.name as doctor_name
+        ')
+        ->join('patients', 'patients.id = lab_requests.patient_id')
+        ->join('users', 'users.id = lab_requests.doctor_id')
+        ->where('lab_requests.status', $status)
+        ->orderBy('lab_requests.created_at', 'DESC')
+        ->findAll();
+    }
+
+    // Get urgent lab requests
+    public function getUrgentLabRequests()
+    {
+        return $this->select('
+            lab_requests.*,
+            patients.name as patient_name,
+            patients.gender as patient_gender,
+            users.name as doctor_name
+        ')
+        ->join('patients', 'patients.id = lab_requests.patient_id')
+        ->join('users', 'users.id = lab_requests.doctor_id')
+        ->where('lab_requests.priority', 'urgent')
+        ->orderBy('lab_requests.created_at', 'ASC')
+        ->findAll();
+    }
+
+    // Get today's lab requests count
+    public function getTodayLabRequestsCount()
+    {
+        return $this->where('DATE(created_at)', date('Y-m-d'))->countAllResults();
+    }
+
+    // Get pending lab requests count
+    public function getPendingLabRequestsCount()
+    {
+        return $this->where('status', 'pending')->countAllResults();
+    }
+
+    // Get completed lab requests count
+    public function getCompletedLabRequestsCount()
+    {
+        return $this->where('status', 'completed')->countAllResults();
+    }
+
+    // Get urgent lab requests count
+    public function getUrgentLabRequestsCount()
+    {
+        return $this->where('priority', 'urgent')->countAllResults();
+    }
 }
