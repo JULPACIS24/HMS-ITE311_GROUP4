@@ -13,7 +13,7 @@ class ScheduleModel extends Model
     protected $useSoftDeletes = false;
     protected $protectFields = true;
     protected $allowedFields = [
-        'doctor_id', 'patient_id', 'title', 'type', 'date', 
+        'doctor_id', 'patient_id', 'appointment_id', 'title', 'type', 'date', 
         'start_time', 'end_time', 'room', 'description', 'status'
     ];
 

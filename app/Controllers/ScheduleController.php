@@ -235,9 +235,58 @@ class ScheduleController extends BaseController
             $scheduleId = $this->scheduleModel->insert($data);
             
             if ($scheduleId) {
+                // If this is a patient-related schedule (not rest day), create an appointment
+                if ($type !== 'rest_day' && $patientId && $title !== 'Rest Day') {
+                    try {
+                        // Create appointment from schedule
+                        $appointmentModel = new \App\Models\AppointmentModel();
+                        
+                        // Combine date and start time for appointment datetime
+                        $appointmentDateTime = $date . ' ' . $startTime . ':00';
+                        
+                        // Get patient name for the appointment
+                        $patientModel = new \App\Models\PatientModel();
+                        $patient = $patientModel->find($patientId);
+                        $patientName = $patient ? trim($patient['first_name'] . ' ' . $patient['last_name']) : 'Unknown Patient';
+                        
+                        // Get doctor name for the appointment
+                        $userModel = new \App\Models\UserModel();
+                        $doctor = $userModel->find($doctorId);
+                        $doctorName = $doctor ? $doctor['name'] : 'Unknown Doctor';
+                        
+                        $appointmentData = [
+                            'patient_id' => $patientId,
+                            'patient_name' => $patientName,
+                            'doctor_id' => $doctorId,
+                            'doctor_name' => $doctorName,
+                            'type' => $type,
+                            'date_time' => $appointmentDateTime,
+                            'room' => $room ?: 'Consultation Room',
+                            'status' => 'Confirmed',
+                            'notes' => $description ?: 'Appointment created from doctor schedule',
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s')
+                        ];
+                        
+                        $appointmentId = $appointmentModel->insert($appointmentData);
+                        
+                        if ($appointmentId) {
+                            // Update the schedule with the appointment ID
+                            $this->scheduleModel->update($scheduleId, ['appointment_id' => $appointmentId]);
+                            
+                            log_message('info', 'Appointment created from schedule. Schedule ID: ' . $scheduleId . ', Appointment ID: ' . $appointmentId);
+                        } else {
+                            log_message('warning', 'Failed to create appointment from schedule. Schedule ID: ' . $scheduleId);
+                        }
+                    } catch (\Exception $appointmentError) {
+                        log_message('error', 'Error creating appointment from schedule: ' . $appointmentError->getMessage());
+                        // Don't fail the schedule creation if appointment creation fails
+                    }
+                }
+                
                 return $this->response->setJSON([
                     'success' => true,
-                    'message' => 'Schedule added successfully',
+                    'message' => $type !== 'rest_day' && $patientId ? 'Schedule and appointment created successfully' : 'Schedule added successfully',
                     'schedule_id' => $scheduleId
                 ]);
             } else {

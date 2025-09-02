@@ -215,27 +215,37 @@
                         <button class="nav-btn active">This Week</button>
                         <button class="nav-btn">Next</button>
                     </div>
-                    <div class="action-buttons">
-                        <button class="btn btn-block">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                            Block Time
-                        </button>
-                        <button class="btn btn-add">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                            </svg>
-                            + Add to Schedule
-                        </button>
-
-
-                                                                          <button class="btn btn-secondary" onclick="syncWithDatabase()" style="background: #dc2626;">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                            </svg>
-                            Delete All Schedules
-                        </button>
+                                         <div class="action-buttons">
+                         <button class="btn btn-block">
+                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                             </svg>
+                             Block Time
+                         </button>
+                         <button class="btn btn-add">
+                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                             </svg>
+                             + Add to Schedule
+                         </button>
+                         <button class="btn btn-secondary" onclick="resetCalendar()" style="background: #6b7280;">
+                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                             </svg>
+                             Reset
+                         </button>
+                         <button class="btn btn-secondary" onclick="syncWithDatabase()" style="background: #dc2626;">
+                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                             </svg>
+                             Delete All Schedules
+                         </button>
+                         <button class="btn" onclick="refreshAllAppointments()" title="Refresh appointments for real-time sync" style="background: #10b981; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px;">
+                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                             </svg>
+                             🔄 Sync Appointments
+                         </button>
 
                     </div>
                 </div>
@@ -514,12 +524,7 @@
             console.log('🚀 DOM Content Loaded - Initializing schedule...');
             generateTimeSlots();
             
-            // Force clear any cached patients and load fresh from database
-            console.log('🧹 Clearing any cached patients...');
-            localStorage.removeItem('cachedPatients');
-            patientsLoaded = false;
-            
-            // Load patients from database immediately
+            // Load patients from database (don't force clear cache on refresh)
             console.log('🔄 Loading patients from database...');
             loadPatients();
             
@@ -844,7 +849,14 @@
                 
                 if (data.success) {
                     addScheduleToCalendar(formData);
-                    showSuccess('Schedule added successfully!');
+                    
+                    // Show appropriate success message based on what was created
+                    if (data.message && data.message.includes('appointment')) {
+                        showSuccess('✅ Schedule and appointment created successfully! The appointment will appear in the admin view.');
+                    } else {
+                        showSuccess('✅ Schedule added successfully!');
+                    }
+                    
                     closeModal('add-schedule-modal');
                     form.reset();
                     
@@ -862,24 +874,31 @@
         function getDateForDay(day) {
             const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
             const today = new Date();
+            
+            // Get current week's Monday as reference point
             const currentDay = today.getDay();
+            const daysSinceMonday = currentDay === 0 ? 6 : currentDay - 1; // Sunday = 0, so Monday = 1
+            const monday = new Date(today);
+            monday.setDate(today.getDate() - daysSinceMonday);
+            
+            // Find target day index (0 = Sunday, 1 = Monday, etc.)
             const targetDay = days.indexOf(day);
             
-            // Calculate days until next occurrence of target day
-            let diff = targetDay - currentDay;
-            if (diff <= 0) {
-                diff += 7; // If target day is today or has passed, go to next week
-            }
+            // IMPORTANT: Use the EXACT same logic as admin view to prevent day shifting
+            // Admin view uses: dayOffset = targetDay === 0 ? 6 : targetDay - 1
+            const dayOffset = targetDay === 0 ? 6 : targetDay - 1;
             
-            const targetDate = new Date(today);
-            targetDate.setDate(today.getDate() + diff);
+            // Calculate the date for the target day in current week
+            const targetDate = new Date(monday);
+            targetDate.setDate(monday.getDate() + dayOffset);
             
-            console.log('Date calculation:', {
+            console.log('Date calculation (matching admin view):', {
                 day: day,
                 today: today.toDateString(),
                 currentDay: currentDay,
+                monday: monday.toDateString(),
                 targetDay: targetDay,
-                diff: diff,
+                dayOffset: dayOffset,
                 resultDate: targetDate.toDateString()
             });
             
@@ -937,13 +956,13 @@
                 const cell = timeSlot.parentElement.querySelector(`[data-day="${dayIndex}"]`);
                 console.log('🔍 Found cell:', cell);
                 
-                if (cell) {
-                    const scheduleCard = createScheduleCard(title, type, duration, room);
-                    console.log('🎨 Created schedule card:', scheduleCard);
-                    
-                    // Clear the cell and add the new schedule
-                    cell.innerHTML = '';
-                    cell.appendChild(scheduleCard);
+                                 if (cell) {
+                     const scheduleCard = createScheduleCard(title, type, duration, room);
+                     console.log('🎨 Created schedule card:', scheduleCard);
+                     
+                     // Clear the cell and add the new schedule
+                     cell.innerHTML = '';
+                     cell.appendChild(scheduleCard);
                     console.log('✅ Schedule card added to calendar successfully');
                     
                                          // Store the schedule data in the cell for persistence
@@ -1097,10 +1116,13 @@
                 // Don't clear existing schedules - just load new ones from database
                 // This prevents overwriting schedules that are already displayed
                 
-                const response = await fetch('<?= base_url('schedule/getWeeklySchedules') ?>', {
-                    method: 'POST',
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
-                });
+                				// Use the same endpoint as admin view to get ALL appointments (including new ones)
+				// This ensures appointments like John Doe show up in both views
+				// Get current doctor ID from session or default to 1
+				const currentDoctorId = <?= session('user_id') ?? 1 ?>;
+				console.log('🔍 Current doctor ID:', currentDoctorId);
+				
+				const response = await fetch('<?= base_url('scheduling/getCurrentWeekAppointments') ?>/' + currentDoctorId + '?v=' + Date.now());
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -1115,49 +1137,50 @@
                     weekEnd: data.week_end
                 });
                 
-                if (data.success && data.schedules && data.schedules.length > 0) {
-                    console.log(`✅ Found ${data.schedules.length} schedules to display`);
-                    
-                    // Count how many schedules we actually add vs skip
-                    let addedCount = 0;
-                    let skippedCount = 0;
-                    
-                    data.schedules.forEach((schedule, index) => {
-                        console.log(`📅 Processing schedule ${index + 1}:`, schedule);
-                        
-                        // Check if this schedule already exists
-                        const timeDisplay = convertTo12Hour(schedule.start_time);
-                        const dayColumn = getDayColumnFromDate(schedule.date);
-                        const timeSlot = document.querySelector(`[data-time="${timeDisplay}"]`);
-                        
-                        if (timeSlot && dayColumn !== -1) {
-                            const cell = timeSlot.parentElement.querySelector(`[data-day="${dayColumn}"]`);
-                            if (cell) {
-                                // Check if this exact schedule already exists
-                                const existingCards = cell.querySelectorAll('.schedule-card');
-                                let alreadyExists = false;
-                                
-                                existingCards.forEach(card => {
-                                    const cardTitle = card.querySelector('.card-details')?.textContent;
-                                    if (cardTitle === schedule.title) {
-                                        alreadyExists = true;
-                                    }
-                                });
-                                
-                                if (alreadyExists) {
-                                    console.log('⏭️ Schedule already exists, skipping:', schedule.title);
-                                    skippedCount++;
-                                    return;
-                                }
-                            }
-                        }
-                        
-                        // Add the new schedule
-                        addScheduleToCalendarFromData(schedule);
-                        addedCount++;
-                    });
-                    
-                    console.log(`📊 Schedule loading complete: ${addedCount} added, ${skippedCount} skipped`);
+                				if (data.success && data.appointments && data.appointments.length > 0) {
+					console.log(`✅ Found ${data.appointments.length} appointments to display`);
+					
+					// Count how many appointments we actually add vs skip
+					let addedCount = 0;
+					let skippedCount = 0;
+					
+										data.appointments.forEach((appointment, index) => {
+						console.log(`📅 Processing appointment ${index + 1}:`, appointment);
+						
+						// Check if this appointment already exists
+						const appointmentTime = new Date(appointment.date_time);
+						const timeDisplay = convertTo12Hour(appointmentTime.toTimeString().slice(0, 5));
+						const dayColumn = getDayColumnFromDate(appointmentTime.toISOString().slice(0, 10));
+						const timeSlot = document.querySelector(`[data-time="${timeDisplay}"]`);
+						
+						if (timeSlot && dayColumn !== -1) {
+							const cell = timeSlot.parentElement.querySelector(`[data-day="${dayColumn}"]`);
+							if (cell) {
+								// Check if this exact appointment already exists
+								const existingCards = cell.querySelectorAll('.schedule-card');
+								let alreadyExists = false;
+								
+								existingCards.forEach(card => {
+									const cardTitle = card.querySelector('.card-details')?.textContent;
+									if (cardTitle === appointment.patient_name) {
+										alreadyExists = true;
+									}
+								});
+								
+								if (alreadyExists) {
+									console.log('⏭️ Appointment already exists, skipping:', appointment.patient_name);
+									skippedCount++;
+									return;
+								}
+							}
+						}
+						
+						// Add the new appointment
+						addScheduleToCalendarFromData(appointment);
+						addedCount++;
+					});
+					
+					console.log(`📊 Appointment loading complete: ${addedCount} added, ${skippedCount} skipped`);
                 } else {
                     console.log('❌ No schedules found or empty response');
                     if (data.schedules && data.schedules.length === 0) {
@@ -1172,25 +1195,26 @@
             }
         }
 
-                // Function to add schedule from database data
-        function addScheduleToCalendarFromData(schedule) {
-            console.log('🎯 addScheduleToCalendarFromData called with:', schedule);
+                // Function to add appointment from database data
+        function addScheduleToCalendarFromData(appointment) {
+            console.log('🎯 addScheduleToCalendarFromData called with:', appointment);
             
-            const timeDisplay = convertTo12Hour(schedule.start_time);
+            const appointmentTime = new Date(appointment.date_time);
+            const timeDisplay = convertTo12Hour(appointmentTime.toTimeString().slice(0, 5));
             const timeSlot = document.querySelector(`[data-time="${timeDisplay}"]`);
-            const dayColumn = getDayColumnFromDate(schedule.date);
+            const dayColumn = getDayColumnFromDate(appointmentTime.toISOString().slice(0, 10));
             
-            console.log('🔍 Schedule processing details:', {
-                title: schedule.title,
-                type: schedule.type,
-                date: schedule.date,
-                startTime: schedule.start_time,
-                timeDisplay: timeDisplay,
-                dayColumn: dayColumn,
-                timeSlot: timeSlot ? 'Found' : 'Not found',
-                timeSlotElement: timeSlot,
-                schedule: schedule
-            });
+                         console.log('🔍 Appointment processing details:', {
+                 title: appointment.patient_name,
+                 type: appointment.type,
+                 date: appointment.date_time,
+                 startTime: appointment.date_time,
+                 timeDisplay: timeDisplay,
+                 dayColumn: dayColumn,
+                 timeSlot: timeSlot ? 'Found' : 'Not found',
+                 timeSlotElement: timeSlot,
+                 appointment: appointment
+             });
             
             if (!timeSlot) {
                 console.error('❌ Time slot not found for:', timeDisplay);
@@ -1198,80 +1222,81 @@
                 return;
             }
             
-            if (dayColumn === -1) {
-                console.error('❌ Invalid day column for date:', schedule.date);
-                return;
-            }
+                         if (dayColumn === -1) {
+                 console.error('❌ Invalid day column for date:', appointment.date_time);
+                 return;
+             }
             
             console.log('🔍 Looking for cell with day:', dayColumn, 'in parent:', timeSlot.parentElement);
             const cell = timeSlot.parentElement.querySelector(`[data-day="${dayColumn}"]`);
             console.log('🔍 Found cell:', cell);
             
             if (cell) {
-                // Check if this cell already has a permanent schedule - if so, don't overwrite
-                if (cell.dataset.hasSchedule === 'true') {
-                    console.log('🛡️ Cell already has permanent schedule, skipping database schedule:', schedule.title);
-                    return;
-                }
+                                 // Check if this cell already has a permanent schedule - if so, don't overwrite
+                 if (cell.dataset.hasSchedule === 'true') {
+                     console.log('🛡️ Cell already has permanent schedule, skipping database appointment:', appointment.patient_name);
+                     return;
+                 }
+                 
+                 // Check if there's already a schedule card in this cell with the same title
+                 const existingCard = cell.querySelector('.schedule-card');
+                 if (existingCard) {
+                     const existingTitle = existingCard.querySelector('.card-details')?.textContent;
+                     // Only skip if it's the exact same appointment (same patient name and type)
+                     if (existingTitle === appointment.patient_name) {
+                         console.log('⚠️ Exact same appointment already exists, skipping:', existingTitle);
+                         return;
+                     }
+                     // If different appointment, allow it (this handles overlapping appointments)
+                     console.log('ℹ️ Different appointment in same cell, allowing overlap');
+                 }
+                 
+                 // Create appointment card with proper data
+                 const appointmentCard = createScheduleCard(
+                     appointment.patient_name, 
+                     appointment.type, 
+                     '0.5', // Default 30 minutes for appointments
+                     'Doctor Room' // Default room for appointments
+                 );
+                                 console.log('🎨 Created appointment card:', appointmentCard);
                 
-                // Check if there's already a schedule card in this cell with the same title
-                const existingCard = cell.querySelector('.schedule-card');
-                if (existingCard) {
-                    const existingTitle = existingCard.querySelector('.card-details')?.textContent;
-                    // Only skip if it's the exact same schedule (same title and type)
-                    if (existingTitle === schedule.title) {
-                        console.log('⚠️ Exact same schedule already exists, skipping:', existingTitle);
-                        return;
-                    }
-                    // If different schedule, allow it (this handles overlapping schedules)
-                    console.log('ℹ️ Different schedule in same cell, allowing overlap');
-                }
-                
-                const scheduleCard = createScheduleCard(
-                    schedule.title, 
-                    schedule.type, 
-                    getDurationFromTimes(schedule.start_time, schedule.end_time), 
-                    schedule.room || 'N/A'
-                );
-                console.log('🎨 Created schedule card:', scheduleCard);
-                
-                // Add the new schedule card
-                cell.appendChild(scheduleCard);
-                console.log('✅ Schedule card added successfully to cell:', dayColumn, 'for', schedule.title);
-                
-                // Store the schedule data in the cell for persistence
-                const scheduleId = 'db_' + schedule.id;
-                cell.dataset.scheduleId = scheduleId;
-                cell.dataset.scheduleData = JSON.stringify({
-                    title: schedule.title,
-                    type: schedule.type,
-                    duration: getDurationFromTimes(schedule.start_time, schedule.end_time),
-                    room: schedule.room || 'N/A',
-                    day: dayColumn,
-                    startTime: schedule.start_time,
-                    source: 'database'
-                });
-                
-                // Mark as permanent schedule
-                cell.dataset.hasSchedule = 'true';
-                cell.dataset.scheduleTitle = schedule.title;
-                
-                // Add to global permanent schedules array
-                if (!window.permanentSchedules) {
-                    window.permanentSchedules = [];
-                }
-                window.permanentSchedules.push({
-                    id: scheduleId,
-                    title: schedule.title,
-                    type: schedule.type,
-                    duration: getDurationFromTimes(schedule.start_time, schedule.end_time),
-                    room: schedule.room || 'N/A',
-                    day: dayColumn,
-                    startTime: schedule.start_time,
-                    cell: cell,
-                    element: scheduleCard,
-                    source: 'database'
-                });
+                                 // Add the new appointment card
+                 cell.appendChild(appointmentCard);
+                 console.log('✅ Appointment card added successfully to cell:', dayColumn, 'for', appointment.patient_name);
+                 
+                 // Store the appointment data in the cell for persistence
+                 const appointmentId = 'db_' + appointment.id;
+                 cell.dataset.scheduleId = appointmentId;
+                 cell.dataset.scheduleData = JSON.stringify({
+                     title: appointment.patient_name,
+                     type: appointment.type,
+                     duration: '0.5', // Default 30 minutes for appointments
+                     room: 'Doctor Room', // Default room for appointments
+                     day: dayColumn,
+                     startTime: appointment.date_time,
+                     source: 'database'
+                 });
+                 
+                 // Mark as permanent schedule
+                 cell.dataset.hasSchedule = 'true';
+                 cell.dataset.scheduleTitle = appointment.patient_name;
+                 
+                 // Add to global permanent schedules array
+                 if (!window.permanentSchedules) {
+                     window.permanentSchedules = [];
+                 }
+                 window.permanentSchedules.push({
+                     id: appointmentId,
+                     title: appointment.patient_name,
+                     type: appointment.type,
+                     duration: '0.5',
+                     room: 'Doctor Room',
+                     day: dayColumn,
+                     startTime: appointment.date_time,
+                     cell: cell,
+                     element: appointmentCard,
+                     source: 'database'
+                 });
             } else {
                 console.error('❌ Cell not found for day:', dayColumn, 'Time slot parent:', timeSlot.parentElement);
                 console.error('🔍 Available cells in parent:', timeSlot.parentElement.querySelectorAll('[data-day]'));
@@ -1283,9 +1308,16 @@
             const date = new Date(dateString);
             const dayOfWeek = date.getDay();
             // JavaScript getDay(): 0=Sunday, 1=Monday, 2=Tuesday, etc.
-            // Our grid: 0=Monday, 1=Tuesday, 2=Wednesday, etc.
-            // So we need: Monday(1)->0, Tuesday(2)->1, Wednesday(3)->2, etc.
-            return dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+            // Admin view grid: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'] 
+            // So: 0=Monday, 1=Tuesday, 2=Wednesday, 3=Thursday, 4=Friday, 5=Saturday, 6=Sunday
+            // This must match the admin view exactly to prevent day shifting
+            const result = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+            
+            // Debug logging to track day mapping
+            const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            console.log(`🔍 Day mapping for ${dateString}: ${dayNames[dayOfWeek]} (${dayOfWeek}) -> Column ${result}`);
+            
+            return result;
         }
 
         // Helper function to calculate duration from start and end times
@@ -1467,13 +1499,11 @@
             }
         }
         
-        // Start periodic sync to remove deleted schedules from database
+        // Start periodic protection for existing schedules (NO automatic deletion)
         function startPeriodicSync() {
-            console.log('🔄 Starting periodic sync with database...');
-            // Check every 30 seconds for deleted schedules
-            setInterval(syncWithDatabase, 30000);
+            console.log('🛡️ Starting periodic schedule protection...');
             
-            // Also start protection for existing schedules
+            // Only protect existing schedules - NO automatic deletion
             setInterval(protectExistingSchedules, 5000);
         }
         
@@ -1533,12 +1563,56 @@
             });
         }
         
-        // Sync calendar with database and remove deleted schedules
-        async function syncWithDatabase() {
+                 // Reset calendar to current week view
+         function resetCalendar() {
+             console.log('🔄 Resetting calendar to current week...');
+             
+             // Clear all current schedules from calendar
+             const allCells = document.querySelectorAll('[data-day]');
+             allCells.forEach(cell => {
+                 if (cell.querySelector('.schedule-card')) {
+                     console.log('🗑️ Clearing schedule from calendar:', cell.querySelector('.card-details')?.textContent);
+                     cell.innerHTML = '';
+                     // Remove schedule data attributes
+                     delete cell.dataset.scheduleId;
+                     delete cell.dataset.scheduleData;
+                     delete cell.dataset.hasSchedule;
+                     delete cell.dataset.scheduleTitle;
+                 }
+             });
+             
+             // Clear localStorage
+             localStorage.removeItem('tempSchedules');
+             
+             // Clear global schedules array
+             if (window.permanentSchedules) {
+                 window.permanentSchedules = [];
+             }
+             
+             // Reset navigation buttons
+             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+             document.querySelector('.nav-btn:nth-child(2)').classList.add('active'); // "This Week" button
+             
+             // Reload schedules from database
+             window.schedulesLoaded = false;
+             loadExistingSchedules();
+             
+             console.log('✅ Calendar reset successfully');
+             alert('✅ Calendar reset to current week view!');
+         }
+         
+         // Delete ALL schedules from database and calendar (ONLY for "Delete All Schedules" button)
+         async function syncWithDatabase() {
             try {
-                console.log('🔄 Syncing calendar with database...');
+                // Confirm with user before deleting ALL schedules
+                if (!confirm('⚠️ WARNING: This will delete ALL your schedules from the database and clear the calendar. This action cannot be undone!\n\nAre you sure you want to continue?')) {
+                    console.log('❌ User cancelled schedule deletion');
+                    return;
+                }
                 
-                // First, delete all schedules from database
+                console.log('🗑️ User confirmed - Deleting ALL schedules...');
+                
+                // Delete all schedules from database
                 const deleteResponse = await fetch('<?= base_url('schedule/deleteAllSchedules') ?>', {
                     method: 'POST',
                     headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -1676,6 +1750,28 @@
                 console.log('💾 Saved', Object.keys(schedulesToSave).length, 'schedules before page unload');
             }
         });
+        
+        // Make resetCalendar function globally accessible
+        window.resetCalendar = resetCalendar;
+        window.syncWithDatabase = syncWithDatabase;
+        
+        // Function to refresh all appointments for real-time sync
+        async function refreshAllAppointments() {
+            try {
+                console.log('🔄 Refreshing all appointments for real-time sync...');
+                await loadExistingSchedules();
+                console.log('✅ All appointments refreshed successfully');
+            } catch (error) {
+                console.error('❌ Error refreshing appointments:', error);
+            }
+        }
+        
+        // Set up periodic synchronization every 30 seconds
+        setInterval(refreshAllAppointments, 30000);
+        
+        // Make refreshAllAppointments globally accessible
+        window.refreshAllAppointments = refreshAllAppointments;
+        
     </script>
 </body>
 </html>
