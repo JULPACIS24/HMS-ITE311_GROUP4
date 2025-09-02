@@ -1563,6 +1563,7 @@
             });
         }
         
+<<<<<<< HEAD
                  // Reset calendar to current week view
          function resetCalendar() {
              console.log('🔄 Resetting calendar to current week...');
@@ -1603,6 +1604,10 @@
          
          // Delete ALL schedules from database and calendar (ONLY for "Delete All Schedules" button)
          async function syncWithDatabase() {
+=======
+        // Delete ALL schedules from database and calendar (ONLY for "Delete All Schedules" button)
+        async function syncWithDatabase() {
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
             try {
                 // Confirm with user before deleting ALL schedules
                 if (!confirm('⚠️ WARNING: This will delete ALL your schedules from the database and clear the calendar. This action cannot be undone!\n\nAre you sure you want to continue?')) {

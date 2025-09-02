@@ -198,7 +198,11 @@
 			<!-- Right Column -->
 			<div>
 				<label style="display: block; margin-bottom: 8px; color: #374151; font-weight: 500; font-size: 14px;">Patient/Activity</label>
+<<<<<<< HEAD
 				<select id="modalPatientSelect" style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; background: #fff;">
+=======
+				<select id="modalPatientActivity" style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; background: #fff;">
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 					<option value="">Select patient or enter activity</option>
 					<option value="" disabled>Loading patients...</option>
 				</select>
@@ -284,14 +288,22 @@
 		
 		if (!currentDoctorKey) {
 			console.log('No doctor selected, showing message');
+<<<<<<< HEAD
 			const patientSelect = document.getElementById('modalPatientSelect');
+=======
+			const patientSelect = document.getElementById('modalPatientActivity');
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 			if (patientSelect) {
 				patientSelect.innerHTML = '<option value="">Please select a doctor first</option>';
 			}
 			return;
 		}
 		
+<<<<<<< HEAD
 		const patientSelect = document.getElementById('modalPatientSelect');
+=======
+		const patientSelect = document.getElementById('modalPatientActivity');
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 		if (!patientSelect) return;
 		
 		console.log('Loading patients for doctor:', currentDoctorKey);
@@ -304,12 +316,22 @@
 			.then(response => response.json())
 			.then(data => {
 				if (data.success && data.patients) {
+<<<<<<< HEAD
 					// Add available patients (same format as doctor's personal schedule - no phone numbers)
+=======
+					// Add available patients
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 					data.patients.forEach(patient => {
 						const option = document.createElement('option');
 						option.value = patient.id;
 						option.textContent = (patient.first_name || 'Unknown') + ' ' + (patient.last_name || 'Patient');
+<<<<<<< HEAD
 						// No phone numbers - same as doctor's personal schedule
+=======
+						if (patient.phone) {
+							option.textContent += ' (' + patient.phone + ')';
+						}
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 						patientSelect.appendChild(option);
 					});
 					
@@ -331,7 +353,13 @@
 									const option = document.createElement('option');
 									option.value = patient.id;
 									option.textContent = (patient.first_name || 'Unknown') + ' ' + (patient.last_name || 'Patient');
+<<<<<<< HEAD
 									// No phone numbers - same as doctor's personal schedule
+=======
+									if (patient.phone) {
+										option.textContent += ' (' + patient.phone + ')';
+									}
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 									patientSelect.appendChild(option);
 								});
 							}
@@ -352,7 +380,11 @@
 								const option = document.createElement('option');
 								option.value = patient.id;
 								option.textContent = (patient.first_name || 'Unknown') + ' ' + (patient.last_name || 'Patient');
+<<<<<<< HEAD
 								// No phone numbers - same as doctor's personal schedule
+=======
+								option.textContent += ' (' + patient.phone + ')';
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 								patientSelect.appendChild(option);
 							});
 						}
@@ -380,7 +412,11 @@
 		document.getElementById('modalDay').value = '';
 		document.getElementById('modalStartTime').value = '';
 		document.getElementById('modalDuration').value = '60';
+<<<<<<< HEAD
 		document.getElementById('modalPatientSelect').value = '';
+=======
+		document.getElementById('modalPatientActivity').value = '';
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 		document.getElementById('modalRoomLocation').value = '';
 		document.getElementById('modalNotes').value = '';
 		
@@ -395,7 +431,11 @@
 		const day = document.getElementById('modalDay').value;
 		const startTime = document.getElementById('modalStartTime').value;
 		const duration = document.getElementById('modalDuration').value;
+<<<<<<< HEAD
 		const patientSelect = document.getElementById('modalPatientSelect');
+=======
+		const patientSelect = document.getElementById('modalPatientActivity');
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 		const patientId = patientSelect.value;
 		const patientText = patientSelect.options[patientSelect.selectedIndex].textContent;
 		const roomLocation = document.getElementById('modalRoomLocation').value;
@@ -412,6 +452,7 @@
 			return;
 		}
 		
+<<<<<<< HEAD
 		const currentDoctor = doctors[currentDoctorKey];
 		const doctorId = currentDoctor.id;
 		const doctorName = currentDoctor.name;
@@ -428,6 +469,18 @@
 		const appointmentDate = new Date(monday);
 		appointmentDate.setDate(monday.getDate() + dayOffset);
 		
+=======
+		// Calculate the actual date based on selected day
+		const today = new Date();
+		const currentWeek = new Date(today);
+		currentWeek.setDate(today.getDate() - today.getDay() + 1); // Monday
+		
+		const targetDay = parseInt(day);
+		const dayOffset = targetDay === 0 ? 6 : targetDay - 1; // Adjust for Sunday (0) to be last day of week
+		const appointmentDate = new Date(currentWeek);
+		appointmentDate.setDate(currentWeek.getDate() + dayOffset);
+		
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 		// Calculate end time based on duration
 		const startTimeObj = new Date(`2000-01-01T${startTime}`);
 		const durationMinutes = parseInt(duration);
@@ -435,6 +488,7 @@
 		const endTimeString = endTime.toTimeString().slice(0, 5);
 		
 		try {
+<<<<<<< HEAD
 			// Create form data for appointment creation
 			const formData = new FormData();
 			formData.append('patient_id', patientId);
@@ -448,6 +502,18 @@
 			
 			// Send to scheduling/createAppointment endpoint to create actual appointment
 			const response = await fetch('<?= site_url('scheduling/createAppointment') ?>', {
+=======
+			const formData = new FormData();
+			formData.append('title', patientText);
+			formData.append('type', activityType);
+			formData.append('date', appointmentDate.toISOString().slice(0, 10));
+			formData.append('start_time', startTime);
+			formData.append('end_time', endTimeString);
+			formData.append('room', roomLocation);
+			formData.append('description', `${activityType} appointment for ${patientText}. ${notes ? 'Notes: ' + notes : ''}`);
+			
+			const response = await fetch('<?= site_url('schedule/addSchedule') ?>', {
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 				method: 'POST',
 				headers: {
 					'X-Requested-With': 'XMLHttpRequest'
@@ -467,11 +533,17 @@
 					status: 'Confirmed',
 					duration: `${durationMinutes} minutes`,
 					endTime: endTimeString,
+<<<<<<< HEAD
 					id: 'apt_' + Date.now(), // Temporary ID for display
 					notes: notes,
 					color: selectedColor,
 					doctor_id: doctorId,
 					patient_id: patientId
+=======
+					id: result.schedule_id || 'db_' + Date.now(),
+					notes: notes,
+					color: selectedColor
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 				};
 				
 				// Add to local appointments array
@@ -484,6 +556,7 @@
 				}
 				
 				closeAddToScheduleModal();
+<<<<<<< HEAD
 				alert('Appointment created successfully! It will now appear in the doctor\'s schedule.');
 				
 				// Refresh appointments from database to show the new appointment
@@ -494,6 +567,15 @@
 		} catch (error) {
 			console.error('Error creating appointment:', error);
 			alert('Error creating appointment. Please try again.');
+=======
+				alert('Appointment added successfully to schedule!');
+			} else {
+				alert('Error saving to database: ' + (result.error || 'Unknown error'));
+			}
+		} catch (error) {
+			console.error('Error saving appointment:', error);
+			alert('Error saving appointment to database. Please try again.');
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 		}
 	}
 	
@@ -634,6 +716,7 @@
 			return;
 		}
 		
+<<<<<<< HEAD
 		// Get the current doctor ID from the selected doctor
 		if (!currentDoctorKey || !doctors[currentDoctorKey]) {
 			alert('Please select a doctor first');
@@ -644,12 +727,15 @@
 		const doctorId = currentDoctor.id;
 		const doctorName = currentDoctor.name;
 		
+=======
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 		// Calculate end time (1 hour duration)
 		const startTime = new Date(`2000-01-01T${appointmentTime}`);
 		const endTime = new Date(startTime.getTime() + 60 * 60 * 1000); // Add 1 hour
 		const endTimeString = endTime.toTimeString().slice(0, 5);
 		
 		try {
+<<<<<<< HEAD
 			// First, get the patient ID from the patient name
 			const patientResponse = await fetch('<?= site_url('schedule/getPatients') ?>', {
 				method: 'POST',
@@ -691,6 +777,20 @@
 			
 			// Send to scheduling/createAppointment endpoint to create actual appointment
 			const response = await fetch('<?= site_url('scheduling/createAppointment') ?>', {
+=======
+			// Create form data for database
+			const formData = new FormData();
+			formData.append('title', patientName);
+			formData.append('type', appointmentType);
+			formData.append('date', appointmentDate);
+			formData.append('start_time', appointmentTime);
+			formData.append('end_time', endTimeString);
+			formData.append('room', appointmentRoom);
+			formData.append('description', `${appointmentType} appointment for ${patientName}`);
+			
+			// Send to database
+			const response = await fetch('<?= site_url('schedule/addSchedule') ?>', {
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 				method: 'POST',
 				headers: {
 					'X-Requested-With': 'XMLHttpRequest'
@@ -711,9 +811,13 @@
 					status: 'Confirmed',
 					duration: '1 hour',
 					endTime: endTimeString,
+<<<<<<< HEAD
 					id: 'apt_' + Date.now(), // Temporary ID for display
 					doctor_id: doctorId,
 					patient_id: patientId
+=======
+					id: result.schedule_id || 'db_' + Date.now()
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 				};
 				
 				addNewAppointment(currentDoctorKey, appointmentData);
@@ -724,6 +828,7 @@
 				document.getElementById('newAppointmentTime').value = '';
 				document.getElementById('newAppointmentRoom').value = '';
 				
+<<<<<<< HEAD
 				alert('Appointment created successfully! It will now appear in the doctor\'s schedule.');
 				
 				// Refresh appointments from database to show the new appointment
@@ -748,11 +853,37 @@
 			const result = await response.json();
 			
 			if (result.success && result.appointments) {
+=======
+				alert('Appointment added successfully to database!');
+			} else {
+				alert('Error saving to database: ' + (result.error || 'Unknown error'));
+			}
+		} catch (error) {
+			console.error('Error saving appointment:', error);
+			alert('Error saving appointment to database. Please try again.');
+		}
+	}
+
+	// Load appointments from database
+	async function loadAppointmentsFromDatabase(doctorId) {
+		try {
+			const response = await fetch('<?= site_url('schedule/getWeeklySchedules') ?>', {
+				method: 'POST',
+				headers: {
+					'X-Requested-With': 'XMLHttpRequest'
+				}
+			});
+			
+			const result = await response.json();
+			
+			if (result.success && result.schedules) {
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 				const doctor = doctors[doctorId];
 				if (doctor) {
 					// Clear existing appointments
 					doctor.appointments = [];
 					
+<<<<<<< HEAD
 					// Add appointments from database (same format as doctor's personal schedule)
 					result.appointments.forEach(appointment => {
 						const appointmentTime = new Date(appointment.date_time);
@@ -783,6 +914,33 @@
 					
 					// Update the display immediately
 					renderDetail(doctorId);
+=======
+					// Add appointments from database
+					result.schedules.forEach(schedule => {
+						// Check if this appointment is already in the array
+						const existingAppointment = doctor.appointments.find(apt => 
+							apt.patient === schedule.title && 
+							apt.date === schedule.date && 
+							apt.time === schedule.start_time
+						);
+						
+						if (!existingAppointment) {
+							doctor.appointments.push({
+								id: schedule.id,
+								time: schedule.start_time,
+								patient: schedule.title,
+								type: schedule.type,
+								status: schedule.status,
+								room: schedule.room || 'No Room',
+								date: schedule.date,
+								duration: '1 hour',
+								endTime: schedule.end_time
+							});
+						}
+					});
+					
+					console.log('Loaded appointments from database:', doctor.appointments);
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 				}
 			}
 		} catch (error) {
@@ -1004,6 +1162,7 @@
 					
 					// Check if there are appointments for this time and day
 					const date = new Date(selectedDate);
+<<<<<<< HEAD
 					// Use current week logic for consistent date calculation
 					const currentDay = new Date().getDay();
 					const daysSinceMonday = currentDay === 0 ? 6 : currentDay - 1;
@@ -1012,6 +1171,11 @@
 					
 					const dayOffset = day === 0 ? 6 : day - 1; // Adjust for Sunday (0) to be last day of week
 					date.setDate(monday.getDate() + dayOffset);
+=======
+					// Adjust to start from Monday (1) instead of Sunday (0)
+					const dayOffset = day === 0 ? 1 : day === 6 ? 0 : day + 1;
+					date.setDate(date.getDate() - date.getDay() + dayOffset);
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 					const appointmentsForTime = getAppointmentsForTimeAndDay(hour, minute, date);
 					
 					if (appointmentsForTime.length > 0) {
@@ -1108,6 +1272,7 @@
 	function createAppointmentCard(appointment) {
 		const card = document.createElement('div');
 		card.className = 'appointment-card';
+<<<<<<< HEAD
 		
 		// Set colors based on appointment type (same as doctor's personal schedule)
 		let backgroundColor, borderColor, textColor;
@@ -1139,6 +1304,13 @@
 		card.innerHTML = `
 			<div style="font-weight:700; color:${textColor}; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12px;">${appointment.type}</div>
 			<div style="color:${textColor}; font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:600;">${appointment.patient}</div>
+=======
+		card.style.cssText = 'background:#ecfdf5; border-left:4px solid #22c55e; padding:8px; margin:2px; border-radius:8px; font-size:11px; line-height:1.4; cursor:pointer; position:relative; overflow:hidden; min-height:60px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 2px 4px rgba(0,0,0,0.1);';
+		
+		card.innerHTML = `
+			<div style="font-weight:700; color:#166534; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12px;">${appointment.type}</div>
+			<div style="color:#166534; font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:600;">${appointment.patient}</div>
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 			<div style="color:#6b7280; font-size:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${appointment.duration || '1 hour'}</div>
 			<div style="color:#6b7280; font-size:9px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${appointment.room || 'No Room'}</div>
 		`;
@@ -1208,8 +1380,11 @@
 					<div style=\"display:flex; align-items:center; justify-content:space-between; margin-bottom:10px\">
 						<div class=\"sub\">Weekly Calendar View</div>
 						<div style=\"display:flex; gap:8px;\">
+<<<<<<< HEAD
 							<button onclick=\"navigateWeek('prev')\" style=\"background:#6b7280; color:#fff; border:none; border-radius:6px; padding:6px 12px; font-size:12px; cursor:pointer;\">‹ Previous Week</button>
 							<button onclick=\"navigateWeek('next')\" style=\"background:#6b7280; color:#fff; border:none; border-radius:6px; padding:6px 12px; font-size:12px; cursor:pointer;\">Next Week ›</button>
+=======
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 							<button onclick=\"checkAppointmentCount()\" style=\"background:#6b7280; color:#fff; border:none; border-radius:6px; padding:6px 12px; font-size:12px; cursor:pointer;\">📊 Count</button>
 							<button onclick=\"resetSampleAppointments()\" style=\"background:#ef4444; color:#fff; border:none; border-radius:6px; padding:6px 12px; font-size:12px; cursor:pointer;\">🔄 Reset</button>
 							<button onclick=\"refreshAppointmentsFromDatabase()\" style=\"background:#3b82f6; color:#fff; border:none; border-radius:6px; padding:6px 12px; font-size:12px; cursor:pointer;\">🔄 Refresh</button>
@@ -1220,6 +1395,7 @@
 							<div class=\"grid-header-cell\" style=\"padding:16px 12px; text-align:left; font-weight:600; color:#374151; font-size:14px; border-right:1px solid #e2e8f0\">Time</div>
 							${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map((dname,i)=>{
 								const date = new Date(selectedDate);
+<<<<<<< HEAD
 								// Use current week logic for consistent date calculation
 								const currentDay = new Date().getDay();
 								const daysSinceMonday = currentDay === 0 ? 6 : currentDay - 1;
@@ -1228,6 +1404,11 @@
 								
 								const dayOffset = i === 0 ? 0 : i === 6 ? 6 : i; // Monday=0, Sunday=6
 								date.setDate(monday.getDate() + dayOffset);
+=======
+								// Adjust to start from Monday (1) instead of Sunday (0)
+								const dayOffset = i === 0 ? 1 : i === 6 ? 0 : i + 1;
+								date.setDate(date.getDate() - date.getDay() + dayOffset);
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 								const isToday = date.toDateString() === new Date().toDateString();
 								return `<div class=\"grid-header-cell\" style=\"padding:16px 12px; text-align:center; font-weight:600; color:#374151; font-size:14px; border-right:1px solid #e2e8f0; ${isToday ? 'background:#eff6ff; color:#1d4ed8;' : ''}\">
 									<div>${dname}</div>
@@ -1506,6 +1687,7 @@
 	// Start initialization
 	initializeAppointments();
 	
+<<<<<<< HEAD
 	// Add week navigation functions
 	window.navigateWeek = function(direction) {
 		const currentWeek = new Date(selectedDate);
@@ -1522,6 +1704,8 @@
 		}
 	};
 	
+=======
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 	// Ensure modal is hidden on page load
 	document.addEventListener('DOMContentLoaded', function() {
 		const modal = document.getElementById('addToScheduleModal');
@@ -1540,6 +1724,7 @@
 		}
 	}
 	
+<<<<<<< HEAD
 	// Function to reset ALL appointments (delete from database and clear frontend)
 	async function resetSampleAppointments() {
 		if (!confirm('⚠️ Are you sure you want to delete ALL appointments? This action cannot be undone!')) {
@@ -1601,6 +1786,12 @@
 			console.error('❌ Error during reset:', error);
 			alert('❌ Error deleting appointments. Please try again.');
 		}
+=======
+	// Function to reset sample appointments (for testing)
+	function resetSampleAppointments() {
+		localStorage.removeItem('sampleAppointmentsAdded');
+		location.reload();
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 	}
 	
 	// Function to check current appointment count
@@ -1621,8 +1812,11 @@
 	window.navigateWeek = navigateWeek;
 })();
 
+<<<<<<< HEAD
 	// Edit Appointment Modal (inline, uses existing appointments/update/:id)
 
+=======
+>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56
 	// Add patient dropdown functionality
 	document.addEventListener('DOMContentLoaded', function() {
 	// Auto-fill patient details when patient is selected in the Add Appointment modal
