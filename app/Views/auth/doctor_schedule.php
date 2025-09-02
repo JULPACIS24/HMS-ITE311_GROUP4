@@ -514,12 +514,7 @@
             console.log('🚀 DOM Content Loaded - Initializing schedule...');
             generateTimeSlots();
             
-            // Force clear any cached patients and load fresh from database
-            console.log('🧹 Clearing any cached patients...');
-            localStorage.removeItem('cachedPatients');
-            patientsLoaded = false;
-            
-            // Load patients from database immediately
+            // Load patients from database (don't force clear cache on refresh)
             console.log('🔄 Loading patients from database...');
             loadPatients();
             
@@ -844,7 +839,14 @@
                 
                 if (data.success) {
                     addScheduleToCalendar(formData);
-                    showSuccess('Schedule added successfully!');
+                    
+                    // Show appropriate success message based on what was created
+                    if (data.message && data.message.includes('appointment')) {
+                        showSuccess('✅ Schedule and appointment created successfully! The appointment will appear in the admin view.');
+                    } else {
+                        showSuccess('✅ Schedule added successfully!');
+                    }
+                    
                     closeModal('add-schedule-modal');
                     form.reset();
                     
@@ -1467,13 +1469,11 @@
             }
         }
         
-        // Start periodic sync to remove deleted schedules from database
+        // Start periodic protection for existing schedules (NO automatic deletion)
         function startPeriodicSync() {
-            console.log('🔄 Starting periodic sync with database...');
-            // Check every 30 seconds for deleted schedules
-            setInterval(syncWithDatabase, 30000);
+            console.log('🛡️ Starting periodic schedule protection...');
             
-            // Also start protection for existing schedules
+            // Only protect existing schedules - NO automatic deletion
             setInterval(protectExistingSchedules, 5000);
         }
         
@@ -1533,12 +1533,18 @@
             });
         }
         
-        // Sync calendar with database and remove deleted schedules
+        // Delete ALL schedules from database and calendar (ONLY for "Delete All Schedules" button)
         async function syncWithDatabase() {
             try {
-                console.log('🔄 Syncing calendar with database...');
+                // Confirm with user before deleting ALL schedules
+                if (!confirm('⚠️ WARNING: This will delete ALL your schedules from the database and clear the calendar. This action cannot be undone!\n\nAre you sure you want to continue?')) {
+                    console.log('❌ User cancelled schedule deletion');
+                    return;
+                }
                 
-                // First, delete all schedules from database
+                console.log('🗑️ User confirmed - Deleting ALL schedules...');
+                
+                // Delete all schedules from database
                 const deleteResponse = await fetch('<?= base_url('schedule/deleteAllSchedules') ?>', {
                     method: 'POST',
                     headers: { 'X-Requested-With': 'XMLHttpRequest' }
