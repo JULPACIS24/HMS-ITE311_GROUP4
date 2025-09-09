@@ -107,7 +107,7 @@
 			<a href="<?= site_url('settings') ?>" class="menu-item"><span class="menu-icon">⚙️</span>Settings</a>
 		<?php else: ?>
 			<!-- Dashboard -->
-			<a href="<?= site_url('dashboard') ?>" class="menu-item dashboard">
+			<a href="http://localhost/hms_group4/public/admin/dashboard" class="menu-item dashboard">
 				<span class="menu-icon">📊</span>Dashboard
 			</a>
 
@@ -115,9 +115,9 @@
 			<div class="menu-group" data-group="patients">
 				<button class="group-toggle" type="button"><span class="menu-icon">👥</span>Patient Management <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="<?= site_url('patients/records') ?>">Patient Records</a>
-					<a class="subitem" href="<?= site_url('patients/add') ?>">Registration</a>
-					<a class="subitem" href="<?= site_url('patients/history') ?>">Medical History</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/patient-management/records">Patient Records</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/patient-management/add">Registration</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/patient-management/history">Medical History</a>
 				</div>
 			</div>
 
@@ -125,8 +125,8 @@
 			<div class="menu-group" data-group="scheduling">
 				<button class="group-toggle" type="button"><span class="menu-icon">📅</span>Scheduling <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="<?= site_url('scheduling/doctor') ?>">Doctor Schedule</a>
-					<a class="subitem" href="<?= site_url('scheduling/nurse') ?>">Nurse Schedule</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/scheduling-management/doctor">Doctor Schedule</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/scheduling-management/nurse">Nurse Schedule</a>
 				</div>
 			</div>
 
@@ -136,9 +136,9 @@
 					<span class="menu-icon">🧾</span>Billing & Payments <span class="chev">›</span>
 				</button>
 				<div class="submenu">
-					<a class="subitem" href="<?= site_url('billing/generate') ?>">Generate Bills</a>
-					<a class="subitem" href="<?= site_url('billing/payments') ?>">Payment Tracking</a>
-					<a class="subitem" href="<?= site_url('insurance/claims') ?>">Insurance Claims</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/billing-management/generate">Generate Bills</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/billing-management/payments">Payment Tracking</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/billing-management/insurance-claims">Insurance Claims</a>
 				</div>
 			</div>
 
@@ -146,9 +146,9 @@
 			<div class="menu-group" data-group="lab-management">
 				<button class="group-toggle" type="button"><span class="menu-icon">🧪</span>Lab Management <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="<?= site_url('lab-management/requests') ?>">Lab Requests</a>
-					<a class="subitem" href="<?= site_url('lab-management/results') ?>">Lab Results</a>
-					<a class="subitem" href="<?= site_url('lab-management/equipment') ?>">Equipment Status</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/lab-management/requests">Lab Requests</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/lab-management/results">Lab Results</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/lab-management/equipment">Equipment Status</a>
 				</div>
 			</div>
 
@@ -156,9 +156,9 @@
 			<div class="menu-group" data-group="pharmacy">
 				<button class="group-toggle" type="button"><span class="menu-icon">💊</span>Pharmacy Management <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="<?= site_url('pharmacy-management/inventory') ?>">Inventory Management</a>
-					<a class="subitem" href="<?= site_url('pharmacy-management/prescriptions') ?>">Prescription Orders</a>
-					<a class="subitem" href="<?= site_url('pharmacy-management/stock-alerts') ?>">Stock Alerts</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/pharmacy-management/inventory">Inventory Management</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/pharmacy-management/prescriptions">Prescription Orders</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/pharmacy-management/stock-alerts">Stock Alerts</a>
 				</div>
 			</div>
 
@@ -168,28 +168,28 @@
 			<div class="menu-group" data-group="reports">
 				<button class="group-toggle" type="button"><span class="menu-icon">📊</span>Reports & Analytics <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="<?= site_url('reports/performance') ?>">Performance Report</a>
-					<a class="subitem" href="<?= site_url('reports/financial') ?>">Financial Reports</a>
-					<a class="subitem" href="<?= site_url('reports/patient-analytics') ?>">Patient Analytics</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/reports-management/performance">Performance Report</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/reports-management/financial">Financial Reports</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/reports-management/patient-analytics">Patient Analytics</a>
 				</div>
 			</div>
 
 			<div class="menu-group" data-group="staff">
-				<button class="group-toggle" type="button" onclick="window.location.href='<?= site_url('staff-management') ?>'"><span class="menu-icon">👥</span>Staff Management <span class="chev">›</span></button>
+				<button class="group-toggle" type="button" onclick="window.location.href='http://localhost/hms_group4/public/admin/staff-management'"><span class="menu-icon">👥</span>Staff Management <span class="chev">›</span></button>
 				<div class="submenu">
-					<a class="subitem" href="<?= site_url('employee-records') ?>">Employee Records</a>
-					<a class="subitem" href="<?= site_url('role-management') ?>">Role Management</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/staff-management/employee-records">Employee Records</a>
+					<a class="subitem" href="http://localhost/hms_group4/public/admin/staff-management/role-management">Role Management</a>
 				</div>
 			</div>
 
-			<a href="<?= site_url('branch-management') ?>" class="menu-item"><span class="menu-icon">🏢</span>Branch Management</a>
+			<a href="http://localhost/hms_group4/public/admin/branch-management" class="menu-item"><span class="menu-icon">🏢</span>Branch Management</a>
 
 
 
-			<a href="<?= site_url('settings') ?>" class="menu-item"><span class="menu-icon">⚙️</span>System Settings</a>
+			<a href="http://localhost/hms_group4/public/admin/system-settings" class="menu-item"><span class="menu-icon">⚙️</span>System Settings</a>
 		<?php endif; ?>
 
-		<a href="<?= site_url('logout') ?>" class="menu-item logout"><span class="menu-icon">🚪</span>Logout</a>
+		<a href="http://localhost/hms_group4/public/admin/logout" class="menu-item logout"><span class="menu-icon">🚪</span>Logout</a>
 	</div>
 
 	<script>
@@ -207,23 +207,23 @@
 					btn.addEventListener('click', (e)=>{
 						// For Patient Management group, go to dashboard
 						if (btn.textContent.includes('Patient Management')) {
-							window.location.href = '<?= site_url('patient-management') ?>';
+							window.location.href = 'http://localhost/hms_group4/public/admin/patient-management';
 						} else if (btn.textContent.includes('Scheduling')) {
 							// For Scheduling group, go to Scheduling Management dashboard
-							window.location.href = '<?= site_url('scheduling-management') ?>';
+							window.location.href = 'http://localhost/hms_group4/public/admin/scheduling-management';
 						} else if (btn.textContent.includes('Billing & Payments')) {
 							// For Billing & Payments group, go to main billing dashboard
-							window.location.href = '<?= site_url('billing') ?>';
+							window.location.href = 'http://localhost/hms_group4/public/admin/billing-management';
 						} else if (btn.textContent.includes('Lab Management')) {
 							// For Lab Management group, go to main lab management dashboard
 							// Don't auto-open submenu, just navigate
-							window.location.href = '<?= site_url('lab-management') ?>';
+							window.location.href = 'http://localhost/hms_group4/public/admin/lab-management';
 						} else if (btn.textContent.includes('Pharmacy Management')) {
 							// For Pharmacy Management group, go to main pharmacy dashboard
-							window.location.href = '<?= site_url('pharmacy-management') ?>';
+							window.location.href = 'http://localhost/hms_group4/public/admin/pharmacy-management';
 						} else if (btn.textContent.includes('Reports & Analytics')) {
 							// For Reports & Analytics group, go to main reports dashboard
-							window.location.href = '<?= site_url('reports') ?>';
+							window.location.href = 'http://localhost/hms_group4/public/admin/reports-management';
 						} else {
 							// For other groups, toggle submenu
 							g.classList.toggle('open');
@@ -270,7 +270,7 @@
 			});
 
 			// Keep Staff Management submenu open when on staff-related pages
-			if (path.includes('employee-records') || path.includes('role-management')) {
+			if (path.includes('admin/staff-management/employee-records') || path.includes('admin/staff-management/role-management')) {
 				const staffGroup = document.querySelector('[data-group="staff"]');
 				if (staffGroup) {
 					staffGroup.classList.add('open');
@@ -279,25 +279,25 @@
 			
 			// Auto-open specific groups based on current page
 			// Patient Management group
-			if (path.includes('patients/records') || path.includes('patients/add') || path.includes('patients/history')) {
+			if (path.includes('admin/patient-management/records') || path.includes('admin/patient-management/add') || path.includes('admin/patient-management/history')) {
 				const patientGroup = document.querySelector('[data-group="patients"]');
 				patientGroup && patientGroup.classList.add('open');
 			}
 			
 			// Scheduling group
-			if (path.includes('scheduling/doctor') || path.includes('scheduling/nurse')) {
+			if (path.includes('admin/scheduling-management/doctor') || path.includes('admin/scheduling-management/nurse')) {
 				const schedulingGroup = document.querySelector('[data-group="scheduling"]');
 				schedulingGroup && schedulingGroup.classList.add('open');
 			}
 			
 			// Billing & Payments group
-			if (path.includes('billing/generate') || path.includes('billing/payments') || path.includes('insurance/claims')) {
+			if (path.includes('admin/billing-management/generate') || path.includes('admin/billing-management/payments') || path.includes('admin/billing-management/insurance-claims')) {
 				const billingGroup = document.querySelector('[data-group="billing"]');
 				billingGroup && billingGroup.classList.add('open');
 			}
 			
 			// Lab Management group - auto-open when on lab management pages or lab results
-			if (path.includes('lab-management') || path.includes('laboratory_results')) {
+			if (path.includes('admin/lab-management') || path.includes('laboratory_results')) {
 				const labManagementGroup = document.querySelector('[data-group="lab-management"]');
 				if (labManagementGroup) {
 					labManagementGroup.classList.add('open');
@@ -305,13 +305,13 @@
 			}
 			
 			// Pharmacy group - same behavior as other groups
-			if (path.includes('pharmacy/inventory') || path.includes('pharmacy/prescriptions') || path.includes('pharmacy/alerts')) {
+			if (path.includes('admin/pharmacy-management/inventory') || path.includes('admin/pharmacy-management/prescriptions') || path.includes('admin/pharmacy-management/stock-alerts')) {
 				const pharmacyGroup = document.querySelector('[data-group="pharmacy"]');
 				pharmacyGroup && pharmacyGroup.classList.add('open');
 			}
 			
 			// Reports & Analytics group - same behavior as other groups
-			if (path.includes('reports/performance') || path.includes('reports/financial') || path.includes('reports/patient-analytics')) {
+			if (path.includes('admin/reports-management/performance') || path.includes('admin/reports-management/financial') || path.includes('admin/reports-management/patient-analytics')) {
 				const reportsGroup = document.querySelector('[data-group="reports"]');
 				reportsGroup && reportsGroup.classList.add('open');
 			}

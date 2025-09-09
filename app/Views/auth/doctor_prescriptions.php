@@ -58,50 +58,7 @@
 </head>
 <body>
 	<div class="container">
-		<!-- Sidebar -->
-		<div class="sidebar">
-			<div class="sidebar-header">
-				<div class="admin-icon">🏥</div>
-				<div>
-					<div class="sidebar-title">San Miguel HMS</div>
-					<div class="sidebar-sub">Doctor Portal</div>
-				</div>
-			</div>
-			<div class="sidebar-menu">
-				<a href="<?= site_url('doctor/dashboard') ?>" class="menu-item">
-					<span class="menu-icon">🕒</span>
-					<span>Dashboard</span>
-				</a>
-				<a href="<?= site_url('doctor/patients') ?>" class="menu-item">
-					<span class="menu-icon">👤</span>
-					<span>Patient Records</span>
-				</a>
-				<a href="<?= site_url('doctor/appointments') ?>" class="menu-item">
-					<span class="menu-icon">📅</span>
-					<span>Appointments</span>
-				</a>
-				<a href="<?= site_url('doctor/prescriptions') ?>" class="menu-item active">
-					<span class="menu-icon">💊</span>
-					<span>Prescriptions</span>
-				</a>
-				<a href="<?= site_url('doctor/lab-requests') ?>" class="menu-item">
-					<span class="menu-icon">🧪</span>
-					<span>Lab Requests</span>
-				</a>
-				<a href="<?= site_url('doctor/consultations') ?>" class="menu-item">
-					<span class="menu-icon">🩺</span>
-					<span>Consultations</span>
-				</a>
-				<a href="<?= site_url('doctor/schedule') ?>" class="menu-item">
-					<span class="menu-icon">📋</span>
-					<span>My Schedule</span>
-				</a>
-				<a href="<?= site_url('doctor/reports') ?>" class="menu-item">
-					<span class="menu-icon">📊</span>
-					<span>Medical Reports</span>
-				</a>
-			</div>
-		</div>
+		<?php echo view('auth/partials/doctor_sidebar'); ?>
 
 		<div class="main">
 			<div class="header">

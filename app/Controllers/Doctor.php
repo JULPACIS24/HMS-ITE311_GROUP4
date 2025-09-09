@@ -467,14 +467,6 @@ class Doctor extends BaseController
 		}
 	}
 
-	public function schedule()
-	{
-		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
-		
-		// Redirect to the new schedule system
-		return redirect()->to('/schedule');
-	}
 
 	public function reports()
 	{

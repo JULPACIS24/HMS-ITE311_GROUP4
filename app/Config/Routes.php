@@ -19,6 +19,38 @@ $routes->get('logout', 'Auth::logout');
 // Protected route
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
 
+// Admin Routes
+$routes->get('admin/dashboard', 'Dashboard::index', ['filter' => 'auth']);
+$routes->get('admin/patient-management', 'Patients::management', ['filter' => 'auth']);
+$routes->get('admin/patient-management/records', 'Patients::index', ['filter' => 'auth']);
+$routes->get('admin/patient-management/add', 'Patients::add', ['filter' => 'auth']);
+$routes->get('admin/patient-management/history', 'Patients::history', ['filter' => 'auth']);
+$routes->get('admin/scheduling-management', 'UnifiedScheduling::admin', ['filter' => 'auth']);
+$routes->get('admin/scheduling-management/doctor', 'UnifiedScheduling::admin', ['filter' => 'auth']);
+$routes->get('admin/scheduling-management/nurse', 'Scheduling::nurse', ['filter' => 'auth']);
+$routes->get('admin/billing-management', 'Billing::index', ['filter' => 'auth']);
+$routes->get('admin/billing-management/generate', 'Billing::generate', ['filter' => 'auth']);
+$routes->get('admin/billing-management/payments', 'Billing::payments', ['filter' => 'auth']);
+$routes->get('admin/billing-management/insurance-claims', 'Insurance::claims', ['filter' => 'auth']);
+$routes->get('admin/lab-management', 'LabManagement::index', ['filter' => 'auth']);
+$routes->get('admin/lab-management/requests', 'LabManagement::requests', ['filter' => 'auth']);
+$routes->get('admin/lab-management/results', 'LabManagement::results', ['filter' => 'auth']);
+$routes->get('admin/lab-management/equipment', 'LabManagement::equipment', ['filter' => 'auth']);
+$routes->get('admin/pharmacy-management', 'Pharmacy::dashboard', ['filter' => 'auth']);
+$routes->get('admin/pharmacy-management/inventory', 'Pharmacy::inventory', ['filter' => 'auth']);
+$routes->get('admin/pharmacy-management/prescriptions', 'Pharmacy::prescriptions', ['filter' => 'auth']);
+$routes->get('admin/pharmacy-management/stock-alerts', 'Pharmacy::stockAlerts', ['filter' => 'auth']);
+$routes->get('admin/reports-management', 'Reports::index', ['filter' => 'auth']);
+$routes->get('admin/reports-management/performance', 'Reports::performance', ['filter' => 'auth']);
+$routes->get('admin/reports-management/financial', 'Reports::financial', ['filter' => 'auth']);
+$routes->get('admin/reports-management/patient-analytics', 'Reports::patientAnalytics', ['filter' => 'auth']);
+$routes->get('admin/staff-management', 'StaffManagement::index', ['filter' => 'auth']);
+$routes->get('admin/staff-management/employee-records', 'StaffManagement::employeeRecords', ['filter' => 'auth']);
+$routes->get('admin/staff-management/role-management', 'StaffManagement::roleManagement', ['filter' => 'auth']);
+$routes->get('admin/branch-management', 'BranchManagement::index', ['filter' => 'auth']);
+$routes->get('admin/system-settings', 'Settings::index', ['filter' => 'auth']);
+$routes->get('admin/logout', 'Auth::logout', ['filter' => 'auth']);
+
 $routes->get('/patients', 'Patients::index');
 $routes->get('/patient-management', 'Patients::management');
 $routes->get('/patients/records', 'Patients::index');
@@ -76,7 +108,7 @@ $routes->post('doctor/consultations/complete', 'Doctor::completeConsultation', [
 $routes->get('doctor/consultations/details/(:num)', 'Doctor::getConsultationDetails/$1', ['filter' => 'auth']);
 $routes->get('doctor/consultations/getPatientConsultations/(:num)', 'Doctor::getPatientConsultations/$1', ['filter' => 'auth']);
 $routes->get('doctor/appointments/(:num)', 'Doctor::getAppointmentDetails/$1', ['filter' => 'auth']);
-$routes->get('doctor/schedule', 'Doctor::schedule', ['filter' => 'auth']);
+$routes->get('doctor/schedule', 'UnifiedScheduling::doctor', ['filter' => 'auth']); // Redirect to unified doctor schedule
 $routes->get('doctor/reports', 'Doctor::reports', ['filter' => 'auth']);
 
 // Medical Certificates routes
@@ -86,17 +118,6 @@ $routes->post('doctor/medical-certificates/store', 'Doctor::storeMedicalCertific
 $routes->get('doctor/medical-certificates/view/(:num)', 'Doctor::viewMedicalCertificate/$1', ['filter' => 'auth']);
 $routes->get('doctor/medical-certificates/print/(:num)', 'Doctor::printMedicalCertificate/$1', ['filter' => 'auth']);
 
-// Schedule routes
-$routes->get('schedule', 'ScheduleController::index', ['filter' => 'auth']);
-$routes->get('schedule/test', 'ScheduleController::test');
-$routes->post('schedule/addSchedule', 'ScheduleController::addSchedule');
-$routes->post('schedule/updateSchedule', 'ScheduleController::updateSchedule');
-$routes->post('schedule/deleteSchedule', 'ScheduleController::deleteSchedule');
-$routes->post('schedule/getScheduleDetails', 'ScheduleController::getScheduleDetails');
-$routes->post('schedule/getPatients', 'ScheduleController::getPatients');
-$routes->post('schedule/getRooms', 'ScheduleController::getRooms');
-$routes->post('schedule/getWeeklySchedules', 'ScheduleController::getWeeklySchedules');
-$routes->post('schedule/deleteAllSchedules', 'ScheduleController::deleteAllSchedules');
 
 // Receptionist Dashboard
 $routes->get('receptionist', 'Receptionist::index', ['filter' => 'auth']);
@@ -122,21 +143,38 @@ $routes->group('appointments', ['filter' => 'auth'], static function ($routes) {
 	$routes->get('json/(:num)', 'Appointments::json/$1');
 });
 
-// Admin Scheduling pages
+// Admin Scheduling pages - Redirected to Unified System
 $routes->group('scheduling', ['filter' => 'auth'], static function ($routes) {
-	$routes->get('doctor', 'Scheduling::doctor');
-	$routes->get('nurse', 'Scheduling::nurse');
-	$routes->post('createAppointment', 'Scheduling::createAppointment');
-	$routes->post('updateAppointment/(:num)', 'Scheduling::updateAppointment/$1');
-	$routes->post('deleteAppointment/(:num)', 'Scheduling::deleteAppointment/$1');
+	$routes->get('doctor', 'UnifiedScheduling::admin'); // Redirect to unified admin
+	$routes->get('nurse', 'Scheduling::nurse'); // Keep nurse scheduling separate
+	$routes->post('createAppointment', 'UnifiedScheduling::createAppointment');
+	$routes->post('updateAppointment/(:num)', 'UnifiedScheduling::updateAppointment/$1');
+	$routes->post('deleteAppointment/(:num)', 'UnifiedScheduling::deleteAppointment/$1');
 	$routes->get('getDoctorAppointments/(:num)/(:any)?', 'Scheduling::getDoctorAppointments/$1/$2');
 	$routes->get('getAvailablePatients/(:num)/(:any)?', 'Scheduling::getAvailablePatients/$1/$2');
 	$routes->get('getPatientAppointments/(:num)', 'Scheduling::getPatientAppointments/$1');
+$routes->post('deleteAllAppointments/(:num)', 'Scheduling::deleteAllAppointments/$1');
 $routes->post('addNurseSchedule', 'Scheduling::addNurseSchedule');
 $routes->post('updateNurseSchedule/(:any)', 'Scheduling::updateNurseSchedule/$1');
 $routes->post('deleteNurseSchedule/(:any)', 'Scheduling::deleteNurseSchedule/$1');
 });
-$routes->get('scheduling-management', 'Scheduling::management', ['filter' => 'auth']);
+$routes->get('scheduling-management', 'UnifiedScheduling::admin', ['filter' => 'auth']); // Redirect to unified admin
+
+// Unified Scheduling Routes
+$routes->group('unified-scheduling', ['filter' => 'auth'], static function ($routes) {
+	$routes->get('admin', 'UnifiedScheduling::admin');
+	$routes->get('doctor', 'UnifiedScheduling::doctor');
+	$routes->post('createAppointment', 'UnifiedScheduling::createAppointment');
+	$routes->post('updateAppointment/(:num)', 'UnifiedScheduling::updateAppointment/$1');
+	$routes->post('deleteAppointment/(:num)', 'UnifiedScheduling::deleteAppointment/$1');
+	$routes->get('getAppointments', 'UnifiedScheduling::getAppointments');
+	$routes->get('getAppointment/(:num)', 'UnifiedScheduling::getAppointment/$1');
+	$routes->get('getPatients', 'UnifiedScheduling::getPatients');
+	$routes->get('getRooms', 'UnifiedScheduling::getRooms');
+	$routes->get('getDoctors', 'UnifiedScheduling::getDoctors');
+	$routes->get('getStatistics', 'UnifiedScheduling::getStatistics');
+	$routes->get('debugAppointments', 'UnifiedScheduling::debugAppointments');
+});
 
 // Billing & Payments Routes
 $routes->get('/billing', 'Billing::index', ['filter' => 'auth']);

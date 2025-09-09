@@ -712,6 +712,56 @@ class Scheduling extends BaseController
         }
     }
 
+    // Delete all appointments for a specific doctor (same logic as deleteAllSchedules)
+    public function deleteAllAppointments($doctorId)
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON(['error' => 'Invalid request']);
+        }
+
+        try {
+            // Validate doctor ID
+            if (!$doctorId || !is_numeric($doctorId)) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Invalid doctor ID'
+                ]);
+            }
+
+            // Get appointment model
+            $appointmentModel = new \App\Models\AppointmentModel();
+            
+            // Count appointments before deleting (same logic as deleteAllSchedulesForDoctor)
+            $deletedCount = $appointmentModel->where('doctor_id', $doctorId)->countAllResults();
+            
+            // Delete all appointments for this doctor
+            $appointmentModel->where('doctor_id', $doctorId)->delete();
+            
+            if ($deletedCount > 0) {
+                log_message('info', "Deleted {$deletedCount} appointments for doctor ID: {$doctorId}");
+                
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => "Successfully deleted {$deletedCount} appointments",
+                    'deleted_count' => $deletedCount
+                ]);
+            } else {
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'No appointments found to delete',
+                    'deleted_count' => 0
+                ]);
+            }
+            
+        } catch (\Exception $e) {
+            log_message('error', 'Delete all appointments error: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'success' => false,
+                'error' => 'Failed to delete appointments: ' . $e->getMessage()
+            ]);
+        }
+    }
+
     // Helper method to get shift time based on shift
     private function getShiftTime($shift)
     {
