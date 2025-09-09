@@ -151,6 +151,8 @@ $routes->group('scheduling', ['filter' => 'auth'], static function ($routes) {
 	$routes->post('updateAppointment/(:num)', 'UnifiedScheduling::updateAppointment/$1');
 	$routes->post('deleteAppointment/(:num)', 'UnifiedScheduling::deleteAppointment/$1');
 	$routes->get('getDoctorAppointments/(:num)/(:any)?', 'Scheduling::getDoctorAppointments/$1/$2');
+	$routes->get('getCurrentWeekAppointments/(:num)', 'Scheduling::getCurrentWeekAppointments/$1'); // New route
+	$routes->get('refreshAppointments/(:num)', 'Scheduling::refreshAppointments/$1'); // New route
 	$routes->get('getAvailablePatients/(:num)/(:any)?', 'Scheduling::getAvailablePatients/$1/$2');
 	$routes->get('getPatientAppointments/(:num)', 'Scheduling::getPatientAppointments/$1');
 $routes->post('deleteAllAppointments/(:num)', 'Scheduling::deleteAllAppointments/$1');

@@ -1,1 +1,10 @@
+<<<<<<<< HEAD:writable/session/ci_session0b1b53357c0fffd9dbeddd31478ef87b
 __ci_last_regenerate|i:1756818347;_ci_previous_url|s:53:"http://localhost/hms_group4/public/index.php/schedule";user_id|s:2:"16";user_name|s:3:"yad";role|s:6:"doctor";specialty|s:12:"Cardiologist";department|s:7:"Medical";isLoggedIn|b:1;
+========
+<<<<<<< HEAD
+__ci_last_regenerate|i:1756810863;_ci_previous_url|s:53:"http://localhost/hms_group4/public/index.php/schedule";user_id|s:2:"16";user_name|s:3:"yad";role|s:6:"doctor";specialty|s:12:"Cardiologist";department|s:7:"Medical";isLoggedIn|b:1;
+>>>>>>>> e2bc9fd4fc864465e2a85b009f1b3a7f0455c59c:writable/session/ci_session0ce00e598273db8f14f99591a8912890
+=======
+__ci_last_regenerate|i:1756790844;_ci_previous_url|s:53:"http://localhost/hms_group4/public/index.php/schedule";user_id|s:2:"16";user_name|s:3:"yad";role|s:6:"doctor";specialty|s:12:"Cardiologist";department|s:7:"Medical";isLoggedIn|b:1;
+>>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56:writable/session/ci_session17549a7c3eb1bd649c56abe21101af85
+>>>>>>> e2bc9fd4fc864465e2a85b009f1b3a7f0455c59c

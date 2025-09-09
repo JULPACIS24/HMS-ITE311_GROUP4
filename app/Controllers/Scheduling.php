@@ -776,4 +776,79 @@ class Scheduling extends BaseController
                 return '6:00 AM - 2:00 PM';
         }
     }
+
+    // AJAX endpoint to get current week appointments for a specific doctor
+    public function getCurrentWeekAppointments($doctorId)
+    {
+        if (!session('isLoggedIn')) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Not authenticated']);
+        }
+
+        try {
+            $model = new \App\Models\AppointmentModel();
+            
+            // Calculate current week start (Monday) and end (Sunday)
+            $today = new \DateTime();
+            $weekStart = clone $today;
+            $weekStart->modify('monday this week');
+            $weekEnd = clone $weekStart;
+            $weekEnd->modify('+6 days');
+            
+            $startDate = $weekStart->format('Y-m-d');
+            $endDate = $weekEnd->format('Y-m-d');
+            
+            log_message('info', 'getCurrentWeekAppointments called with doctorId: ' . $doctorId);
+            log_message('info', 'Week range: ' . $startDate . ' to ' . $endDate);
+            
+            // Get appointments for the current week
+            $appointments = $model->where('doctor_id', $doctorId)
+                                 ->where('date_time >=', $startDate . ' 00:00:00')
+                                 ->where('date_time <=', $endDate . ' 23:59:59')
+                                 ->orderBy('date_time', 'ASC')
+                                 ->findAll();
+            
+            log_message('info', 'Found ' . count($appointments) . ' appointments for current week');
+            
+            return $this->response->setJSON([
+                'success' => true, 
+                'appointments' => $appointments,
+                'week_start' => $startDate,
+                'week_end' => $endDate
+            ]);
+            
+        } catch (\Exception $e) {
+            log_message('error', 'Error getting current week appointments: ' . $e->getMessage());
+            return $this->response->setJSON(['success' => false, 'message' => 'Error getting appointments: ' . $e->getMessage()]);
+        }
+    }
+
+    // AJAX endpoint to refresh all appointments for a specific doctor
+    public function refreshAppointments($doctorId)
+    {
+        if (!session('isLoggedIn')) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Not authenticated']);
+        }
+
+        try {
+            $model = new \App\Models\AppointmentModel();
+            
+            log_message('info', 'refreshAppointments called with doctorId: ' . $doctorId);
+            
+            // Get all appointments for this doctor (no date filter for refresh)
+            $appointments = $model->where('doctor_id', $doctorId)
+                                 ->orderBy('date_time', 'ASC')
+                                 ->findAll();
+            
+            log_message('info', 'Found ' . count($appointments) . ' appointments for refresh');
+            
+            return $this->response->setJSON([
+                'success' => true, 
+                'appointments' => $appointments
+            ]);
+            
+        } catch (\Exception $e) {
+            log_message('error', 'Error refreshing appointments: ' . $e->getMessage());
+            return $this->response->setJSON(['success' => false, 'message' => 'Error refreshing appointments: ' . $e->getMessage()]);
+        }
+    }
 }

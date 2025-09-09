@@ -1,1 +1,10 @@
+<<<<<<<< HEAD:writable/session/ci_session108bd92b50a7e9291e9d8656ce8228a9
 __ci_last_regenerate|i:1756814044;_ci_previous_url|s:62:"http://localhost/hms_group4/public/index.php/scheduling/doctor";user_id|s:2:"16";user_name|s:3:"yad";role|s:6:"doctor";specialty|s:12:"Cardiologist";department|s:7:"Medical";isLoggedIn|b:1;
+========
+<<<<<<< HEAD
+__ci_last_regenerate|i:1756791369;_ci_previous_url|s:62:"http://localhost/hms_group4/public/index.php/scheduling/doctor";user_id|s:2:"16";user_name|s:3:"yad";role|s:6:"doctor";specialty|s:12:"Cardiologist";department|s:7:"Medical";isLoggedIn|b:1;
+>>>>>>>> e2bc9fd4fc864465e2a85b009f1b3a7f0455c59c:writable/session/ci_session245688360b739c9fa8cb7f1546818902
+=======
+__ci_last_regenerate|i:1756792550;_ci_previous_url|s:62:"http://localhost/hms_group4/public/index.php/scheduling/doctor";user_id|s:2:"16";user_name|s:3:"yad";role|s:6:"doctor";specialty|s:12:"Cardiologist";department|s:7:"Medical";isLoggedIn|b:1;
+>>>>>>>> 52c85cbe61791b823437f19869f9d0a43509eb56:writable/session/ci_session42da54c8223ee43be55d361a48ecf509
+>>>>>>> e2bc9fd4fc864465e2a85b009f1b3a7f0455c59c
