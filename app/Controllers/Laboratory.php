@@ -65,6 +65,65 @@ class Laboratory extends Controller
         if (! session('isLoggedIn')) return redirect()->to('/login');
         return view('auth/laboratory_equipment'); // Renders Equipment Status page
     }
+
+    public function tracking()
+    {
+        if (! session('isLoggedIn')) return redirect()->to('/login');
+        return view('auth/laboratory_tracking'); // Renders Sample Tracking page
+    }
+
+    public function reports()
+    {
+        if (! session('isLoggedIn')) return redirect()->to('/login');
+        return view('auth/laboratory_reports'); // Renders Lab Reports page
+    }
+
+    public function quality()
+    {
+        if (! session('isLoggedIn')) return redirect()->to('/login');
+        return view('auth/laboratory_quality'); // Renders Quality Control page
+    }
+
+    public function inventory()
+    {
+        if (! session('isLoggedIn')) return redirect()->to('/login');
+        return view('auth/laboratory_inventory'); // Renders Lab Inventory page
+    }
+
+    public function settings()
+    {
+        if (! session('isLoggedIn')) return redirect()->to('/login');
+        return view('auth/laboratory_settings'); // Renders Settings page
+    }
+
+    public function testRequest()
+    {
+        if (! session('isLoggedIn')) return redirect()->to('/login');
+        
+        // Load lab requests data
+        $labRequestModel = new \App\Models\LabRequestModel();
+        $requests = $labRequestModel->getAllRequests();
+        $stats = $labRequestModel->getRequestStats();
+        
+        $data = [
+            'requests' => $requests,
+            'stats' => $stats
+        ];
+        
+        return view('auth/laboratory_test_request', $data); // Renders Test Request page
+    }
+
+    public function testResults()
+    {
+        if (! session('isLoggedIn')) return redirect()->to('/login');
+        return view('auth/laboratory_test_results'); // Renders Test Results page
+    }
+
+    public function equipmentStatus()
+    {
+        if (! session('isLoggedIn')) return redirect()->to('/login');
+        return view('auth/laboratory_equipment_status'); // Renders Equipment Status page
+    }
 }
 
 

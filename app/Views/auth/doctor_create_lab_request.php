@@ -46,16 +46,13 @@
 		.form-select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;background:#fff}
 		.form-textarea{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;min-height:100px;resize:vertical}
 		
-		.tests-section{margin-bottom:24px}
-		.tests-title{font-size:16px;font-weight:600;color:#0f172a;margin-bottom:16px}
-		.tests-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
-		.test-category{background:#f8fafc;border-radius:8px;padding:16px;border:1px solid #e5e7eb}
-		.category-title{font-size:14px;font-weight:600;color:#374151;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px}
-		.test-checkbox{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-		.test-checkbox input[type="checkbox"]{width:16px;height:16px;accent-color:#2563eb}
-		.test-checkbox label{font-size:13px;color:#374151;cursor:pointer}
 		
 		.modal-footer{padding:20px;border-top:1px solid #ecf0f1;display:flex;justify-content:flex-end;gap:12px}
+		.form-container{background:#fff;border-radius:12px;box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);max-width:800px;margin:0 auto;overflow:hidden}
+		.form-header{padding:20px;border-bottom:1px solid #ecf0f1;display:flex;justify-content:space-between;align-items:center}
+		.form-header h2{font-size:18px;font-weight:700;color:#0f172a;margin:0}
+		.form-body{padding:20px;max-height:70vh;overflow-y:auto}
+		.form-footer{padding:20px;border-top:1px solid #ecf0f1;display:flex;justify-content:flex-end;gap:12px}
 		.btn{display:inline-block;padding:12px 24px;border:none;border-radius:8px;font-weight:600;text-decoration:none;cursor:pointer;font-size:14px}
 		.btn-primary{background:#2563eb;color:#fff}
 		.btn-secondary{background:#6b7280;color:#fff}
@@ -98,14 +95,15 @@
 					<div class="alert alert-success"><?= session('message') ?></div>
 				<?php endif; ?>
 
-				<div class="modal">
-					<div class="modal-header">
-						<div class="modal-title">New Laboratory Request</div>
-						<a href="<?= site_url('doctor/lab-requests') ?>" class="close-btn">×</a>
+				<div class="form-container">
+					<div class="form-header">
+						<h2>New Laboratory Request</h2>
+						<a href="<?= site_url('doctor/lab-requests') ?>" class="btn btn-secondary">← Back</a>
 					</div>
 					
-					<form method="post" action="<?= site_url('doctor/lab-requests/store') ?>">
-						<div class="modal-body">
+					<form method="post" action="<?= site_url('doctor/lab-requests/store') ?>" class="lab-request-form">
+						<?= csrf_field() ?>
+						<div class="form-body">
 							<!-- Patient Information -->
 							<div class="form-grid">
 								<div class="form-group">
@@ -135,153 +133,25 @@
 								</div>
 							</div>
 
-							<!-- Laboratory Tests -->
-							<div class="tests-section">
-								<div class="tests-title">Select Laboratory Tests</div>
-								<div class="tests-grid">
-									
-									<!-- Hematology -->
-									<div class="test-category">
-										<div class="category-title">Hematology</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Complete Blood Count" id="cbc">
-											<label for="cbc">Complete Blood Count</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Platelet Count" id="platelet">
-											<label for="platelet">Platelet Count</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Coagulation Studies" id="coagulation">
-											<label for="coagulation">Coagulation Studies</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Hemoglobin" id="hemoglobin">
-											<label for="hemoglobin">Hemoglobin</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="ESR" id="esr">
-											<label for="esr">ESR</label>
-										</div>
-									</div>
-
-									<!-- Chemistry -->
-									<div class="test-category">
-										<div class="category-title">Chemistry</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Basic Metabolic Panel" id="bmp">
-											<label for="bmp">Basic Metabolic Panel</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Lipid Profile" id="lipid">
-											<label for="lipid">Lipid Profile</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Kidney Function Tests" id="kidney">
-											<label for="kidney">Kidney Function Tests</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Comprehensive Metabolic Panel" id="cmp">
-											<label for="cmp">Comprehensive Metabolic Panel</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Liver Function Tests" id="liver">
-											<label for="liver">Liver Function Tests</label>
-										</div>
-									</div>
-
-									<!-- Endocrinology -->
-									<div class="test-category">
-										<div class="category-title">Endocrinology</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="HbA1c" id="hba1c">
-											<label for="hba1c">HbA1c</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Thyroid Function Tests" id="thyroid">
-											<label for="thyroid">Thyroid Function Tests</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Insulin Level" id="insulin">
-											<label for="insulin">Insulin Level</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Fasting Glucose" id="glucose">
-											<label for="glucose">Fasting Glucose</label>
-										</div>
-									</div>
-
-									<!-- Cardiology -->
-									<div class="test-category">
-										<div class="category-title">Cardiology</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Cardiac Enzymes" id="cardiac_enzymes">
-											<label for="cardiac_enzymes">Cardiac Enzymes</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="BNP" id="bnp">
-											<label for="bnp">BNP</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Troponin" id="troponin">
-											<label for="troponin">Troponin</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="D-Dimer" id="ddimer">
-											<label for="ddimer">D-Dimer</label>
-										</div>
-									</div>
-
-									<!-- Imaging -->
-									<div class="test-category">
-										<div class="category-title">Imaging</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Chest X-Ray" id="chest_xray">
-											<label for="chest_xray">Chest X-Ray</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="MRI" id="mri">
-											<label for="mri">MRI</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="ECG" id="ecg">
-											<label for="ecg">ECG</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="CT Scan" id="ct_scan">
-											<label for="ct_scan">CT Scan</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Ultrasound" id="ultrasound">
-											<label for="ultrasound">Ultrasound</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Echocardiogram" id="echo">
-											<label for="echo">Echocardiogram</label>
-										</div>
-									</div>
-
-									<!-- Microbiology -->
-									<div class="test-category">
-										<div class="category-title">Microbiology</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Blood Culture" id="blood_culture">
-											<label for="blood_culture">Blood Culture</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Sputum Culture" id="sputum_culture">
-											<label for="sputum_culture">Sputum Culture</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Urine Culture" id="urine_culture">
-											<label for="urine_culture">Urine Culture</label>
-										</div>
-										<div class="test-checkbox">
-											<input type="checkbox" name="tests[]" value="Wound Culture" id="wound_culture">
-											<label for="wound_culture">Wound Culture</label>
-										</div>
-									</div>
-								</div>
+							<!-- Test Type -->
+							<div class="form-group">
+								<label class="form-label">Test Type</label>
+								<select name="test_type" class="form-select" required>
+									<option value="">Select Test Type</option>
+									<option value="Complete Blood Count">Complete Blood Count</option>
+									<option value="Basic Metabolic Panel">Basic Metabolic Panel</option>
+									<option value="Lipid Profile">Lipid Profile</option>
+									<option value="Liver Function Test">Liver Function Test</option>
+									<option value="Urinalysis">Urinalysis</option>
+									<option value="Chest X-Ray">Chest X-Ray</option>
+									<option value="CT Scan">CT Scan</option>
+									<option value="MRI">MRI</option>
+									<option value="ECG">ECG</option>
+									<option value="Blood Glucose">Blood Glucose</option>
+									<option value="Thyroid Function Test">Thyroid Function Test</option>
+									<option value="Blood Culture">Blood Culture</option>
+									<option value="Other">Other</option>
+								</select>
 							</div>
 
 							<!-- Clinical Notes -->
@@ -291,7 +161,7 @@
 							</div>
 						</div>
 						
-						<div class="modal-footer">
+						<div class="form-footer">
 							<a href="<?= site_url('doctor/lab-requests') ?>" class="btn btn-secondary">Cancel</a>
 							<button type="submit" class="btn btn-primary">Submit Request</button>
 						</div>

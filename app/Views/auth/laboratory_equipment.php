@@ -6,98 +6,121 @@
     <title>Equipment Status - San Miguel HMS</title>
     <link rel="stylesheet" href="<?= base_url('assets/css/auth.css') ?>">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+        
         .equipment-status {
-            padding: 20px;
-            background: #f8fafc;
+            padding: 24px;
+            background: #f5f5f5;
             min-height: 100vh;
         }
         
         .page-header {
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
         
         .page-title {
-            color: #1e293b;
+            color: #2d3748;
             margin: 0;
-            font-size: 28px;
-            font-weight: 600;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
         
         .page-subtitle {
-            color: #64748b;
-            margin: 5px 0 0 0;
+            color: #718096;
+            margin: 8px 0 0 0;
             font-size: 16px;
+            font-weight: 400;
         }
         
         .summary-cards {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 16px;
+            margin-bottom: 24px;
         }
         
         .summary-card {
             background: white;
-            padding: 24px;
-            border-radius: 12px;
+            padding: 20px;
+            border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             border: 1px solid #e2e8f0;
-            text-align: center;
+            position: relative;
         }
         
         .card-number {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
             margin: 0;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
+            color: #2d3748;
         }
-        
-        .card-number.green { color: #16a34a; }
-        .card-number.orange { color: #ea580c; }
-        .card-number.red { color: #dc2626; }
-        .card-number.blue { color: #2563eb; }
         
         .card-label {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1e293b;
-            margin: 0;
-            margin-bottom: 4px;
-        }
-        
-        .card-subtitle {
             font-size: 14px;
-            color: #64748b;
+            font-weight: 600;
+            color: #2d3748;
             margin: 0;
+            margin-bottom: 2px;
         }
         
         .card-icon {
-            width: 48px;
-            height: 48px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 12px auto;
-            font-size: 20px;
+            font-size: 16px;
+            border: 2px solid;
         }
         
-        .icon-green { background: #dcfce7; color: #16a34a; }
-        .icon-yellow { background: #fef3c7; color: #d97706; }
-        .icon-orange { background: #fed7aa; color: #ea580c; }
-        .icon-blue { background: #dbeafe; color: #1e40af; }
+        .icon-green { 
+            background: #f0fff4; 
+            color: #38a169; 
+            border-color: #c6f6d5;
+        }
+        .icon-yellow { 
+            background: #fffbeb; 
+            color: #d69e2e; 
+            border-color: #faf089;
+        }
+        .icon-orange { 
+            background: #fffaf0; 
+            color: #dd6b20; 
+            border-color: #fbd38d;
+        }
+        .icon-blue { 
+            background: #ebf8ff; 
+            color: #3182ce; 
+            border-color: #bee3f8;
+        }
         
         .action-bar {
             background: white;
-            padding: 20px;
-            border-radius: 12px;
+            padding: 16px 20px;
+            border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             border: 1px solid #e2e8f0;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
         }
         
         .search-section {
@@ -108,58 +131,52 @@
         }
         
         .search-input {
-            padding: 10px 16px;
+            padding: 8px 12px;
             border: 1px solid #d1d5db;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 14px;
-            min-width: 250px;
+            min-width: 200px;
+            background: white;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
         }
         
         .filter-dropdown {
-            padding: 10px 16px;
+            padding: 8px 12px;
             border: 1px solid #d1d5db;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 14px;
             background: white;
-            min-width: 150px;
+            min-width: 140px;
         }
         
         .schedule-maintenance-btn {
-            background: #2563eb;
+            background: #3182ce;
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             white-space: nowrap;
-            transition: background 0.3s ease;
+            transition: background 0.2s ease;
         }
         
         .schedule-maintenance-btn:hover {
-            background: #1d4ed8;
+            background: #2c5aa0;
         }
         
         .equipment-table {
             background: white;
-            border-radius: 12px;
+            border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             border: 1px solid #e2e8f0;
             overflow: hidden;
-        }
-        
-        .table-header {
-            background: #f8fafc;
-            padding: 20px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .table-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #1e293b;
-            margin: 0;
         }
         
         .equipment-table table {
@@ -169,19 +186,21 @@
         
         .equipment-table th {
             text-align: left;
-            padding: 16px 20px;
+            padding: 12px 16px;
             border-bottom: 1px solid #e2e8f0;
             font-weight: 600;
-            color: #374151;
-            font-size: 14px;
-            background: #f8fafc;
+            color: #4a5568;
+            font-size: 12px;
+            background: #f7fafc;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .equipment-table td {
-            padding: 16px 20px;
+            padding: 12px 16px;
             border-bottom: 1px solid #f1f5f9;
             font-size: 14px;
-            color: #374151;
+            color: #2d3748;
             vertical-align: top;
         }
         
@@ -190,107 +209,121 @@
         }
         
         .equipment-info h4 {
-            color: #1e293b;
-            margin: 0 0 4px 0;
-            font-size: 16px;
-            font-weight: 600;
-        }
-        
-        .equipment-info p {
-            color: #6b7280;
+            color: #2d3748;
             margin: 0 0 2px 0;
-            font-size: 12px;
-        }
-        
-        .equipment-id {
-            color: #9ca3af;
-            font-size: 12px;
-        }
-        
-        .department-info h5 {
-            color: #1e293b;
-            margin: 0 0 4px 0;
             font-size: 14px;
             font-weight: 600;
         }
         
-        .department-info p {
-            color: #6b7280;
-            margin: 0 0 2px 0;
+        .equipment-info p {
+            color: #718096;
+            margin: 0 0 1px 0;
             font-size: 12px;
         }
         
+        .equipment-id {
+            color: #a0aec0;
+            font-size: 11px;
+        }
+        
+        .department-info h5 {
+            color: #2d3748;
+            margin: 0 0 2px 0;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .department-info p {
+            color: #718096;
+            margin: 0 0 1px 0;
+            font-size: 11px;
+        }
+        
         .equipment-status {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
             font-weight: 500;
             text-align: center;
             display: inline-block;
         }
         
-        .status-operational { background: #dcfce7; color: #16a34a; }
-        .status-maintenance { background: #fef3c7; color: #d97706; }
-        .status-calibration { background: #fed7aa; color: #ea580c; }
+        .status-operational { 
+            background: #c6f6d5; 
+            color: #22543d; 
+        }
+        .status-maintenance { 
+            background: #faf089; 
+            color: #744210; 
+        }
+        .status-calibration { 
+            background: #fbd38d; 
+            color: #7b341e; 
+        }
+        
+        .usage-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
         
         .usage-bar {
-            width: 100%;
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
+            flex: 1;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
             overflow: hidden;
-            margin-bottom: 8px;
         }
         
         .usage-fill {
             height: 100%;
-            border-radius: 4px;
+            border-radius: 3px;
             transition: width 0.3s ease;
         }
         
-        .usage-fill.high { background: #dc2626; }
-        .usage-fill.medium { background: #ea580c; }
-        .usage-fill.low { background: #16a34a; }
-        .usage-fill.zero { background: #9ca3af; }
+        .usage-fill.high { background: #e53e3e; }
+        .usage-fill.medium { background: #dd6b20; }
+        .usage-fill.low { background: #38a169; }
+        .usage-fill.zero { background: #a0aec0; }
         
         .usage-text {
             font-size: 12px;
-            color: #6b7280;
-            text-align: center;
+            color: #4a5568;
+            font-weight: 500;
+            min-width: 35px;
         }
         
         .maintenance-info {
-            font-size: 12px;
-            color: #6b7280;
-            line-height: 1.4;
+            font-size: 11px;
+            color: #4a5568;
+            line-height: 1.3;
         }
         
         .maintenance-info strong {
-            color: #374151;
+            color: #2d3748;
         }
         
         .action-links {
             display: flex;
-            flex-direction: column;
-            gap: 4px;
+            gap: 8px;
         }
         
         .action-link {
-            color: #2563eb;
+            color: #3182ce;
             text-decoration: none;
             font-size: 12px;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: color 0.2s ease;
         }
         
         .action-link:hover {
-            color: #1d4ed8;
+            color: #2c5aa0;
             text-decoration: underline;
         }
         
-        .action-link.view { color: #2563eb; }
-        .action-link.maintain { color: #16a34a; }
-        .action-link.calibrate { color: #ea580c; }
+        .action-link.view { color: #3182ce; }
+        .action-link.maintain { color: #38a169; }
+        .action-link.calibrate { color: #dd6b20; }
         
         @media (max-width: 1200px) {
             .summary-cards {
@@ -303,6 +336,10 @@
         }
         
         @media (max-width: 768px) {
+            .equipment-status {
+                padding: 16px;
+            }
+            
             .summary-cards {
                 grid-template-columns: 1fr;
             }
@@ -324,7 +361,7 @@
             
             .equipment-table th,
             .equipment-table td {
-                padding: 12px 16px;
+                padding: 8px 12px;
                 font-size: 12px;
             }
         }
@@ -344,31 +381,27 @@
             
             <div class="summary-cards">
                 <div class="summary-card">
-                    <div class="card-icon icon-green">✅</div>
-                    <h2 class="card-number green">12</h2>
+                    <h2 class="card-number">12</h2>
                     <p class="card-label">Operational</p>
-                    <p class="card-subtitle">Fully functional</p>
+                    <div class="card-icon icon-green">✓</div>
                 </div>
                 
                 <div class="summary-card">
-                    <div class="card-icon icon-yellow">🔧</div>
-                    <h2 class="card-number orange">3</h2>
+                    <h2 class="card-number">3</h2>
                     <p class="card-label">Under Maintenance</p>
-                    <p class="card-subtitle">Being serviced</p>
+                    <div class="card-icon icon-yellow">✕</div>
                 </div>
                 
                 <div class="summary-card">
-                    <div class="card-icon icon-orange">⚠️</div>
-                    <h2 class="card-number red">2</h2>
+                    <h2 class="card-number">2</h2>
                     <p class="card-label">Needs Attention</p>
-                    <p class="card-subtitle">Requires service</p>
+                    <div class="card-icon icon-orange">!</div>
                 </div>
                 
                 <div class="summary-card">
-                    <div class="card-icon icon-blue">🔄</div>
-                    <h2 class="card-number blue">87%</h2>
+                    <h2 class="card-number">87%</h2>
                     <p class="card-label">Overall Uptime</p>
-                    <p class="card-subtitle">This month</p>
+                    <div class="card-icon icon-blue">⏰</div>
                 </div>
             </div>
             
@@ -390,10 +423,6 @@
             </div>
             
             <div class="equipment-table">
-                <div class="table-header">
-                    <h3 class="table-title">Equipment Inventory</h3>
-                </div>
-                
                 <table>
                     <thead>
                         <tr>
@@ -425,10 +454,12 @@
                                 <span class="equipment-status status-operational">Operational</span>
                             </td>
                             <td>
-                                <div class="usage-bar">
-                                    <div class="usage-fill high" style="width: 95%"></div>
+                                <div class="usage-container">
+                                    <div class="usage-bar">
+                                        <div class="usage-fill high" style="width: 95%"></div>
+                                    </div>
+                                    <div class="usage-text">95%</div>
                                 </div>
-                                <div class="usage-text">95%</div>
                             </td>
                             <td>
                                 <div class="maintenance-info">
@@ -464,10 +495,12 @@
                                 <span class="equipment-status status-maintenance">Under Maintenance</span>
                             </td>
                             <td>
-                                <div class="usage-bar">
-                                    <div class="usage-fill zero" style="width: 0%"></div>
+                                <div class="usage-container">
+                                    <div class="usage-bar">
+                                        <div class="usage-fill zero" style="width: 0%"></div>
+                                    </div>
+                                    <div class="usage-text">0%</div>
                                 </div>
-                                <div class="usage-text">0%</div>
                             </td>
                             <td>
                                 <div class="maintenance-info">
@@ -503,10 +536,12 @@
                                 <span class="equipment-status status-operational">Operational</span>
                             </td>
                             <td>
-                                <div class="usage-bar">
-                                    <div class="usage-fill medium" style="width: 78%"></div>
+                                <div class="usage-container">
+                                    <div class="usage-bar">
+                                        <div class="usage-fill medium" style="width: 78%"></div>
+                                    </div>
+                                    <div class="usage-text">78%</div>
                                 </div>
-                                <div class="usage-text">78%</div>
                             </td>
                             <td>
                                 <div class="maintenance-info">
@@ -542,10 +577,12 @@
                                 <span class="equipment-status status-calibration">Needs Calibration</span>
                             </td>
                             <td>
-                                <div class="usage-bar">
-                                    <div class="usage-fill low" style="width: 60%"></div>
+                                <div class="usage-container">
+                                    <div class="usage-bar">
+                                        <div class="usage-fill low" style="width: 60%"></div>
+                                    </div>
+                                    <div class="usage-text">60%</div>
                                 </div>
-                                <div class="usage-text">60%</div>
                             </td>
                             <td>
                                 <div class="maintenance-info">
@@ -581,10 +618,12 @@
                                 <span class="equipment-status status-operational">Operational</span>
                             </td>
                             <td>
-                                <div class="usage-bar">
-                                    <div class="usage-fill medium" style="width: 85%"></div>
+                                <div class="usage-container">
+                                    <div class="usage-bar">
+                                        <div class="usage-fill medium" style="width: 85%"></div>
+                                    </div>
+                                    <div class="usage-text">85%</div>
                                 </div>
-                                <div class="usage-text">85%</div>
                             </td>
                             <td>
                                 <div class="maintenance-info">

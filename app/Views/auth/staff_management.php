@@ -60,7 +60,8 @@
 <div class="modal" id="addUserModal" style="display:none">
     <div class="modal-content" style="max-width:520px">
         <div class="modal-header"><h3>Add New Staff Member</h3><button class="close" id="closeAddUser">×</button></div>
-        <form method="post" action="<?php echo site_url('staff-management/store'); ?>" class="form-grid">
+        <form method="post" action="<?php echo site_url('staff-management/store'); ?>" class="form-grid" id="addUserForm">
+            <?php echo csrf_field(); ?>
             <div class="form-group"><label>Name</label><input type="text" name="name" required value="<?php echo old('name'); ?>"></div>
             <div class="form-group"><label>Email</label><input type="email" name="email" required value="<?php echo old('email'); ?>"></div>
             <div class="form-group"><label>Password</label><input type="password" name="password" required></div>

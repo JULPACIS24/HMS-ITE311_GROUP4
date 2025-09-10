@@ -198,9 +198,16 @@ $routes->get('/insurance/submit-claim', 'Insurance::submitClaim', ['filter' => '
 
 // Laboratory Routes
 $routes->get('/laboratory', 'Laboratory::index', ['filter' => 'auth']);
-$routes->get('/laboratory/requests', 'Laboratory::requests', ['filter' => 'auth']);
-$routes->get('/laboratory/results', 'Laboratory::results', ['filter' => 'auth']);
+
+$routes->get('/laboratory/test/request', 'Laboratory::testRequest', ['filter' => 'auth']);
+$routes->get('/laboratory/test/results', 'Laboratory::testResults', ['filter' => 'auth']);
 $routes->get('/laboratory/equipment', 'Laboratory::equipment', ['filter' => 'auth']);
+$routes->get('/laboratory/equipment/status', 'Laboratory::equipmentStatus', ['filter' => 'auth']);
+$routes->get('/laboratory/tracking', 'Laboratory::tracking', ['filter' => 'auth']);
+$routes->get('/laboratory/reports', 'Laboratory::reports', ['filter' => 'auth']);
+$routes->get('/laboratory/quality', 'Laboratory::quality', ['filter' => 'auth']);
+$routes->get('/laboratory/inventory', 'Laboratory::inventory', ['filter' => 'auth']);
+$routes->get('/laboratory/settings', 'Laboratory::settings', ['filter' => 'auth']);
 
 // Lab Management Routes (Admin)
 $routes->get('/lab-management', 'LabManagement::index', ['filter' => 'auth']);

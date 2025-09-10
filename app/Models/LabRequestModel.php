@@ -13,15 +13,15 @@ class LabRequestModel extends Model
     protected $useSoftDeletes = false;
 
     protected $allowedFields = [
+        'lab_id',
+        'patient_name',
         'patient_id',
-        'doctor_id',
-        'test_type',
+        'doctor_name',
+        'tests',
         'priority',
         'status',
-        'request_date',
-        'notes',
-        'created_at',
-        'updated_at'
+        'expected_date',
+        'clinical_notes'
     ];
 
     protected $useTimestamps = true;
@@ -29,33 +29,44 @@ class LabRequestModel extends Model
     protected $updatedField = 'updated_at';
 
     protected $validationRules = [
-        'patient_id' => 'required|integer',
-        'doctor_id' => 'required|integer',
-        'test_type' => 'required|string|max_length[255]',
-        'priority' => 'required|in_list[normal,high,urgent]',
-        'status' => 'required|in_list[pending,in_progress,completed,ready]'
+        'patient_name' => 'required|string|max_length[255]',
+        'patient_id' => 'required|string|max_length[50]',
+        'doctor_name' => 'required|string|max_length[255]',
+        'tests' => 'required|string|max_length[255]',
+        'priority' => 'required|in_list[Routine,Urgent,STAT]',
+        'status' => 'required|in_list[New Request,In Progress,Completed]',
+        'expected_date' => 'required|valid_date',
+        'clinical_notes' => 'permit_empty|string'
     ];
 
     protected $validationMessages = [
+        'patient_name' => [
+            'required' => 'Patient name is required',
+            'max_length' => 'Patient name cannot exceed 255 characters'
+        ],
         'patient_id' => [
             'required' => 'Patient ID is required',
-            'integer' => 'Patient ID must be a number'
+            'max_length' => 'Patient ID cannot exceed 50 characters'
         ],
-        'doctor_id' => [
-            'required' => 'Doctor ID is required',
-            'integer' => 'Doctor ID must be a number'
+        'doctor_name' => [
+            'required' => 'Doctor name is required',
+            'max_length' => 'Doctor name cannot exceed 255 characters'
         ],
-        'test_type' => [
+        'tests' => [
             'required' => 'Test type is required',
             'max_length' => 'Test type cannot exceed 255 characters'
         ],
         'priority' => [
             'required' => 'Priority is required',
-            'in_list' => 'Priority must be normal, high, or urgent'
+            'in_list' => 'Priority must be Routine, Urgent, or STAT'
         ],
         'status' => [
             'required' => 'Status is required',
-            'in_list' => 'Status must be pending, in_progress, completed, or ready'
+            'in_list' => 'Status must be New Request, In Progress, or Completed'
+        ],
+        'expected_date' => [
+            'required' => 'Expected date is required',
+            'valid_date' => 'Expected date must be a valid date'
         ]
     ];
 
@@ -128,5 +139,57 @@ class LabRequestModel extends Model
     public function getUrgentLabRequestsCount()
     {
         return $this->where('priority', 'urgent')->countAllResults();
+    }
+
+    /**
+     * Get all lab requests with optional filtering
+     */
+    public function getAllRequests($status = null, $priority = null)
+    {
+        $builder = $this->builder();
+        
+        if ($status) {
+            $builder->where('status', $status);
+        }
+        
+        if ($priority) {
+            $builder->where('priority', $priority);
+        }
+        
+        return $builder->orderBy('created_at', 'DESC')->get()->getResultArray();
+    }
+
+    /**
+     * Get request statistics
+     */
+    public function getRequestStats()
+    {
+        $total = $this->countAllResults();
+        $new = $this->where('status', 'New Request')->countAllResults();
+        $inProgress = $this->where('status', 'In Progress')->countAllResults();
+        $urgent = $this->whereIn('priority', ['Urgent', 'STAT'])->countAllResults();
+        
+        return [
+            'total' => $total,
+            'new' => $new,
+            'in_progress' => $inProgress,
+            'urgent' => $urgent
+        ];
+    }
+
+    /**
+     * Delete lab request by ID
+     */
+    public function deleteRequest($id)
+    {
+        return $this->delete($id);
+    }
+
+    /**
+     * Delete lab request by patient name
+     */
+    public function deleteByPatientName($patientName)
+    {
+        return $this->where('patient_name', $patientName)->delete();
     }
 }

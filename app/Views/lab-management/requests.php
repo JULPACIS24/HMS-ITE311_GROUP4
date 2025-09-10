@@ -531,7 +531,7 @@
                                                 </div>
                                             </td>
                                             <td class="doctor-name"><?= esc($request['doctor_name']) ?></td>
-                                            <td class="test-type"><?= esc($request['test_type']) ?></td>
+                                            <td class="test-type"><?= esc($request['tests']) ?></td>
                                             <td>
                                                 <span class="status-badge status-<?= strtolower(str_replace(' ', '-', $request['status'])) ?>">
                                                     <?= esc($request['status']) ?>

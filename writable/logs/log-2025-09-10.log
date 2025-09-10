@@ -1,0 +1,156 @@
+CRITICAL - 2025-09-10 13:04:47 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "auth/laboratory_inventory.php"
+[Method: GET, Route: laboratory/inventory]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('auth/laboratory_inventory.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/laboratory_inventory', [], true)
+ 3 APPPATH\Controllers\Laboratory.php(90): view('auth/laboratory_inventory')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laboratory->inventory()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laboratory))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-10 13:04:50 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "auth/laboratory_settings.php"
+[Method: GET, Route: laboratory/settings]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('auth/laboratory_settings.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/laboratory_settings', [], true)
+ 3 APPPATH\Controllers\Laboratory.php(96): view('auth/laboratory_settings')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laboratory->settings()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laboratory))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-10 13:04:55 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "auth/laboratory_quality.php"
+[Method: GET, Route: laboratory/quality]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('auth/laboratory_quality.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/laboratory_quality', [], true)
+ 3 APPPATH\Controllers\Laboratory.php(84): view('auth/laboratory_quality')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laboratory->quality()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laboratory))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-10 13:04:58 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "auth/laboratory_settings.php"
+[Method: GET, Route: laboratory/settings]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('auth/laboratory_settings.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/laboratory_settings', [], true)
+ 3 APPPATH\Controllers\Laboratory.php(96): view('auth/laboratory_settings')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laboratory->settings()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laboratory))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-10 13:05:09 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "auth/laboratory_settings.php"
+[Method: GET, Route: laboratory/settings]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('auth/laboratory_settings.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/laboratory_settings', [], true)
+ 3 APPPATH\Controllers\Laboratory.php(96): view('auth/laboratory_settings')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laboratory->settings()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laboratory))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-10 13:05:22 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "auth/laboratory_inventory.php"
+[Method: GET, Route: laboratory/inventory]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('auth/laboratory_inventory.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/laboratory_inventory', [], true)
+ 3 APPPATH\Controllers\Laboratory.php(90): view('auth/laboratory_inventory')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laboratory->inventory()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laboratory))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-10 13:05:32 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "auth/laboratory_settings.php"
+[Method: GET, Route: laboratory/settings]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('auth/laboratory_settings.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/laboratory_settings', [], true)
+ 3 APPPATH\Controllers\Laboratory.php(96): view('auth/laboratory_settings')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laboratory->settings()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laboratory))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-10 13:05:41 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "auth/laboratory_settings.php"
+[Method: GET, Route: laboratory/settings]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('auth/laboratory_settings.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/laboratory_settings', [], true)
+ 3 APPPATH\Controllers\Laboratory.php(96): view('auth/laboratory_settings')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laboratory->settings()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laboratory))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-10 13:23:59 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "auth/accountant_accounts.php"
+[Method: GET, Route: accountant/accounts]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('auth/accountant_accounts.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/accountant_accounts', [], true)
+ 3 APPPATH\Controllers\Accountant.php(97): view('auth/accountant_accounts')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Accountant->accounts()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Accountant))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-10 14:23:11 --> mysqli_sql_exception: Table 'lab_requests' already exists in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `l...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `l...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `l...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `l...')
+#4 C:\xampp\htdocs\hms_group4\app\Database\Migrations\2025-09-10-062249_CreateLabRequestsTable.php(78): CodeIgniter\Database\Forge->createTable('lab_requests')
+#5 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateLabRequestsTable->up()
+#6 C:\xampp\htdocs\hms_group4\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\hms_group4\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\hms_group4\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\hms_group4\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\hms_group4\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\hms_group4\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-10 14:30:41 --> ErrorException: Cannot declare class App\Database\Migrations\CreateLabRequestsTable, because the name is already in use
+[Method: CLI, Route: migrate]
+in APPPATH\Database\Migrations\2025-09-10-063021_CreateLabRequestsTable.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-10 14:57:53 --> Error: Call to undefined method CodeIgniter\HTTP\IncomingRequest::isValidCsrfToken()
+[Method: POST, Route: doctor/lab-requests/store]
+in APPPATH\Controllers\Doctor.php on line 279.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctor->storeLabRequest()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-10 15:08:51 --> Lab request validation errors: {"patient_id":"Patient ID must be a number","doctor_id":"Doctor ID is required","test_type":"Test type is required","priority":"Priority must be normal, high, or urgent","status":"Status must be pending, in_progress, completed, or ready"}
+ERROR - 2025-09-10 15:11:39 --> mysqli_sql_exception: Duplicate entry '' for key 'lab_id' in C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_group4\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `la...', 0)
+#1 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `la...')
+#2 C:\xampp\htdocs\hms_group4\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `la...')
+#3 C:\xampp\htdocs\hms_group4\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `la...', Array, false)
+#4 C:\xampp\htdocs\hms_group4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_group4\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_group4\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\hms_group4\app\Controllers\Doctor.php(319): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(933): App\Controllers\Doctor->storeLabRequest()
+#9 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctor))
+#10 C:\xampp\htdocs\hms_group4\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\hms_group4\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\hms_group4\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\hms_group4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-09-10 15:11:39 --> Lab request insert error: Duplicate entry '' for key 'lab_id'

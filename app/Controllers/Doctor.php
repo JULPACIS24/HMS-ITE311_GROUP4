@@ -275,37 +275,68 @@ class Doctor extends BaseController
 		if (! session('isLoggedIn')) return redirect()->to('/login');
 		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
 		
+		// CSRF protection is handled by the form field
+		
+		// Debug: Log the POST data
+		log_message('info', 'Doctor storeLabRequest - POST data: ' . json_encode($this->request->getPost()));
+		
 		$labRequestModel = new \App\Models\LabRequestModel();
 		$patientModel = new \App\Models\PatientModel();
 		
 		// Get patient details
 		$patientId = $this->request->getPost('patient_id');
+		log_message('info', 'Patient ID from form: ' . $patientId);
+		
 		$patient = $patientModel->find($patientId);
+		log_message('info', 'Patient found: ' . json_encode($patient));
 		
 		if (!$patient) {
+			log_message('error', 'Patient not found with ID: ' . $patientId);
 			return redirect()->back()->with('error', 'Patient not found.');
 		}
 		
-		// Get selected tests
-		$selectedTests = $this->request->getPost('tests') ?? [];
-		$testsString = implode(', ', $selectedTests);
+		// Get test type
+		$testType = $this->request->getPost('test_type');
+		log_message('info', 'Test type from form: ' . $testType);
+		
+		// Generate unique lab ID
+		$lastRequest = $labRequestModel->orderBy('id', 'DESC')->first();
+		$nextId = $lastRequest ? (intval(substr($lastRequest['lab_id'] ?? 'LAB-0000', 4)) + 1) : 1;
+		$labId = 'LAB-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
 		
 		$labRequestData = [
-			'lab_id' => 'LAB-' . date('YmdHis'),
+			'lab_id' => $labId,
 			'patient_name' => $patient['first_name'] . ' ' . $patient['last_name'],
 			'patient_id' => 'P-' . str_pad($patient['id'], 6, '0', STR_PAD_LEFT),
 			'doctor_name' => session('user_name'),
-			'tests' => $testsString,
-			'priority' => $this->request->getPost('priority'),
-			'status' => 'Pending',
+			'tests' => $testType,
+			'priority' => $this->request->getPost('priority') ?: 'Routine',
+			'status' => 'New Request',
 			'expected_date' => $this->request->getPost('expected_date'),
-			'clinical_notes' => $this->request->getPost('clinical_notes'),
-			'created_at' => date('Y-m-d H:i:s')
+			'clinical_notes' => $this->request->getPost('clinical_notes')
 		];
 		
-		$labRequestModel->insert($labRequestData);
+		log_message('info', 'Lab request data to insert: ' . json_encode($labRequestData));
 		
-		return redirect()->to('/doctor/lab-requests')->with('message', 'Lab request created successfully.');
+		try {
+			// Debug: Check if model can insert
+			log_message('info', 'About to insert lab request data: ' . json_encode($labRequestData));
+			
+			$result = $labRequestModel->insert($labRequestData);
+			log_message('info', 'Lab request insert result: ' . ($result ? 'SUCCESS - ID: ' . $result : 'FAILED'));
+			
+			// Check for validation errors
+			if (!$result) {
+				$errors = $labRequestModel->errors();
+				log_message('error', 'Lab request validation errors: ' . json_encode($errors));
+				return redirect()->back()->with('error', 'Failed to create lab request. Validation errors: ' . implode(', ', $errors));
+			}
+			
+			return redirect()->to('/doctor/lab-requests')->with('message', 'Lab request created successfully.');
+		} catch (\Exception $e) {
+			log_message('error', 'Lab request insert error: ' . $e->getMessage());
+			return redirect()->back()->with('error', 'Error creating lab request: ' . $e->getMessage());
+		}
 	}
 	
 	public function viewLabRequest($id)
