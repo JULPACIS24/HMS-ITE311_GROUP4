@@ -388,9 +388,16 @@
             text-decoration: none;
         }
 
-        .btn-view { background: #3b82f6; color: white; }
-        .btn-edit { background: #8b5cf6; color: white; }
-        .btn-delete { background: #ef4444; color: white; }
+        .action-link {
+            text-decoration: underline;
+            font-size: 14px;
+            margin-right: 15px;
+            font-weight: 500;
+        }
+
+        .process-link { color: #10b981; }
+        .view-link { color: #3b82f6; }
+        .edit-link { color: #374151; }
 
         .btn-action:hover {
             transform: translateY(-1px);
@@ -539,9 +546,9 @@
                                             </td>
                                             <td class="request-date"><?= date('Y-m-d H:i', strtotime($request['created_at'])) ?></td>
                                             <td class="actions">
-                                                <a href="<?= site_url('lab-management/view/' . $request['lab_id']) ?>" class="btn-action btn-view" title="View">👁️</a>
-                                                <a href="<?= site_url('lab-management/edit/' . $request['lab_id']) ?>" class="btn-action btn-edit" title="Edit">✏️</a>
-                                                <button class="btn-action btn-delete" title="Delete" onclick="deleteRequest('<?= $request['lab_id'] ?>')">🗑️</button>
+                                                <a href="<?= site_url('lab-management/process/' . $request['lab_id']) ?>" class="action-link process-link">Process</a>
+                                                <a href="<?= site_url('lab-management/view/' . $request['lab_id']) ?>" class="action-link view-link">View</a>
+                                                <a href="<?= site_url('lab-management/edit/' . $request['lab_id']) ?>" class="action-link edit-link">Edit</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
