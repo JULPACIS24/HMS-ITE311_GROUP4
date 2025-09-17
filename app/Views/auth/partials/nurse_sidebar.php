@@ -4,7 +4,7 @@
         <span class="sidebar-title">Nurse Portal</span>
     </div>
     <div class="sidebar-menu">
-        <a href="<?= site_url('nurse') ?>" class="menu-item"><span class="menu-icon">🏠</span>Dashboard</a>
+        <a href="<?= site_url('nurse') ?>" class="menu-item active"><span class="menu-icon">🏠</span>Dashboard</a>
         <a href="#" class="menu-item"><span class="menu-icon">👥</span>Patients</a>
         <a href="#" class="menu-item"><span class="menu-icon">📈</span>Patient Monitoring</a>
         <a href="#" class="menu-item"><span class="menu-icon">💊</span>Medications</a>
