@@ -8,19 +8,22 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 // Auth routes
-$routes->get('register', 'Auth::register');
-$routes->post('register', 'Auth::attemptRegister');
-
 $routes->get('login', 'Auth::login');
 $routes->post('login', 'Auth::attemptLogin');
 
 $routes->get('logout', 'Auth::logout');
+$routes->get('force-logout', 'Auth::forceLogout');
+$routes->get('test-auth', 'Auth::testAuth');
+$routes->get('clear-session', 'Auth::clearSession');
+$routes->get('test-doctor', 'Doctor::index', ['filter' => 'auth']);
+$routes->get('test-laboratory', 'Laboratory::index', ['filter' => 'auth']);
 
 // Protected route
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
 
 // Admin Routes
-$routes->get('admin/dashboard', 'Dashboard::index', ['filter' => 'auth']);
+$routes->get('admin/dashboard', 'Admin::dashboard', ['filter' => 'auth']);
+$routes->get('admin', 'Admin::index', ['filter' => 'auth']);
 $routes->get('admin/patient-management', 'Patients::management', ['filter' => 'auth']);
 $routes->get('admin/patient-management/records', 'Patients::index', ['filter' => 'auth']);
 $routes->get('admin/patient-management/add', 'Patients::add', ['filter' => 'auth']);
@@ -51,16 +54,16 @@ $routes->get('admin/branch-management', 'BranchManagement::index', ['filter' => 
 $routes->get('admin/system-settings', 'Settings::index', ['filter' => 'auth']);
 $routes->get('admin/logout', 'Auth::logout', ['filter' => 'auth']);
 
-$routes->get('/patients', 'Patients::index');
-$routes->get('/patient-management', 'Patients::management');
-$routes->get('/patients/records', 'Patients::index');
-$routes->get('/patients/add', 'Patients::add');
-$routes->get('/patients/history', 'Patients::history');
-$routes->get('/patients/view/(:num)', 'Patients::view/$1');
-$routes->get('/patients/edit/(:num)', 'Patients::edit/$1');
-$routes->post('/patients/update/(:num)', 'Patients::update/$1');
-$routes->get('/patients/delete/(:num)', 'Patients::delete/$1');
-$routes->get('/patients/json/(:num)', 'Patients::json/$1');
+$routes->get('/patients', 'Patients::index', ['filter' => 'auth']);
+$routes->get('/patient-management', 'Patients::management', ['filter' => 'auth']);
+$routes->get('/patients/records', 'Patients::index', ['filter' => 'auth']);
+$routes->get('/patients/add', 'Patients::add', ['filter' => 'auth']);
+$routes->get('/patients/history', 'Patients::history', ['filter' => 'auth']);
+$routes->get('/patients/view/(:num)', 'Patients::view/$1', ['filter' => 'auth']);
+$routes->get('/patients/edit/(:num)', 'Patients::edit/$1', ['filter' => 'auth']);
+$routes->post('/patients/update/(:num)', 'Patients::update/$1', ['filter' => 'auth']);
+$routes->get('/patients/delete/(:num)', 'Patients::delete/$1', ['filter' => 'auth']);
+$routes->get('/patients/json/(:num)', 'Patients::json/$1', ['filter' => 'auth']);
 
 // Additional dashboards
 $routes->get('users', 'Users::index', ['filter' => 'auth']);
@@ -200,12 +203,11 @@ $routes->get('/insurance/submit-claim', 'Insurance::submitClaim', ['filter' => '
 $routes->get('/laboratory', 'Laboratory::index', ['filter' => 'auth']);
 
 $routes->get('/laboratory/test/request', 'Laboratory::testRequest', ['filter' => 'auth']);
+$routes->get('/laboratory/clear-old-data', 'Laboratory::clearOldData', ['filter' => 'auth']);
 $routes->get('/laboratory/test/results', 'Laboratory::testResults', ['filter' => 'auth']);
 $routes->get('/laboratory/equipment', 'Laboratory::equipment', ['filter' => 'auth']);
 $routes->get('/laboratory/equipment/status', 'Laboratory::equipmentStatus', ['filter' => 'auth']);
-$routes->get('/laboratory/tracking', 'Laboratory::tracking', ['filter' => 'auth']);
 $routes->get('/laboratory/reports', 'Laboratory::reports', ['filter' => 'auth']);
-$routes->get('/laboratory/quality', 'Laboratory::quality', ['filter' => 'auth']);
 $routes->get('/laboratory/inventory', 'Laboratory::inventory', ['filter' => 'auth']);
 $routes->get('/laboratory/settings', 'Laboratory::settings', ['filter' => 'auth']);
 
@@ -218,7 +220,7 @@ $routes->get('/lab-management/new-test', 'LabManagement::newTest', ['filter' => 
 $routes->get('/lab-management/view/(:any)', 'LabManagement::view/$1', ['filter' => 'auth']);
 $routes->get('/lab-management/edit/(:any)', 'LabManagement::edit/$1', ['filter' => 'auth']);
 $routes->get('/lab-management/delete/(:any)', 'LabManagement::delete/$1', ['filter' => 'auth']);
-$routes->get('/lab-management/test', 'LabManagement::test');
+$routes->get('/lab-management/test', 'LabManagement::test', ['filter' => 'auth']);
 
 // Accountant Routes
 $routes->get('/accountant', 'Accountant::index', ['filter' => 'auth']);

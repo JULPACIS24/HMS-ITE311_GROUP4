@@ -6,13 +6,15 @@ class Doctor extends BaseController
 {
 	public function index()
 	{
+		// Check if user is logged in
 		if (! session('isLoggedIn')) {
-			return redirect()->to('/login');
+			return redirect()->to('/login')->with('error', 'Please log in to access Doctor Dashboard.');
 		}
 
-		// Optional role gate
-		if (session('role') && session('role') !== 'doctor') {
-			return redirect()->to('/dashboard');
+		// Check if user has doctor role
+		if (session('role') !== 'doctor') {
+			session()->destroy();
+			return redirect()->to('/login')->with('error', 'Access denied. Doctor privileges required.');
 		}
 
 		return view('auth/doctor_dashboard');
@@ -21,7 +23,7 @@ class Doctor extends BaseController
 	public function patients()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		// Get real patient data from database - same as admin
 		$model = new \App\Models\PatientModel();
@@ -41,7 +43,7 @@ class Doctor extends BaseController
 	public function viewPatient($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$model = new \App\Models\PatientModel();
 		$data['patient'] = $model->find($id);
@@ -56,7 +58,7 @@ class Doctor extends BaseController
 	public function editPatient($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$model = new \App\Models\PatientModel();
 		$data['patient'] = $model->find($id);
@@ -71,7 +73,7 @@ class Doctor extends BaseController
 	public function updatePatient($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$rules = [
 			'first_name' => 'required|min_length[2]',
@@ -108,7 +110,7 @@ class Doctor extends BaseController
 	public function appointments()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		// Get real appointment data for the logged-in doctor
 		$appointmentModel = new \App\Models\AppointmentModel();
@@ -189,35 +191,51 @@ class Doctor extends BaseController
 	public function prescriptions()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
-		// Get real patients from database
-		$patientModel = new \App\Models\PatientModel();
-		$patients = $patientModel->orderBy('first_name', 'ASC')->findAll();
-		
-		// Get real prescriptions for this doctor
-		$prescriptionModel = new \App\Models\PrescriptionModel();
-		$prescriptions = $prescriptionModel->getByDoctor(session('user_name'));
-		
-		// Calculate real prescription statistics
-		$stats = [
-			'total_prescriptions' => count($prescriptions),
-			'active_prescriptions' => count(array_filter($prescriptions, function($p) { return $p['status'] === 'Active'; })),
-			'pending_approvals' => count(array_filter($prescriptions, function($p) { return $p['status'] === 'Pending'; })),
-			'refills_needed' => count(array_filter($prescriptions, function($p) { return $p['status'] === 'Refill'; }))
-		];
-		
-		return view('auth/doctor_prescriptions', [
-			'patients' => $patients,
-			'prescriptions' => $prescriptions,
-			'stats' => $stats
-		]);
+		try {
+			// Get real patients from database
+			$patientModel = new \App\Models\PatientModel();
+			$patients = $patientModel->orderBy('first_name', 'ASC')->findAll();
+			
+			// Get real prescriptions for this doctor
+			$prescriptionModel = new \App\Models\PrescriptionModel();
+			$prescriptions = $prescriptionModel->getByDoctor(session('user_name'));
+			
+			// Calculate real prescription statistics
+			$stats = [
+				'total_prescriptions' => count($prescriptions),
+				'active_prescriptions' => count(array_filter($prescriptions, function($p) { return $p['status'] === 'Active'; })),
+				'pending_approvals' => count(array_filter($prescriptions, function($p) { return $p['status'] === 'Pending'; })),
+				'refills_needed' => count(array_filter($prescriptions, function($p) { return $p['status'] === 'Refill'; }))
+			];
+			
+			return view('auth/doctor_prescriptions', [
+				'patients' => $patients,
+				'prescriptions' => $prescriptions,
+				'stats' => $stats
+			]);
+		} catch (\Exception $e) {
+			// Log the error and return a simple view
+			log_message('error', 'Doctor prescriptions error: ' . $e->getMessage());
+			
+			return view('auth/doctor_prescriptions', [
+				'patients' => [],
+				'prescriptions' => [],
+				'stats' => [
+					'total_prescriptions' => 0,
+					'active_prescriptions' => 0,
+					'pending_approvals' => 0,
+					'refills_needed' => 0
+				]
+			]);
+		}
 	}
 
 	public function labRequests()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		// Get lab requests for this doctor
 		$labRequestModel = new \App\Models\LabRequestModel();
@@ -259,7 +277,7 @@ class Doctor extends BaseController
 	public function createLabRequest()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		// Get available patients
 		$patientModel = new \App\Models\PatientModel();
@@ -273,7 +291,7 @@ class Doctor extends BaseController
 	public function storeLabRequest()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		// CSRF protection is handled by the form field
 		
@@ -342,7 +360,7 @@ class Doctor extends BaseController
 	public function viewLabRequest($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$labRequestModel = new \App\Models\LabRequestModel();
 		$labRequest = $labRequestModel->find($id);
@@ -362,7 +380,7 @@ class Doctor extends BaseController
 	public function editLabRequest($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$labRequestModel = new \App\Models\LabRequestModel();
 		$labRequest = $labRequestModel->find($id);
@@ -389,7 +407,7 @@ class Doctor extends BaseController
 	public function updateLabRequest($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$labRequestModel = new \App\Models\LabRequestModel();
 		$labRequest = $labRequestModel->find($id);
@@ -422,7 +440,7 @@ class Doctor extends BaseController
 	public function deleteLabRequest($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$labRequestModel = new \App\Models\LabRequestModel();
 		$labRequest = $labRequestModel->find($id);
@@ -444,7 +462,7 @@ class Doctor extends BaseController
 	public function consultations()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		// Debug session data
 		log_message('info', 'Doctor consultations - Session data: user_id=' . session('user_id') . ', user_name=' . session('user_name') . ', role=' . session('role'));
@@ -502,14 +520,14 @@ class Doctor extends BaseController
 	public function reports()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		return view('auth/doctor_reports');
 	}
 
 	public function editAppointment($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$appointmentModel = new \App\Models\AppointmentModel();
 		$appointment = $appointmentModel->find($id);
@@ -529,7 +547,7 @@ class Doctor extends BaseController
 	public function updateAppointment($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$appointmentModel = new \App\Models\AppointmentModel();
 		$appointment = $appointmentModel->find($id);
@@ -557,7 +575,7 @@ class Doctor extends BaseController
 	public function markCompleted($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$appointmentModel = new \App\Models\AppointmentModel();
 		$appointment = $appointmentModel->find($id);
@@ -579,7 +597,7 @@ class Doctor extends BaseController
 	public function scheduleAppointment()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		// Get available patients
 		$patientModel = new \App\Models\PatientModel();
@@ -602,7 +620,7 @@ class Doctor extends BaseController
 	public function createAppointment()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$appointmentModel = new \App\Models\AppointmentModel();
 		$patientModel = new \App\Models\PatientModel();
@@ -635,7 +653,7 @@ class Doctor extends BaseController
 	public function createPrescription()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$prescriptionModel = new \App\Models\PrescriptionModel();
 		
@@ -698,7 +716,7 @@ class Doctor extends BaseController
 	public function startConsultation()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$appointmentId = $this->request->getPost('appointment_id');
 		$patientId = $this->request->getPost('patient_id');
@@ -761,7 +779,7 @@ class Doctor extends BaseController
 	public function saveConsultation()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$consultationModel = new \App\Models\ConsultationModel();
 		$patientModel = new \App\Models\PatientModel();
@@ -861,7 +879,7 @@ class Doctor extends BaseController
 	public function completeConsultation()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$consultationId = $this->request->getPost('consultation_id');
 		
@@ -893,7 +911,7 @@ class Doctor extends BaseController
 	public function getConsultationDetails($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$consultationModel = new \App\Models\ConsultationModel();
 		$consultation = $consultationModel->find($id);
@@ -965,7 +983,7 @@ class Doctor extends BaseController
 	public function medicalCertificates()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$medicalCertificateModel = new \App\Models\MedicalCertificateModel();
 		$doctorName = session('user_name');
@@ -982,7 +1000,7 @@ class Doctor extends BaseController
 	public function createMedicalCertificate()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$patientModel = new \App\Models\PatientModel();
 		$patients = $patientModel->orderBy('first_name', 'ASC')->findAll();
@@ -993,7 +1011,7 @@ class Doctor extends BaseController
 	public function storeMedicalCertificate()
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$medicalCertificateModel = new \App\Models\MedicalCertificateModel();
 		$patientModel = new \App\Models\PatientModel();
@@ -1037,7 +1055,7 @@ class Doctor extends BaseController
 	public function viewMedicalCertificate($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$medicalCertificateModel = new \App\Models\MedicalCertificateModel();
 		$certificate = $medicalCertificateModel->find($id);
@@ -1052,7 +1070,7 @@ class Doctor extends BaseController
 	public function printMedicalCertificate($id)
 	{
 		if (! session('isLoggedIn')) return redirect()->to('/login');
-		if (session('role') && session('role') !== 'doctor') return redirect()->to('/dashboard');
+		if (session('role') && session('role') !== 'doctor') return redirect()->to('/login');
 		
 		$medicalCertificateModel = new \App\Models\MedicalCertificateModel();
 		$certificate = $medicalCertificateModel->find($id);

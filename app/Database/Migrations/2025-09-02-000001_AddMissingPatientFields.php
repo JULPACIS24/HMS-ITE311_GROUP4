@@ -100,9 +100,12 @@ class AddMissingPatientFields extends Migration
         $fields = [
             'middle_name', 'age', 'civil_status', 'nationality', 'religion',
             'city', 'province', 'zip_code', 'emergency_relationship',
-            'current_medications', 'insurance_provider', 'insurance_policy_number',
+            'current_medications', 'insurance_policy_number',
             'policy_holder_name'
         ];
+
+        // Note: insurance_provider is handled by AddInsuranceFieldsToPatients migration
+        // so we don't drop it here to avoid conflicts
 
         foreach ($fields as $fieldName) {
             if ($this->db->fieldExists($fieldName, 'patients')) {

@@ -1,4 +1,29 @@
+# Disable directory browsing
+Options -Indexes
+
+# Enable URL rewriting
 RewriteEngine On
+
+# Handle Angular and other frontend routes
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ public/$1 [L]
+RewriteRule ^(.*)$ index.php/$1 [QSA,L]
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Prevent access to sensitive files
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Prevent access to system directories
+RedirectMatch 403 ^/app/
+RedirectMatch 403 ^/system/
+RedirectMatch 403 ^/writable/
+RedirectMatch 403 ^/vendor/

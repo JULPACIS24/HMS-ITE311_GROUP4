@@ -40,11 +40,17 @@ class AddInsuranceFieldsToPatients extends Migration
 
     public function down()
     {
-        $this->forge->dropColumn('patients', [
+        $columns = [
             'philhealth_number',
             'philhealth_category',
             'insurance_provider',
             'insurance_policy_number'
-        ]);
+        ];
+
+        foreach ($columns as $column) {
+            if ($this->db->fieldExists($column, 'patients')) {
+                $this->forge->dropColumn('patients', $column);
+            }
+        }
     }
 }

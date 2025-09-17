@@ -23,8 +23,21 @@ class AddAppointmentIdToSchedules extends Migration
 
     public function down()
     {
-        // Remove foreign key first
-        $this->forge->dropForeignKey('schedules', 'appointment_id');
+        // Check if foreign key exists before dropping
+        $foreignKeys = $this->db->getForeignKeyData('schedules');
+        $foreignKeyExists = false;
+        
+        foreach ($foreignKeys as $fk) {
+            if ($fk->column_name === 'appointment_id') {
+                $foreignKeyExists = true;
+                break;
+            }
+        }
+        
+        // Remove foreign key first if it exists
+        if ($foreignKeyExists) {
+            $this->forge->dropForeignKey('schedules', 'appointment_id');
+        }
         
         // Remove the column
         $this->forge->dropColumn('schedules', 'appointment_id');

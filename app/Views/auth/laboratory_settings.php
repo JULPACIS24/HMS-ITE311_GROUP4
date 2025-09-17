@@ -42,9 +42,7 @@
 				<a href="<?= site_url('laboratory/test/request') ?>" class="menu-item"><span class="menu-icon">📋</span>Test Requests</a>
 				<a href="<?= site_url('laboratory/test/results') ?>" class="menu-item"><span class="menu-icon">📄</span>Test Results</a>
 				<a href="<?= site_url('laboratory/equipment/status') ?>" class="menu-item"><span class="menu-icon">⚙️</span>Equipment Status</a>
-				<a href="<?= site_url('laboratory/tracking') ?>" class="menu-item"><span class="menu-icon">📈</span>Sample Tracking</a>
 				<a href="<?= site_url('laboratory/reports') ?>" class="menu-item"><span class="menu-icon">📋</span>Lab Reports</a>
-				<a href="<?= site_url('laboratory/quality') ?>" class="menu-item"><span class="menu-icon">🛡️</span>Quality Control</a>
 				<a href="<?= site_url('laboratory/inventory') ?>" class="menu-item"><span class="menu-icon">📦</span>Lab Inventory</a>
 				<a href="<?= site_url('laboratory/settings') ?>" class="menu-item active"><span class="menu-icon">⚙️</span>Settings</a>
 			</div>

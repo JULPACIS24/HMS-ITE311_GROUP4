@@ -10,7 +10,13 @@ class AuthGuard implements FilterInterface
 {
 	public function before(RequestInterface $request, $arguments = null)
 	{
-		if (! session('isLoggedIn')) {
+		$isLoggedIn = session('isLoggedIn');
+		$userRole = session('role');
+		
+		// Debug: Log session data
+		log_message('info', 'AuthGuard - isLoggedIn: ' . ($isLoggedIn ? 'true' : 'false') . ', role: ' . $userRole);
+		
+		if (! $isLoggedIn) {
 			return redirect()->to('/login')->with('errors', ['Please log in first.']);
 		}
 	}

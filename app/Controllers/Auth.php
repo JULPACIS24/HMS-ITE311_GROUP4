@@ -8,33 +8,6 @@ use App\Models\SecurityLogModel;
 
 class Auth extends BaseController
 {
-	public function register()
-	{
-		return view('auth/register');
-	}
-
-	public function attemptRegister()
-	{
-		$rules = [
-			'name'              => 'required|min_length[3]',
-			'email'             => 'required|valid_email|is_unique[users.email]',
-			'password'          => 'required|min_length[6]',
-			'password_confirm'  => 'required|matches[password]',
-		];
-
-		if (! $this->validate($rules)) {
-			return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-		}
-
-		$userModel = new UserModel();
-		$userModel->insert([
-			'name'          => $this->request->getPost('name'),
-			'email'         => $this->request->getPost('email'),
-			'password_hash' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-		]);
-
-		return redirect()->to('/login')->with('message', 'Registration successful. Please log in.');
-	}
 
 	public function login()
 	{
@@ -59,6 +32,9 @@ class Auth extends BaseController
 			return redirect()->back()->withInput()->with('errors', ['Invalid email or password']);
 		}
 
+		// Generate unique session token with user ID
+		$sessionToken = bin2hex(random_bytes(32)) . '_' . $user['id'];
+		
 		session()->set([
 			'user_id'    => $user['id'],
 			'user_name'  => $user['name'],
@@ -66,6 +42,8 @@ class Auth extends BaseController
 			'specialty'  => $user['specialty'] ?? null,
 			'department' => $user['department'] ?? null,
 			'isLoggedIn' => true,
+			'session_token' => $sessionToken,
+			'session_start_time' => time(),
 		]);
 
 		// Record security log for successful login
@@ -126,8 +104,51 @@ class Auth extends BaseController
 			// do nothing
 		}
 
+		// Clear session token and destroy session
+		session()->remove('session_token');
 		session()->destroy();
 		return redirect()->to('/login')->with('message', 'You have been logged out.');
+	}
+
+    public function forceLogout()
+    {
+        // Force logout for testing purposes
+        session()->remove('session_token');
+        session()->destroy();
+        return redirect()->to('/login')->with('message', 'You have been force logged out for testing.');
+    }
+
+	public function testAuth()
+	{
+		$isLoggedIn = session('isLoggedIn');
+		$userRole = session('role');
+		$userId = session('user_id');
+		$userName = session('user_name');
+		
+		return "Auth Test - isLoggedIn: " . ($isLoggedIn ? 'true' : 'false') . 
+		       ", role: " . $userRole . 
+		       ", user_id: " . $userId . 
+		       ", user_name: " . $userName;
+	}
+
+	public function clearSession()
+	{
+		// Clear all session data
+		session()->destroy();
+		session()->regenerate(true);
+		
+		// Also clear session files from disk
+		$sessionPath = WRITEPATH . 'session';
+		if (is_dir($sessionPath)) {
+			$files = glob($sessionPath . '/*');
+			foreach ($files as $file) {
+				if (is_file($file)) {
+					unlink($file);
+				}
+			}
+		}
+		
+		return redirect()->to('/login')->with('message', 'Session cleared completely.');
 	}
 }
 

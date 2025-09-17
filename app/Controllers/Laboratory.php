@@ -2,19 +2,29 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\Controller;
+use App\Controllers\BaseController;
 
-class Laboratory extends Controller
+class Laboratory extends BaseController
 {
+    private function checkAuth()
+    {
+        if (!session('isLoggedIn')) {
+            return redirect()->to('/login')->with('errors', ['Please log in to access Laboratory.']);
+        }
+        return null;
+    }
+
     public function index()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
-        return view('auth/laboratory_dashboard'); // Renders Laboratory Management dashboard
+        if (! session('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
+
+        return view('auth/laboratory_dashboard');
     }
 
     public function requests()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
         
         // Get all lab requests from database
         $labRequestModel = new \App\Models\LabRequestModel();
@@ -56,57 +66,82 @@ class Laboratory extends Controller
 
     public function results()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
-        return view('auth/laboratory_results'); // Renders Laboratory Results page
+        return view('auth/laboratory_test_results'); // Renders Laboratory Results page
     }
 
     public function equipment()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
-        return view('auth/laboratory_equipment'); // Renders Equipment Status page
+        return view('auth/laboratory_equipment_status'); // Renders Equipment Status page
     }
 
     public function tracking()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
         return view('auth/laboratory_tracking'); // Renders Sample Tracking page
     }
 
     public function reports()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
         return view('auth/laboratory_reports'); // Renders Lab Reports page
     }
 
     public function quality()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
         return view('auth/laboratory_quality'); // Renders Quality Control page
     }
 
     public function inventory()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
         return view('auth/laboratory_inventory'); // Renders Lab Inventory page
     }
 
     public function settings()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
         return view('auth/laboratory_settings'); // Renders Settings page
     }
 
     public function testRequest()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
+        if (!session('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
         
-        // Load lab requests data
+        // Get real lab requests from database
         $labRequestModel = new \App\Models\LabRequestModel();
-        $requests = $labRequestModel->getAllRequests();
-        $stats = $labRequestModel->getRequestStats();
+        $labRequests = $labRequestModel->orderBy('created_at', 'DESC')->findAll();
+        
+        // Debug: Log the lab requests found
+        log_message('info', 'Laboratory testRequest - Found ' . count($labRequests) . ' lab requests');
+        foreach ($labRequests as $request) {
+            log_message('info', 'Lab Request: ' . ($request['lab_id'] ?? 'No ID') . ' - ' . ($request['patient_name'] ?? 'No Name') . ' by ' . ($request['doctor_name'] ?? 'No Doctor'));
+        }
+        
+        // Calculate statistics from real data
+        $stats = [
+            'total' => count($labRequests),
+            'new' => 0,
+            'in_progress' => 0,
+            'urgent' => 0
+        ];
+        
+        foreach ($labRequests as $request) {
+            switch ($request['status']) {
+                case 'New Request':
+                case 'Pending':
+                    $stats['new']++;
+                    break;
+                case 'In Progress':
+                case 'Processing':
+                    $stats['in_progress']++;
+                    break;
+            }
+            
+            if ($request['priority'] === 'Urgent' || $request['priority'] === 'High') {
+                $stats['urgent']++;
+            }
+        }
         
         $data = [
-            'requests' => $requests,
+            'requests' => $labRequests,
             'stats' => $stats
         ];
         
@@ -115,14 +150,25 @@ class Laboratory extends Controller
 
     public function testResults()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
         return view('auth/laboratory_test_results'); // Renders Test Results page
     }
 
     public function equipmentStatus()
     {
-        if (! session('isLoggedIn')) return redirect()->to('/login');
         return view('auth/laboratory_equipment_status'); // Renders Equipment Status page
+    }
+
+    public function clearOldData()
+    {
+        if (!session('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
+        
+        // Clear old test request data (for testing purposes)
+        $labRequestModel = new \App\Models\LabRequestModel();
+        $result = $labRequestModel->deleteByPatientName('gene yoy');
+        
+        return redirect()->to('/laboratory/test/request')->with('message', 'Old test data cleared. Deleted ' . $result . ' records.');
     }
 }
 
