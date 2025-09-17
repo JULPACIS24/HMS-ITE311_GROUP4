@@ -8,26 +8,26 @@
 		</div>
 	</div>
 	<div class="sidebar-menu">
-		<a href="http://localhost/hms_group4/doctor" class="menu-item<?= $path === 'doctor' ? ' active' : '' ?>"><span class="menu-icon">📊</span>Dashboard</a>
-		<a href="http://localhost/hms_group4/doctor/patients" class="menu-item<?= strpos($path,'doctor/patients')===0 ? ' active' : '' ?>"><span class="menu-icon">📁</span>Patient Records</a>
-		<a href="http://localhost/hms_group4/doctor/appointments" class="menu-item <?= strpos(current_url(), '/doctor/appointments') !== false ? 'active' : '' ?>">
+		<a href="http://localhost/HMS-ITE311_GROUP4/doctor" class="menu-item<?= $path === 'doctor' ? ' active' : '' ?>"><span class="menu-icon">📊</span>Dashboard</a>
+		<a href="http://localhost/HMS-ITE311_GROUP4/doctor/patients" class="menu-item<?= strpos($path,'doctor/patients')===0 ? ' active' : '' ?>"><span class="menu-icon">📁</span>Patient Records</a>
+		<a href="http://localhost/HMS-ITE311_GROUP4/doctor/appointments" class="menu-item <?= strpos(current_url(), '/doctor/appointments') !== false ? 'active' : '' ?>">
 			<div class="menu-icon">📅</div>
 			<div>Appointments</div>
 		</a>
-		<a href="http://localhost/hms_group4/doctor/prescriptions" class="menu-item <?= strpos(current_url(), '/doctor/prescriptions') !== false ? 'active' : '' ?>">
+		<a href="http://localhost/HMS-ITE311_GROUP4/doctor/prescriptions" class="menu-item <?= strpos(current_url(), '/doctor/prescriptions') !== false ? 'active' : '' ?>">
 			<div class="menu-icon">💊</div>
 			<div>Prescriptions</div>
 		</a>
-		<a href="http://localhost/hms_group4/doctor/lab-requests" class="menu-item <?= strpos(current_url(), '/doctor/lab-requests') !== false ? 'active' : '' ?>">
+		<a href="http://localhost/HMS-ITE311_GROUP4/doctor/lab-requests" class="menu-item <?= strpos(current_url(), '/doctor/lab-requests') !== false ? 'active' : '' ?>">
 			<div class="menu-icon">🧪</div>
 			<div>Lab Requests</div>
 		</a>
-			<a href="http://localhost/hms_group4/doctor/consultations" class="menu-item<?= strpos($path,'doctor/consultations')===0 ? ' active' : '' ?>"><span class="menu-icon">🩺</span>Consultations</a>
-		<a href="http://localhost/hms_group4/doctor/medical-certificates" class="menu-item <?= strpos(current_url(), '/doctor/medical-certificates') !== false ? 'active' : '' ?>">
+			<a href="http://localhost/HMS-ITE311_GROUP4/doctor/consultations" class="menu-item<?= strpos($path,'doctor/consultations')===0 ? ' active' : '' ?>"><span class="menu-icon">🩺</span>Consultations</a>
+		<a href="http://localhost/HMS-ITE311_GROUP4/doctor/medical-certificates" class="menu-item <?= strpos(current_url(), '/doctor/medical-certificates') !== false ? 'active' : '' ?>">
 			<div class="menu-icon">📋</div>
 			<div>Medical Reports</div>
 		</a>
-		<a href="http://localhost/hms_group4/unified-scheduling/doctor" class="menu-item<?= strpos($path,'unified-scheduling/doctor')===0 ? ' active' : '' ?>"><span class="menu-icon">🗓️</span>My Schedule</a>
+		<a href="http://localhost/HMS-ITE311_GROUP4/unified-scheduling/doctor" class="menu-item<?= strpos($path,'unified-scheduling/doctor')===0 ? ' active' : '' ?>"><span class="menu-icon">🗓️</span>My Schedule</a>
 	</div>
 </nav>
 
